@@ -12,9 +12,13 @@ namespace CarDealer.Models
             Users = new HashSet<User>();
         }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
+        private int id;
+        private string name;
 
-        public virtual ICollection<User> Users { get; set; }
+        private  ICollection<User> users;
+
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public ICollection<User> Users { get => users; set => users = value; }
     }
 }
