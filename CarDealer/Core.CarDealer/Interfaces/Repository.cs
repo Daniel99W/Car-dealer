@@ -4,7 +4,12 @@ using System.Text;
 
 namespace Core.CarDealer.Interfaces
 {
-    internal interface Repository
+     public interface IRepository<T,K>
     {
+        public void Create(T obj);
+        public void Delete(T obj);
+        public K Read(T obj);
+        public void Update(T obj);
+
     }
 }
