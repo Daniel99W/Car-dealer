@@ -1,11 +1,13 @@
 ﻿using CarDealer.Models;
 using Core.CarDealer.Interfaces;
+using Infrastructure.CarDealer.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Infrastructure.CarDealer.Repositories
 {
@@ -40,33 +42,28 @@ namespace Infrastructure.CarDealer.Repositories
             announcesContext.SaveChanges();
         }
 
+        public async Task<IEnumerable<Car>> GetAllCars(
+            bool? secondHand,
+            string? fuelType,
+            string? brand,
+            string? carType)
+        {
+            IQueryable<Car> query = CarQueries.GetCarQuery(announcesContext);
+
+            return await announcesContext.Cars.ToListAsync();
+        }
+
         public async Task<IEnumerable<Car>> GetAllCars()
         {
-           return await announcesContext.Cars.ToListAsync();
+            IQueryable<Car> query = CarQueries.GetCarQuery(announcesContext);
+
+            return await query.ToListAsync();
         }
 
         public async Task<Car> GetCarByUserId(int userId)
         {
-            return await announcesContext.Cars
-                .Join(announcesContext.Users,
-                car => car.UserId,
-                user => user.Id,
-                (car, user) => new { car, user })
-                .Where(carUser => carUser.user.Id == userId)
-                .Select(carUser => new Car()
-                {
-                    Id = carUser.car.Id,
-                    CarNumber = carUser.car.CarNumber,
-                    ProductionYear = carUser.car.ProductionYear,
-                    Price = carUser.car.Price,
-                    SecondHand = carUser.car.SecondHand,
-                    AddingDate = carUser.car.AddingDate,
-                    User = carUser.user,
-                    Description = carUser.car.Description,
-                    CilindricCapacity = carUser.car.CilindricCapacity,
-                    Model = carUser.car.Model,
-                    UserId = carUser.car.UserId
-                })
+            return await CarQueries.GetCarQuery(announcesContext)
+                .Where(car => car.UserId == userId)
                 .SingleOrDefaultAsync();
         }
     }

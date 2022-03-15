@@ -40,6 +40,7 @@ namespace CarDealer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
         {
+
             return new ActionResult<IEnumerable<Car>>(await carRepository.GetAllCars());
         }
 
