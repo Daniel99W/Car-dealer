@@ -36,8 +36,9 @@ namespace CarDealer.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("Announces"));
+            { 
+                optionsBuilder
+                    .UseSqlServer("Server=DESKTOP-IOE64M2\\SQLEXPRESS;Database=Announces;Trusted_Connection=True;");
             }
         }
 

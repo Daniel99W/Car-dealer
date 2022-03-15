@@ -1,43 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarDealer.Models;
+using Infrastructure.CarDealer.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CarDealer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CarController : ControllerBase
     {
-        // GET: api/<CarController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        private CarRepository carRepository;
+        public CarController(CarRepository carRepository)
         {
-            return new string[] { "value1", "value2" };
+            this.carRepository = carRepository;
         }
 
-        // GET api/<CarController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Car>> Get(int id)
         {
-            return "value";
+            return new ActionResult<Car>(await carRepository.Read(id)); 
         }
 
-        // POST api/<CarController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async void Post(Car car)
         {
+            carRepository.Create(car);
         }
 
-        // PUT api/<CarController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CarController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async void Delete(int id)
         {
+            Car car = await carRepository.Read(id);
+            carRepository.Delete(car);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
+        {
+            return new ActionResult<IEnumerable<Car>>(await carRepository.GetAllCars());
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<Car>> GetCarByUser(int userId)
+        {
+            return new ActionResult<Car>(await carRepository.GetCarByUserId(userId));
         }
     }
 }

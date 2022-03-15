@@ -26,6 +26,7 @@ namespace CarDealer.Models
         private int cilindricCapacity;
         private int? brandId;
         private int? carTypeId;
+        private int? views;
 
         private Brand brand;
         private CarType carType;
@@ -53,5 +54,6 @@ namespace CarDealer.Models
         public User User { get => user; set => user = value; }
         public ICollection<CarEquipment> CarEquipments { get => carEquipments; set => carEquipments = value; }
         public ICollection<CarImage> CarImages { get => carImages; set => carImages = value; }
+        public int? Views { get => views; set => views = value; }
     }
 }

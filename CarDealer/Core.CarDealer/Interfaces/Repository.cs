@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Interfaces
 {
-     public interface IRepository<T,K>
+     public interface IRepository<T>
     {
         public  void Create(T obj);
         public void Delete(T obj);
-        public Task<K>? Read(int id);
+        public Task<T>? Read(int id);
         public void Update(T obj);
 
     }

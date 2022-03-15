@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Repositories
 {
-    public class UserRepository : IRepository<User,User>
+    public class UserRepository : IRepository<User>
     {
         private AnnouncesContext announces;
 
@@ -17,15 +17,16 @@ namespace Core.CarDealer.Repositories
             this.announces = announces;
         }
 
-        public async void Create(User obj)
+        public void Create(User obj)
         {
-            announces.Add(obj);
-            await announces.SaveChangesAsync();
+            announces.Users.Add(obj);
+            announces.SaveChanges();
         }
 
-        public void Delete(User obj)
+        public void Delete(User user)
         {
-            announces.Users.Remove(obj);
+            announces.Users.Remove(user);
+            announces.SaveChanges();
         }
 
         public async Task<User>? Read(int id)
@@ -36,6 +37,7 @@ namespace Core.CarDealer.Repositories
         public void Update(User obj)
         {
            announces.Users.Update(obj);
+           announces.SaveChanges();
         }
     }
 }
