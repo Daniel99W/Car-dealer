@@ -1,29 +1,25 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
+
+#nullable disable
 
 namespace CarDealer.Models
 {
     public partial class AnnouncesContext : DbContext
     {
-
-        private readonly IConfiguration configuration;
-
         public AnnouncesContext()
         {
         }
 
-        public AnnouncesContext(DbContextOptions<AnnouncesContext> options,IConfiguration configuration)
+        public AnnouncesContext(DbContextOptions<AnnouncesContext> options)
             : base(options)
         {
-            this.configuration = configuration;
         }
 
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<CarEquipment> CarEquipments { get; set; }
-        public virtual DbSet<CarImage> CarImages { get; set; }
         public virtual DbSet<CarType> CarTypes { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<FuelType> FuelTypes { get; set; }
@@ -36,9 +32,8 @@ namespace CarDealer.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            { 
-                optionsBuilder
-                    .UseSqlServer("Server=DESKTOP-IOE64M2\\SQLEXPRESS;Database=Announces;Trusted_Connection=True;");
+            {
+                optionsBuilder.UseSqlServer("Server=DESKTOP-IOE64M2\\SQLEXPRESS;Database=Announces;Trusted_Connection=True;");
             }
         }
 
@@ -155,29 +150,6 @@ namespace CarDealer.Models
                     .HasConstraintName("FK__car_equip__equip__3A81B327");
             });
 
-            modelBuilder.Entity<CarImage>(entity =>
-            {
-                entity.ToTable("car_image");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.CarId).HasColumnName("car_id");
-
-                entity.Property(e => e.ImageId).HasColumnName("image_id");
-
-                entity.HasOne(d => d.Car)
-                    .WithMany(p => p.CarImages)
-                    .HasForeignKey(d => d.CarId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__car_image__car_i__3D5E1FD2");
-
-                entity.HasOne(d => d.Image)
-                    .WithMany(p => p.CarImages)
-                    .HasForeignKey(d => d.ImageId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__car_image__image__3E52440B");
-            });
-
             modelBuilder.Entity<CarType>(entity =>
             {
                 entity.ToTable("car_type");
@@ -220,11 +192,19 @@ namespace CarDealer.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.CarId).HasColumnName("car_id");
+
                 entity.Property(e => e.ImageUrl)
                     .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("image_url");
+
+                entity.HasOne(d => d.Car)
+                    .WithMany(p => p.Images)
+                    .HasForeignKey(d => d.CarId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK__image__car_id__5EBF139D");
             });
 
             modelBuilder.Entity<Message>(entity =>
