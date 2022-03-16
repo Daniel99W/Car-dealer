@@ -48,14 +48,17 @@ namespace Infrastructure.CarDealer.Repositories
             string? brand,
             string? carType)
         {
+
             IQueryable<Car> query = CarQueries.GetCarQuery(announcesContext);
 
-            return await announcesContext.Cars.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Car>> GetAllCars()
-        {
-            IQueryable<Car> query = CarQueries.GetCarQuery(announcesContext);
+            if (secondHand != null)
+                query = query.Where(car => car.SecondHand == secondHand);
+            if (fuelType != null)
+                query = query.Where(car => car.FuelTypeNavigation.Name == fuelType);
+            if (brand != null)
+                query = query.Where(car => car.Brand.Name == brand);
+            if (carType != null)
+                query = query.Where(car => car.CarType.Name == carType);
 
             return await query.ToListAsync();
         }

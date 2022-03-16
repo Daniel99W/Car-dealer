@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.CarDealer.Models.ResultModels
 {
-    public class UserResultModel
+    public class UserResultModel : User
     {
         public UserResultModel()
         {

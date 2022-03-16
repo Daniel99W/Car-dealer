@@ -33,6 +33,7 @@ namespace CarDealer
             services.AddDbContext<AnnouncesContext>();
             services.AddScoped<CarRepository>();
             services.AddScoped<UserRepository>();
+            services.AddScoped<MessagesRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,6 +1,7 @@
 ﻿using CarDealer.Models;
 using Infrastructure.CarDealer.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace CarDealer.Controllers
         }
 
         [HttpPost]
-        public async void Post(Car car)
+        public  void Post(Car car)
         {
             carRepository.Create(car);
         }
@@ -40,8 +41,14 @@ namespace CarDealer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
         {
+            int? secondHand = Convert.ToInt32(Request.Query["secondHand"]);
+            string? fuelType = Request.Query["fuelType"];
+            string? brand = Request.Query["brand"];
+            string? carType = Request.Query["carType"];
 
-            return new ActionResult<IEnumerable<Car>>(await carRepository.GetAllCars());
+
+            return new ActionResult<IEnumerable<Car>>(
+                await carRepository.GetAllCars(Convert.ToBoolean(secondHand),fuelType,brand,carType));
         }
 
         [HttpGet("{userId}")]

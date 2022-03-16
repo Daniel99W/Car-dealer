@@ -1,8 +1,10 @@
 ﻿using CarDealer.Models;
 using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models.ResultModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,6 +40,20 @@ namespace Core.CarDealer.Repositories
         {
            announces.Users.Update(obj);
            announces.SaveChanges();
+        }
+
+        public async Task<IEnumerable<UserResultModel>> GetAllUsers()
+        {
+            return await announces.Users
+                .Select(user => new UserResultModel()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    SecondName = user.SecondName,
+                    Email = user.Email,
+                    RolId = user.RolId
+                })
+                .ToListAsync();
         }
     }
 }

@@ -14,16 +14,23 @@ namespace CarDealer.Models
             Messages = new HashSet<Message>();
         }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string SecondName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public int? RolId { get; set; }
+        protected int id;
+        protected string name;
+        protected string secondName;
+        protected string email;
+        protected int? rolId;
+        private string password;
+
 
         public virtual Rol Rol { get; set; }
         public virtual ICollection<Car> Cars { get; set; }
         public virtual ICollection<MessageTo> MessageTos { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public string SecondName { get => secondName; set => secondName = value; }
+        public string Email { get => email; set => email = value; }
+        public int? RolId { get => rolId; set => rolId = value; }
+        public string Password { get => password; set => password = value; }
     }
 }
