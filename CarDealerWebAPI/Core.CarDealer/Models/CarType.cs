@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
-namespace CarDealer.Models
+namespace Core.CarDealer.Models
 {
-    public partial class Brand
+    public partial class CarType
     {
-        public Brand()
+        public CarType()
         {
             Cars = new HashSet<Car>();
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
 
         public virtual ICollection<Car> Cars { get; set; }
     }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
-namespace CarDealer.Models
+namespace Core.CarDealer.Models
 {
     public partial class Message
     {
@@ -13,11 +11,11 @@ namespace CarDealer.Models
         }
 
         public int Id { get; set; }
-        public string Subject { get; set; }
-        public string Content { get; set; }
+        public string Subject { get; set; } = null!;
+        public string Content { get; set; } = null!;
         public int? UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
         public virtual ICollection<MessageTo> MessageTos { get; set; }
     }
 }

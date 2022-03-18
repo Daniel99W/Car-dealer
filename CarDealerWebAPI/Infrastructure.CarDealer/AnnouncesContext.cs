@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-#nullable disable
-
-namespace CarDealer.Models
+namespace Core.CarDealer.Models
 {
     public partial class AnnouncesContext : DbContext
     {
@@ -17,22 +16,24 @@ namespace CarDealer.Models
         {
         }
 
-        public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<Car> Cars { get; set; }
-        public virtual DbSet<CarEquipment> CarEquipments { get; set; }
-        public virtual DbSet<CarType> CarTypes { get; set; }
-        public virtual DbSet<Equipment> Equipment { get; set; }
-        public virtual DbSet<FuelType> FuelTypes { get; set; }
-        public virtual DbSet<Image> Images { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<MessageTo> MessageTos { get; set; }
-        public virtual DbSet<Rol> Rols { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Brand> Brands { get; set; } = null!;
+        public virtual DbSet<Car> Cars { get; set; } = null!;
+        public virtual DbSet<CarEquipment> CarEquipments { get; set; } = null!;
+        public virtual DbSet<CarType> CarTypes { get; set; } = null!;
+        public virtual DbSet<Equipment> Equipment { get; set; } = null!;
+        public virtual DbSet<FuelType> FuelTypes { get; set; } = null!;
+        public virtual DbSet<Image> Images { get; set; } = null!;
+        public virtual DbSet<Message> Messages { get; set; } = null!;
+        public virtual DbSet<MessageTo> MessageTos { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<UserCar> UserCars { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=DESKTOP-IOE64M2\\SQLEXPRESS;Database=Announces;Trusted_Connection=True;");
             }
         }
@@ -46,13 +47,11 @@ namespace CarDealer.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("description");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("name");
@@ -71,7 +70,6 @@ namespace CarDealer.Models
                 entity.Property(e => e.BrandId).HasColumnName("brand_id");
 
                 entity.Property(e => e.CarNumber)
-                    .IsRequired()
                     .HasMaxLength(7)
                     .IsUnicode(false)
                     .HasColumnName("car_number");
@@ -81,7 +79,6 @@ namespace CarDealer.Models
                 entity.Property(e => e.CilindricCapacity).HasColumnName("cilindric_capacity");
 
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasMaxLength(3000)
                     .IsUnicode(false)
                     .HasColumnName("description");
@@ -89,7 +86,6 @@ namespace CarDealer.Models
                 entity.Property(e => e.FuelType).HasColumnName("fuel_type");
 
                 entity.Property(e => e.Model)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("model");
@@ -195,7 +191,6 @@ namespace CarDealer.Models
                 entity.Property(e => e.CarId).HasColumnName("car_id");
 
                 entity.Property(e => e.ImageUrl)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("image_url");
@@ -214,13 +209,11 @@ namespace CarDealer.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Content)
-                    .IsRequired()
                     .HasMaxLength(1000)
                     .IsUnicode(false)
                     .HasColumnName("content");
 
                 entity.Property(e => e.Subject)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("subject");
@@ -257,14 +250,13 @@ namespace CarDealer.Models
                     .HasConstraintName("FK__message_t__user___412EB0B6");
             });
 
-            modelBuilder.Entity<Rol>(entity =>
+            modelBuilder.Entity<Role>(entity =>
             {
-                entity.ToTable("rol");
+                entity.ToTable("role");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("name");
@@ -277,36 +269,49 @@ namespace CarDealer.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false)
                     .HasColumnName("email");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false)
                     .HasColumnName("name");
 
                 entity.Property(e => e.Password)
-                    .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("password");
 
-                entity.Property(e => e.RolId).HasColumnName("rol_id");
+                entity.Property(e => e.RoleId).HasColumnName("role_id");
 
                 entity.Property(e => e.SecondName)
-                    .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false)
                     .HasColumnName("second_name");
 
-                entity.HasOne(d => d.Rol)
+                entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.RolId)
+                    .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("FK__user__rol_id__267ABA7A");
+                    .HasConstraintName("FK__user__role_id__02FC7413");
+            });
+
+            modelBuilder.Entity<UserCar>(entity =>
+            {
+                entity.ToTable("user_car");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CarId).HasColumnName("car_id");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserCars)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK__user_car__user_i__09A971A2");
             });
 
             OnModelCreatingPartial(modelBuilder);
