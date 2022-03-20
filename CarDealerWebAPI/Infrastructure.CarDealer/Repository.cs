@@ -1,0 +1,48 @@
+﻿using Core.CarDealer.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.CarDealer
+{
+    public abstract class Repository<T> : IRepository<T> where T : class
+    {
+        private AnnouncesContext _announcesContext;
+
+        public Repository(AnnouncesContext announcesContext)
+        {
+            _announcesContext = announcesContext;
+        }
+        public virtual T Create(T obj)
+        {
+            return _announcesContext.Add(obj).Entity;
+        }
+
+        public virtual void Delete(T obj)
+        {
+            _announcesContext.Remove(obj);
+        }
+
+        public virtual T Read(int id)
+        {
+            return _announcesContext.Find<T>(id);
+        }
+
+        public void SaveChanges()
+        {
+            _announcesContext.SaveChanges();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+           await _announcesContext.SaveChangesAsync();
+        }
+
+        public virtual T Update(T obj)
+        {
+            return _announcesContext.Update(obj).Entity;
+        }
+    }
+}
