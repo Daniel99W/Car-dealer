@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.DTO
 {
-    internal class UserDTO
+    public class UserDTO
     {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string SecondName { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public int? RoleId { get; set; }
     }
 }

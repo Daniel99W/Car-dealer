@@ -1,15 +1,26 @@
+using Core.CarDealer;
+using Core.CarDealer.Interfaces;
+using Core.CarDealer.Models;
+using Infrastructure.CarDealer;
+using Infrastructure.CarDealer.Repositories;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSqlServer<AnnouncesContext>();
+builder.Services.AddScoped<IRepository<Car>,CarRepository>();
+builder.Services.AddScoped<IRepository<Message>,MessageRepository>();
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddMediatR((typeof(AssemblyMarker)));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
