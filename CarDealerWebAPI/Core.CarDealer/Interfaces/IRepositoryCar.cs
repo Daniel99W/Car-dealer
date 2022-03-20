@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Interfaces
 {
-    internal interface IUser
+    internal interface IRepositoryCar
     {
     }
 }
