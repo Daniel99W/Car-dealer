@@ -10,7 +10,7 @@ namespace Core.CarDealer.Interfaces
     {
        T Create(T obj);
        void Delete(T obj);
-       T Read(int id);
+       Task<T> Read(int id);
        T Update(T obj);
        void SaveChanges();
         Task SaveChangesAsync();

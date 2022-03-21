@@ -10,24 +10,35 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.CommandsHandler.Cars
 {
-    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand,bool>
+    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand,Car>
     {
-        private IRepository<Car> _carRepository;
+        private IRepositoryCar _carRepository;
 
-        public CreateCarCommandHandler(IRepository<Car> carRepository)
+        public CreateCarCommandHandler(IRepositoryCar carRepository)
         {
             _carRepository = carRepository;
         }
-        public async Task<bool> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
-            _carRepository.Create(new Car 
-            { 
-                CarNumber = request.CarNumber
+            Car car = _carRepository.Create(new Car
+            {
+                Id = request.Id,
+                CarNumber = request.CarNumber,
+                ProductionYear = request.ProductionYear,
+                Price = request.Price,
+                SecondHand = request.SecondHand,
+                AddingDate = request.AddingDate,
+                UserId = request.UserId,
+                FuelType = request.FuelType,
+                Description = request.Description,
+                Model = request.Model,
+                CilindricCapacity = request.CilindricCapacity,
+                BrandId = request.BrandId,
+                CarTypeId = request.CarTypeId
             });
 
             await _carRepository.SaveChangesAsync();
-
-            return true;
+            return await Task.FromResult(car);
         }
 
     }

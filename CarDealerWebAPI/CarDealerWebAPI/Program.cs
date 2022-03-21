@@ -4,6 +4,7 @@ using Core.CarDealer.Models;
 using Infrastructure.CarDealer;
 using Infrastructure.CarDealer.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSqlServer<AnnouncesContext>();
-builder.Services.AddScoped<IRepository<Car>,CarRepository>();
-builder.Services.AddScoped<IRepository<Message>,MessageRepository>();
-builder.Services.AddScoped<IUserRepository,UserRepository>();
+var connectionString = builder.Configuration.GetConnectionString("CarDealer");
+builder.Services.AddDbContext<AnnouncesContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
+builder.Services.AddScoped<IRepositoryCar,CarRepository>();
+builder.Services.AddScoped<IRepositoryUser,UserRepository>();
+builder.Services.AddScoped<IRepositoryMessage, MessageRepository>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
 
 var app = builder.Build();

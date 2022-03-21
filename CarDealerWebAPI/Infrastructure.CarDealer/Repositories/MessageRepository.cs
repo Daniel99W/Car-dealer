@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CarDealer.Repositories
 {
-    public class MessageRepository : Repository<Message>
+    public class MessageRepository : Repository<Message>,IRepositoryMessage
     {
         public MessageRepository(AnnouncesContext announcesContext)
             :base(announcesContext)

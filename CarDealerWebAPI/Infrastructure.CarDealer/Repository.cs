@@ -9,7 +9,7 @@ namespace Infrastructure.CarDealer
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        private AnnouncesContext _announcesContext;
+        protected AnnouncesContext _announcesContext;
 
         public Repository(AnnouncesContext announcesContext)
         {
@@ -25,9 +25,9 @@ namespace Infrastructure.CarDealer
             _announcesContext.Remove(obj);
         }
 
-        public virtual T Read(int id)
+        public virtual async Task<T>? Read(int id)
         {
-            return _announcesContext.Find<T>(id);
+            return await _announcesContext.FindAsync<T>(id);
         }
 
         public void SaveChanges()

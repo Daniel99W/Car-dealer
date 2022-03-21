@@ -10,17 +10,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CarDealer.Repositories
 {
-    public class UserRepository : Repository<User>,IUserRepository
+    public class UserRepository : Repository<User>,IRepositoryUser
     {
         public UserRepository(AnnouncesContext announcesContext) 
             :base(announcesContext)
         {
            
-        }
-
-        public Task<User>? Read(string name)
-        {
-            throw new NotImplementedException();
         }
     }
 }
