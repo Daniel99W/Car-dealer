@@ -94,7 +94,7 @@ namespace Infrastructure.CarDealer.Repositories
 
         public override async Task<Car>? Read(int id)
         {
-            return await GetCarQuery()
+            return await _announcesContext.Cars
                 .Where(car => car.Id == id)
                 .SingleOrDefaultAsync();
         }

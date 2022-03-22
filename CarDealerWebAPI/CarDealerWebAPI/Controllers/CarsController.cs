@@ -75,7 +75,7 @@ namespace CarDealerWebAPI.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Car>> Get(int id)
         {
             return await _mediator.Send(new GetCarByIdQuery
