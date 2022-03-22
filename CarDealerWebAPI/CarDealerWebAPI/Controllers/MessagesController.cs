@@ -1,6 +1,7 @@
 ﻿using Core.CarDealer.Commands.Messages;
 using Core.CarDealer.CommandsHandler.Messages;
 using Core.CarDealer.Models;
+using Core.CarDealer.Queries.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,17 +21,17 @@ namespace CarDealerWebAPI.Controllers
             _mediator = mediator;
         }
 
-        //[HttpGet]
-        //public async Task<Message> Get(int id)
-        //{
-        //    return await _mediator.Send(new CreateMessageCommandHandler
-        //    {
-                
-        //    })
-        //}
+        [HttpGet]
+        public async Task<ActionResult<Message>> Get(int id)
+        {
+            return await _mediator.Send(new GetMessageByUserIdQuery
+            {
+                userId = id
+            });
+        }
 
         [HttpPost]
-        public async Task<Message> Post(Message message)
+        public async Task<ActionResult<Message>> Post(Message message)
         {
             return await _mediator.Send(new CreateMessageCommand
             {
