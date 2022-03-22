@@ -13,6 +13,6 @@ namespace Core.CarDealer.Interfaces
        Task<T> Read(int id);
        T Update(T obj);
        void SaveChanges();
-        Task SaveChangesAsync();
+       Task SaveChangesAsync();
     }
 }

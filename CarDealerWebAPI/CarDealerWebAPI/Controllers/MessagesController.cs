@@ -4,11 +4,11 @@
 
 namespace CarDealerWebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        
+
         
     }
 }
