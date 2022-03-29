@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.QueriesHandler
 {
-    public class GetCarsByBrandTypePriceYearHandler : IRequestHandler<GetCarsByBrandTypePriceYear,IEnumerable<Car>>
+    public class GetCarsByBrandTypePriceYearQueryHandler : IRequestHandler<GetCarsByBrandTypePriceYearQuery,IEnumerable<Car>>
     {
         IRepositoryCar _repository;
-        public GetCarsByBrandTypePriceYearHandler(IRepositoryCar repository)
+        public GetCarsByBrandTypePriceYearQueryHandler(IRepositoryCar repository)
         {
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Car>> Handle(GetCarsByBrandTypePriceYear request,CancellationToken cancellationToken)
+        public async Task<IEnumerable<Car>> Handle(GetCarsByBrandTypePriceYearQuery request,CancellationToken cancellationToken)
         {
             return await _repository.GetCars(
                 request.Brand,

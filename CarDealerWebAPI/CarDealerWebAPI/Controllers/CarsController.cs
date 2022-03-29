@@ -41,7 +41,7 @@ namespace CarDealerWebAPI.Controllers
             int? minPrice = Convert.ToInt32(Request.Query["minPrice"]);
             int? maxPrice = Convert.ToInt32(Request.Query["maxPrice"]);
 
-            IEnumerable<Car> cars = await _mediator.Send(new GetCarsByBrandTypePriceYear
+            IEnumerable<Car> cars = await _mediator.Send(new GetCarsByBrandTypePriceYearQuery
             {
                 Brand = brand,
                 CarType = carType,

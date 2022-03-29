@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Queries
 {
-    public  class GetCarsByBrandTypePriceYear : IRequest<IEnumerable<Car>>
+    public  class GetCarsByBrandTypePriceYearQuery : IRequest<IEnumerable<Car>>
     {
         public string? CarType { get; set; }
         public string? Brand { get; set; }

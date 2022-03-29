@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.QueriesHandler
 {
-    public class GetCarByUserIdHandler : IRequestHandler<GetCarByUserIdQuery, Car>
+    public class GetCarByUserIdQueryHandler : IRequestHandler<GetCarByUserIdQuery, Car>
     {
         private IRepositoryCar _repositoryCar;
 
-        public GetCarByUserIdHandler(IRepositoryCar repositoryCar)
+        public GetCarByUserIdQueryHandler(IRepositoryCar repositoryCar)
         {
             _repositoryCar = repositoryCar;
         }
