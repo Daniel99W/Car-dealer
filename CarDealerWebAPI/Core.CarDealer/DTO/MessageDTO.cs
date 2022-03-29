@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CarDealer.Queries
+namespace Core.CarDealer.DTO
 {
-    internal class GetCarsQuery
+    internal class MessageDTO
     {
     }
 }
