@@ -1,4 +1,5 @@
 ﻿using Core.CarDealer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,11 @@ namespace Infrastructure.CarDealer
         public virtual T Update(T obj)
         {
             return _announcesContext.Update(obj).Entity;
+        }
+
+        public async virtual Task<IEnumerable<T>> GetItems()
+        {
+            return await _announcesContext.Set<T>().ToListAsync();
         }
     }
 }
