@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.QueriesHandler.Messages
 {
-    public class GetMessageByUserIdHandler : IRequestHandler<GetMessageByUserIdQuery, Message>
+    public class GetMessageByUserIdQueryHandler : IRequestHandler<GetMessageByUserIdQuery, Message>
     {
         private IRepositoryMessage _repositoryMessage;
-        public GetMessageByUserIdHandler(IRepositoryMessage repositoryMessage)
+        public GetMessageByUserIdQueryHandler(IRepositoryMessage repositoryMessage)
         {
             _repositoryMessage = repositoryMessage;
         }

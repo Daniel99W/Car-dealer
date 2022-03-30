@@ -14,5 +14,7 @@ namespace Core.CarDealer.Interfaces
        T Update(T obj);
        void SaveChanges();
        Task SaveChangesAsync();
+
+      Task<IEnumerable<T>> GetItems();
     }
 }

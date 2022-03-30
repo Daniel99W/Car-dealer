@@ -12,6 +12,9 @@ namespace Core.CarDealer.Models
         }
 
         public int Id { get; set; }
+
+        public string Title { get; set; }
+
         public string CarNumber { get; set; } = null!;
         public int? ProductionYear { get; set; }
         public int Price { get; set; }

@@ -50,6 +50,11 @@ namespace Infrastructure.CarDealer.Repositories
                  });
         }
 
+        public async override Task<IEnumerable<Car>> GetItems()
+        {
+            return await GetCarQuery().ToListAsync();
+        }
+
         public async Task<Car>? GetCarByUserId(int userId)
         {
             return await GetCarQuery()

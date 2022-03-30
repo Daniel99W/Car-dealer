@@ -1,11 +1,11 @@
 ﻿using Core.CarDealer.Commands.Messages;
 using Core.CarDealer.CommandsHandler.Messages;
+using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CarDealerWebAPI.Controllers
 {
@@ -22,22 +22,23 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Message>> Get(int id)
+        public async Task<ActionResult<Message>> Get(int userId)
         {
             return await _mediator.Send(new GetMessageByUserIdQuery
             {
-                userId = id
+                userId = userId
             });
         }
 
+   
         [HttpPost]
-        public async Task<ActionResult<Message>> Post(Message message)
+        public async Task<ActionResult<Message>> SendMessage(MessageDTO messageDTO)
         {
             return await _mediator.Send(new CreateMessageCommand
             {
-                Content = message.Content,
-                UserId = (int)message.UserId,
-                Subject = message.Subject
+                Content = messageDTO.Content,
+                UserId = (int)messageDTO.senderId,
+                Subject = messageDTO.Subject
             });
         }
         

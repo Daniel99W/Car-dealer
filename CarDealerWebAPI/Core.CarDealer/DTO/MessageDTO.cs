@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.DTO
 {
-    internal class MessageDTO
+    public class MessageDTO
     {
+        public int senderId { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+
+        public int receiverId { get; set; }
     }
 }
