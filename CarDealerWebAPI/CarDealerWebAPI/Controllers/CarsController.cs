@@ -1,4 +1,5 @@
 ﻿using Core.CarDealer.Commands;
+using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
 using Core.CarDealer.QueriesHandler.Cars;
@@ -33,30 +34,21 @@ namespace CarDealerWebAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet("{page}")]
-        public async Task<ActionResult<IEnumerable<Car>>> GetCars(int page)
+        [HttpPost("{page}")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars(int page,CarParametersQuery carParametersQuery)
         { 
-
-            string? brand = Request.Query["brand"];
-            string? carType = Request.Query["carType"];
-            string? title = Request.Query["title"];
-            int? productionYear = Convert.ToInt32(Request.Query["prodYear"]);
-            int? minPrice = Convert.ToInt32(Request.Query["minPrice"]);
-            int? maxPrice = Convert.ToInt32(Request.Query["maxPrice"]);
-            bool orderBy = Convert.ToBoolean(Request.Query["orderBy"]);
-            int carsPerPage = Convert.ToInt16(Request.Query["carsPerPage"]);
           
             IEnumerable<Car> cars = await _mediator.Send(new GetCarsByFiltersQuery
             {
                 Page = page,
-                CarsPerPage = carsPerPage,
-                Brand = brand,
-                CarType = carType,
-                Title = title,
-                ProductionYear = productionYear,
-                MinPrice = minPrice,
-                MaxPrice = maxPrice,
-                OrderBy = orderBy
+                CarsPerPage = carParametersQuery.CarsPerPage,
+                Brand = carParametersQuery.Brand,
+                CarType = carParametersQuery.CarType,
+                Title = carParametersQuery.Title,
+                ProductionYear = carParametersQuery.ProductionYear,
+                MinPrice = carParametersQuery.MinPrice,
+                MaxPrice = carParametersQuery.MaxPrice,
+                OrderBy = carParametersQuery.OrderBy
             });
 
             return new ActionResult<IEnumerable<Car>>(cars);

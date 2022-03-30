@@ -76,21 +76,11 @@ namespace Infrastructure.CarDealer.Repositories
             bool? orderBy
             )
         {
+            carsPerPage = 1;
+
             IQueryable<Car> query = GetCarQuery();
 
-            if (brand != null)
-                query = query.Where(car => car.Brand.Name == brand);
-            if (carType != null)
-                query = query.Where(car => car.CarType.Name == carType);
-            if (productionYear != null)
-                query = query.Where(car => car.ProductionYear == productionYear);
-            if(title != null)
-                query = query.Where(car => car.Title.Contains(title));
-            if (orderBy != null && orderBy == true)
-                query = query.OrderBy(car => orderByPrice(car));
-            else if(orderBy != null)
-                query = query.OrderByDescending(car => orderByPrice(car));
-            
+            List<Car> cars = new();
 
             if (minPrice != null && maxPrice != null)
                 query = query.Where(car => car.Price >= minPrice && car.Price <= maxPrice);
@@ -102,9 +92,36 @@ namespace Infrastructure.CarDealer.Repositories
                     query = query.Where(car => car.Price <= maxPrice);
             }
 
-            query = query.Paginate(page, carsPerPage);
+            if (brand != null)
+                query = query.Where(car => car.Brand.Name == brand);
+            if (carType != null)
+                query = query.Where(car => car.CarType.Name == carType);
+            if (productionYear != null)
+                query = query.Where(car => car.ProductionYear == productionYear);
+            if(title != null)
+                query = query.Where(car => car.Title.Contains(title));
+            if (orderBy != null && orderBy == true)
+            {
+                cars = await query
+                    .Paginate(page, carsPerPage)
+                    .ToListAsync();
+                cars = cars.OrderBy(car => orderByPrice(car)).ToList();
+            }
+            else if (orderBy != null)
+            {
+                cars = await query
+                    .Paginate(page,carsPerPage)
+                    .ToListAsync();
+            }
+            else
+            {
+                cars = await query
+                    .Paginate(page, carsPerPage)
+                    .ToListAsync();
+            }
 
-            return await query.ToListAsync();
+            cars = await query.ToListAsync();
+            return cars;  
         }
 
         public override async Task<Car>? Read(int id)

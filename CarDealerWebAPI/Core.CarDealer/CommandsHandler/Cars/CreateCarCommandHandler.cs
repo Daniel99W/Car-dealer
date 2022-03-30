@@ -25,6 +25,7 @@ namespace Core.CarDealer.CommandsHandler.Cars
                 Id = request.Id,
                 CarNumber = request.CarNumber,
                 ProductionYear = request.ProductionYear,
+                Title = request.Title,
                 Price = request.Price,
                 SecondHand = request.SecondHand,
                 AddingDate = request.AddingDate,
