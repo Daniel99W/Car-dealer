@@ -1,6 +1,7 @@
 ﻿using Core.CarDealer.Commands;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
+using Core.CarDealer.QueriesHandler.Cars;
 using Infrastructure.CarDealer.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -32,22 +33,30 @@ namespace CarDealerWebAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
-        {
+        [HttpGet("{page}")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars(int page)
+        { 
+
             string? brand = Request.Query["brand"];
             string? carType = Request.Query["carType"];
+            string? title = Request.Query["title"];
             int? productionYear = Convert.ToInt32(Request.Query["prodYear"]);
             int? minPrice = Convert.ToInt32(Request.Query["minPrice"]);
             int? maxPrice = Convert.ToInt32(Request.Query["maxPrice"]);
-
-            IEnumerable<Car> cars = await _mediator.Send(new GetCarsByBrandTypePriceYearQuery
+            bool orderBy = Convert.ToBoolean(Request.Query["orderBy"]);
+            int carsPerPage = Convert.ToInt16(Request.Query["carsPerPage"]);
+          
+            IEnumerable<Car> cars = await _mediator.Send(new GetCarsByFiltersQuery
             {
+                Page = page,
+                CarsPerPage = carsPerPage,
                 Brand = brand,
                 CarType = carType,
+                Title = title,
                 ProductionYear = productionYear,
                 MinPrice = minPrice,
-                MaxPrice = maxPrice
+                MaxPrice = maxPrice,
+                OrderBy = orderBy
             });
 
             return new ActionResult<IEnumerable<Car>>(cars);
@@ -62,6 +71,7 @@ namespace CarDealerWebAPI.Controllers
                 CarNumber = car.CarNumber,
                 ProductionYear = car.ProductionYear,
                 Price = car.Price,
+                Title = car.Title,
                 SecondHand = car.SecondHand,
                 AddingDate = car.AddingDate,
                 UserId = car.UserId,
@@ -82,6 +92,12 @@ namespace CarDealerWebAPI.Controllers
             {
                  Id = id
             });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<int>> GetCarsTotalPrice()
+        {
+            return await _mediator.Send(new GetCarsTotalPriceQuery());
         }
 
 

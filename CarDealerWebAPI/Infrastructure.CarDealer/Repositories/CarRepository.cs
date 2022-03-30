@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CarDealer.Repositories
 {
-    public class CarRepository : Repository<Car>,IRepositoryCar
+    public class CarRepository : Repository<Car>, IRepositoryCar
     {
-        public CarRepository(AnnouncesContext announcesContext) 
-            :base(announcesContext)
+        public CarRepository(AnnouncesContext announcesContext)
+            : base(announcesContext)
         {
-            
+
         }
 
         private IQueryable<Car> GetCarQuery()
@@ -62,29 +62,38 @@ namespace Infrastructure.CarDealer.Repositories
                .SingleOrDefaultAsync();
         }
 
+        private Func<Car, int> orderByPrice = car => car.Price;
+
         public async Task<IEnumerable<Car>> GetCars(
+            int page,
+            int carsPerPage,
             string? brand,
             string? carType,
+            string? title,
             int? productionYear,
             int? minPrice,
-            int? maxPrice
+            int? maxPrice,
+            bool? orderBy
             )
         {
             IQueryable<Car> query = GetCarQuery();
 
             if (brand != null)
                 query = query.Where(car => car.Brand.Name == brand);
-
             if (carType != null)
                 query = query.Where(car => car.CarType.Name == carType);
-
             if (productionYear != null)
                 query = query.Where(car => car.ProductionYear == productionYear);
+            if(title != null)
+                query = query.Where(car => car.Title.Contains(title));
+            if (orderBy != null && orderBy == true)
+                query = query.OrderBy(car => orderByPrice(car));
+            else if(orderBy != null)
+                query = query.OrderByDescending(car => orderByPrice(car));
+            
 
             if (minPrice != null && maxPrice != null)
-            {
                 query = query.Where(car => car.Price >= minPrice && car.Price <= maxPrice);
-            }
             else
             {
                 if (minPrice != null)
@@ -93,8 +102,9 @@ namespace Infrastructure.CarDealer.Repositories
                     query = query.Where(car => car.Price <= maxPrice);
             }
 
+            query = query.Paginate(page, carsPerPage);
+
             return await query.ToListAsync();
-        
         }
 
         public override async Task<Car>? Read(int id)
@@ -107,6 +117,11 @@ namespace Infrastructure.CarDealer.Repositories
         public async Task<int> GetCarsNumber()
         {
             return await GetCarQuery().CountAsync();
+        }
+
+        public async Task<int> GetCarsTotalPrice()
+        {
+            return await _announcesContext.Cars.SumAsync(car => car.Price);
         }
 
 

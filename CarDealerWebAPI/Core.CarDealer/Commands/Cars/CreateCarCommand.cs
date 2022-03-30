@@ -12,6 +12,8 @@ namespace Core.CarDealer.Commands
     {
         public int Id { get; set; }
         public string CarNumber { get; set; } = null!;
+
+        public string Title { get; set; }
         public int? ProductionYear { get; set; }
         public int Price { get; set; }
         public bool? SecondHand { get; set; }
