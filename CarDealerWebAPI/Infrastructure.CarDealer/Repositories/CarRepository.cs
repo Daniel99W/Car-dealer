@@ -76,7 +76,6 @@ namespace Infrastructure.CarDealer.Repositories
             bool? orderBy
             )
         {
-            carsPerPage = 1;
 
             IQueryable<Car> query = GetCarQuery();
 
@@ -112,6 +111,7 @@ namespace Infrastructure.CarDealer.Repositories
                 cars = await query
                     .Paginate(page,carsPerPage)
                     .ToListAsync();
+                cars = cars.OrderByDescending(car => orderByPrice(car)).ToList();
             }
             else
             {

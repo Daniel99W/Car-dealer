@@ -35,7 +35,7 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpPost("{page}")]
-        public async Task<ActionResult<IEnumerable<Car>>> GetCars(int page,CarParametersQuery carParametersQuery)
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars(int page,CarParametersQueryDTO carParametersQuery)
         { 
           
             IEnumerable<Car> cars = await _mediator.Send(new GetCarsByFiltersQuery
