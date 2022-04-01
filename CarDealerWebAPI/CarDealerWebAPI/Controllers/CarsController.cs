@@ -37,7 +37,7 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpPost("{page}")]
-        public async Task<ActionResult<IEnumerable<Car>>> GetCars(int page,CarParametersQueryDTO carParametersQuery)
+        public async Task<ActionResult<PaginatedDTO<Car>>> GetCars(int page,CarParametersQueryDTO carParametersQuery)
         { 
           
             IEnumerable<Car> cars = await _mediator.Send(new GetCarsByFiltersQuery
@@ -53,7 +53,18 @@ namespace CarDealerWebAPI.Controllers
                 OrderBy = carParametersQuery.OrderBy
             });
 
-            return new ActionResult<IEnumerable<Car>>(cars);
+            PaginatedDTO<Car> paginatedDTO = new PaginatedDTO<Car>();
+
+            paginatedDTO.CurrentPage = page;
+            paginatedDTO.TotalPages =
+                Convert.ToInt32(Math.Ceiling((double)cars.Count() / carParametersQuery.CarsPerPage));
+
+            if (paginatedDTO.PrevPage <= 0)
+                paginatedDTO.PrevPage = null;
+            if (paginatedDTO.NextPage >= paginatedDTO.TotalPages)
+                paginatedDTO.NextPage = null;
+
+            return new ActionResult<PaginatedDTO<Car>>(paginatedDTO);
         }
 
         [HttpPost]
