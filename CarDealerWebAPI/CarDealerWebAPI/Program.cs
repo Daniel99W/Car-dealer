@@ -1,10 +1,13 @@
 using Core.CarDealer;
 using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
+using Core.CarDealer.Queries;
+using Core.CarDealer.QueriesHandler;
 using Infrastructure.CarDealer;
 using Infrastructure.CarDealer.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Unity;
 
 var builder = WebApplication.CreateBuilder(args);
 

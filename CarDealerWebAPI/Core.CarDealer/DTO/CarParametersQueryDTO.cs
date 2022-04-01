@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.DTO
 {
-    public class CarParametersQuery
+    public class CarParametersQueryDTO
     {
         public string? Brand { get; set; }
         public string? CarType { get; set; }

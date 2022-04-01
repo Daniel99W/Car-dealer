@@ -2,6 +2,7 @@
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
+using Core.CarDealer.QueriesHandler;
 using Core.CarDealer.QueriesHandler.Cars;
 using Infrastructure.CarDealer.Repositories;
 using MediatR;
@@ -18,6 +19,7 @@ namespace CarDealerWebAPI.Controllers
         public CarsController(IMediator mediator)
         {
             _mediator = mediator;
+      
         }
 
         [HttpGet("{userId}")]

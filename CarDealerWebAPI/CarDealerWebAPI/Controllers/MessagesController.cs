@@ -38,7 +38,8 @@ namespace CarDealerWebAPI.Controllers
             {
                 Content = messageDTO.Content,
                 UserId = (int)messageDTO.senderId,
-                Subject = messageDTO.Subject
+                Subject = messageDTO.Subject,
+                SenderId = messageDTO.senderId
             });
         }
         
