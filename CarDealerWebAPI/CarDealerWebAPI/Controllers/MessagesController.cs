@@ -1,4 +1,4 @@
-﻿using Core.CarDealer.Commands.Cars;
+﻿
 using Core.CarDealer.Commands.Messages;
 using Core.CarDealer.CommandsHandler.Messages;
 using Core.CarDealer.DTO;
@@ -21,16 +21,6 @@ namespace CarDealerWebAPI.Controllers
         {
             _mediator = mediator;
         }
-
-        [HttpGet]
-        public async Task<ActionResult<Message>> Get(int userId)
-        {
-            return await _mediator.Send(new GetMessageByUserIdQuery
-            {
-                userId = userId
-            });
-        }
-
    
         [HttpPost]
         public async Task<ActionResult<Message>> SendMessage(MessageDTO messageDTO)
@@ -38,11 +28,24 @@ namespace CarDealerWebAPI.Controllers
             return await _mediator.Send(new CreateUnitOfWorkMessagesCommand
             {
                 Content = messageDTO.Content,
-                UserId = (int)messageDTO.senderId,
+                UserId = messageDTO.senderId,
                 Subject = messageDTO.Subject,
                 ReceiverId = messageDTO.receiverId
             });
         }
+
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages(GetMessagesDTO getMessagesDTO)
+        {
+            return new ActionResult<IEnumerable<Message>>(
+                await _mediator.Send(new GetMessagesBySenderReceiverQuery
+            {
+                ReceiverId = getMessagesDTO.ReceiverId,
+                SenderId = getMessagesDTO.SenderId
+            }));
+        }
+
+
         
     }
 }

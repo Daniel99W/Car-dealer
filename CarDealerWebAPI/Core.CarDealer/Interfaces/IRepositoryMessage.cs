@@ -9,9 +9,8 @@ namespace Core.CarDealer.Interfaces
 {
     public interface IRepositoryMessage : IRepository<Message>
     {
-        public Task<Message>? GetMessageByUserId(int userId);
 
-        public Task<IEnumerable<Message>> GetMessages(int? userId);
+        public Task<IEnumerable<Message>> GetMessages(int senderId,int receiverId);
 
         public Task<Message>? GetMessageBySubject(string subject);
     }

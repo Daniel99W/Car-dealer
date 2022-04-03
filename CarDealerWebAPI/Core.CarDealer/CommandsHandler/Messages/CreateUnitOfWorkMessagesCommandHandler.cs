@@ -1,4 +1,4 @@
-﻿using Core.CarDealer.Commands.Cars;
+﻿using Core.CarDealer.Commands.Messages;
 using Core.CarDealer.Models;
 using MediatR;
 using System;
@@ -27,13 +27,13 @@ namespace Core.CarDealer.CommandsHandler.Messages
                 UserId = request.UserId
            });
            await _unitOfWork._repositoryMessage.SaveChangesAsync();
-           MessageTo messageTo = _unitOfWork._repositoryMessageTo.Create(new MessageTo()
+           _unitOfWork._repositoryMessageTo.Create(new MessageTo()
            {
                 UserId = request.ReceiverId,
                 MessageId = message.Id
            });
            await _unitOfWork._repositoryMessageTo.SaveChangesAsync();
-           return message;
+           return await Task.FromResult(message);
         }
     }
 }

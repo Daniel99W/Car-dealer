@@ -24,18 +24,22 @@ namespace Infrastructure.CarDealer.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<Message>? GetMessageByUserId(int userId)
+        public async Task<IEnumerable<Message>>? GetMessages(int senderId,int receiverId)
         {
             return await _announcesContext.Messages
-                .Where(message => message.UserId == userId)
-                .SingleOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<Message>> GetMessages(int? userId)
-        {
-            return await _announcesContext.Messages
-                .Where(message => message.UserId == userId)
+                .Join(_announcesContext.MessageTos,
+                message => message.Id,
+                messageTo => messageTo.MessageId,
+                (message, messageTo) => new { message, messageTo })
+                .Where(message => message.message.UserId == senderId && message.messageTo.UserId == receiverId)
+                .Select(message => new Message()
+                {
+                    Id = message.message.Id,
+                    UserId = message.message.UserId,
+                    Content = message.message.Content
+                })
                 .ToListAsync();
         }
+
     }
 }
