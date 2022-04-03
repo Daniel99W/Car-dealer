@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.CarDealer.Repositories
+namespace Core.CarDealer.CommandsHandler.Messages
 {
-    internal class UnitOfWorkMessages
+    internal class CreateUnitOfWorkMessagesCommandHandler
     {
     }
 }
