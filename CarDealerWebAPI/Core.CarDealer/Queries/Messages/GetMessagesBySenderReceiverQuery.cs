@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CarDealer.Commands.Cars
+namespace Core.CarDealer.Queries.Messages
 {
-    internal class CreateUnitOfWorkMessages
+    internal class GetMessagesBySenderIdReceiverId
     {
     }
 }
