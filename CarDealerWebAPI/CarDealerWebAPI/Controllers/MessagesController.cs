@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Commands.Messages;
+﻿using Core.CarDealer.Commands.Cars;
+using Core.CarDealer.Commands.Messages;
 using Core.CarDealer.CommandsHandler.Messages;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
@@ -34,11 +35,12 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Message>> SendMessage(MessageDTO messageDTO)
         {
-            return await _mediator.Send(new CreateMessageCommand
+            return await _mediator.Send(new CreateUnitOfWorkMessagesCommand
             {
                 Content = messageDTO.Content,
                 UserId = (int)messageDTO.senderId,
-                Subject = messageDTO.Subject
+                Subject = messageDTO.Subject,
+                ReceiverId = messageDTO.receiverId
             });
         }
         

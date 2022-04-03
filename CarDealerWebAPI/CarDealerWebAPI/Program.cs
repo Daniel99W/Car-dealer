@@ -23,6 +23,7 @@ builder.Services.AddDbContext<AnnouncesContext>(options =>
 builder.Services.AddScoped<IRepositoryCar,CarRepository>();
 builder.Services.AddScoped<IRepositoryUser,UserRepository>();
 builder.Services.AddScoped<IRepositoryMessage, MessageRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWorkMessages>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
 
 var app = builder.Build();
