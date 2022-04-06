@@ -18,6 +18,8 @@ namespace Core.CarDealer.CommandsHandler.Cars
         {
             _carRepository = carRepository;
         }
+
+
         public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             Car car = _carRepository.Create(new Car

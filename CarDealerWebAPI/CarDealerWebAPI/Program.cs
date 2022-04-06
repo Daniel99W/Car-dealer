@@ -30,7 +30,8 @@ builder.Services.AddScoped<IRepositoryUser,UserRepository>();
 builder.Services.AddScoped<IRepositoryMessage, MessageRepository>();
 builder.Services.AddScoped<IRepositoryMessageTo, MessageToRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWorkMessages>();
-builder.Services.AddScoped<IConfiguration>();
+builder.Services.AddScoped<IServiceBlob, BlobService>();
+builder.Services.AddScoped<IRepositoryImage, ImageRepository>();
 builder.Services.AddScoped<BlobService>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
 

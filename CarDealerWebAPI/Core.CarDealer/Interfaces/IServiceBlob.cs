@@ -9,6 +9,8 @@ namespace Core.CarDealer.Interfaces
 {
     public interface IServiceBlob
     {
-        public async Task Upload(IFormFile formFile);
+        public Task Upload(IFormFile formFile);
+
+
     }
 }

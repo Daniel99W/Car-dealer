@@ -1,4 +1,5 @@
 ﻿using Core.CarDealer.Commands;
+using Core.CarDealer.Commands.Images;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
@@ -88,6 +89,16 @@ namespace CarDealerWebAPI.Controllers
                 CarTypeId = car.CarTypeId
             });
 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Image>> AddImage([FromForm] IFormFile formFile,int carId)
+        {
+            return await _mediator.Send(new CreateImageCommand()
+            {
+                CarId = carId,
+                FormFile = formFile
+            });
         }
 
         [HttpGet("{id}")]
