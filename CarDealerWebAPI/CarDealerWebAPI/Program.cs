@@ -5,6 +5,7 @@ using Core.CarDealer.Queries;
 using Core.CarDealer.QueriesHandler;
 using Infrastructure.CarDealer;
 using Infrastructure.CarDealer.Repositories;
+using Infrastructure.CarDealer.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,8 @@ builder.Services.AddScoped<IRepositoryUser,UserRepository>();
 builder.Services.AddScoped<IRepositoryMessage, MessageRepository>();
 builder.Services.AddScoped<IRepositoryMessageTo, MessageToRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWorkMessages>();
+builder.Services.AddScoped<IConfiguration>();
+builder.Services.AddScoped<BlobService>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
 
 var app = builder.Build();
