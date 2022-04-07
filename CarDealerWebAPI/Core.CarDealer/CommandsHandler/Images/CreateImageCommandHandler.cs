@@ -23,7 +23,7 @@ namespace Core.CarDealer.CommandsHandler.Images
         }
         public async Task<Image> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
-           await _serviceBlob.Upload(request.FormFile);
+           //await _serviceBlob.Upload(request.FormFile);
            Image image =  _repositoryImage.Create(new Image()
             {
                 ImageUrl = request.FormFile.FileName,

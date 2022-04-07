@@ -22,5 +22,11 @@ namespace Infrastructure.CarDealer.Repositories
             return await _announcesContext.Images.Where(image => image.CarId == carId)
                 .ToListAsync();
         }
+
+        public override Image Create(Image obj)
+        {
+            _announcesContext.Images.Add(obj);
+            return obj;
+        }
     }
 }
