@@ -1,4 +1,5 @@
 ﻿using Core.CarDealer.Commands;
+using Core.CarDealer.Commands.Cars;
 using Core.CarDealer.Commands.Images;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
@@ -20,7 +21,6 @@ namespace CarDealerWebAPI.Controllers
         public CarsController(IMediator mediator)
         {
             _mediator = mediator;
-      
         }
 
         [HttpGet("{userId}")]
@@ -54,7 +54,7 @@ namespace CarDealerWebAPI.Controllers
                 OrderBy = carParametersQuery.OrderBy
             });
 
-            PaginatedDTO<Car> paginatedDTO = new PaginatedDTO<Car>();
+            PaginatedDTO<Car> paginatedDTO = new();
 
             paginatedDTO.CurrentPage = page;
             paginatedDTO.TotalPages =
@@ -91,15 +91,6 @@ namespace CarDealerWebAPI.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Image>> AddImage([FromForm] IFormFile formFile,int carId)
-        {
-            return await _mediator.Send(new CreateImageCommand()
-            {
-                CarId = carId,
-                FormFile = formFile
-            });
-        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Car>> Get(int id)
@@ -115,6 +106,41 @@ namespace CarDealerWebAPI.Controllers
         {
             return await _mediator.Send(new GetCarsTotalPriceQuery());
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Car>> Update(Car car)
+        {
+            return await _mediator.Send(new UpdateCarCommand()
+            {
+                Id = car.Id,
+                CarNumber = car.CarNumber,
+                ProductionYear = car.ProductionYear,
+                Price = car.Price,
+                Title = car.Title,
+                SecondHand = car.SecondHand,
+                AddingDate = car.AddingDate,
+                UserId = car.UserId,
+                FuelType = car.FuelType,
+                Description = car.Description,
+                Model = car.Model,
+                CilindricCapacity = car.CilindricCapacity,
+                BrandId = car.BrandId,
+                CarTypeId = car.CarTypeId
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteCarCommand()
+            {
+                Id = id
+            });
+
+            return Ok();
+        }
+
+
 
 
         

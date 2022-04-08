@@ -29,9 +29,6 @@ namespace Core.CarDealer.QueriesHandler.Images
         public async Task<IEnumerable<Image>> Handle(GetImagesByCarIdQuery request, CancellationToken cancellationToken)
         {
             return await _repositoryImage.GetImagesByCarId(request.CarId);
-
-
-
         }
     }
 }

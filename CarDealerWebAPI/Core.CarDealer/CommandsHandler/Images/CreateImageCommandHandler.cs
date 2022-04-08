@@ -22,16 +22,14 @@ namespace Core.CarDealer.CommandsHandler.Images
             _repositoryImage = repositoryImage;
         }
         public async Task<Image> Handle(CreateImageCommand request, CancellationToken cancellationToken)
-        {
-           //await _serviceBlob.Upload(request.FormFile);
+        { 
            Image image =  _repositoryImage.Create(new Image()
             {
-                ImageUrl = request.FormFile.FileName,
-                CarId = request.CarId
+               ImageUrl = request.ImageUrl,
+               CarId = request.CarId
             });
 
             await _repositoryImage.SaveChangesAsync();
-
             return await Task.FromResult(image);
         }
     }

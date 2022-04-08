@@ -11,6 +11,8 @@ namespace Core.CarDealer.Interfaces
     {
         public Task Upload(IFormFile formFile);
 
+        public Task<Stream> GetImage(string imageName);
+
 
     }
 }

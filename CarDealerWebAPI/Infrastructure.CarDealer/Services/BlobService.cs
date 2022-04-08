@@ -23,13 +23,27 @@ namespace Infrastructure.CarDealer.Services
         public BlobServiceClient BlobServiceClient 
         { get => _blobServiceClient; set => _blobServiceClient = value; }
 
-       
+        public async Task<Stream> GetImage(string imageName)
+        {
+            BlobContainerClient blobContainer = _blobServiceClient.GetBlobContainerClient(
+                _configuration["AzureImagesContainer"]);
+            BlobClient blobClient = blobContainer.GetBlobClient(imageName);
+
+            Stream? image = null;
+            await blobClient.DownloadToAsync(image);
+            
+            return image;
+        }
 
         public async Task Upload(IFormFile formFile)
         {
-            BlobContainerClient blobContainer = _blobServiceClient.GetBlobContainerClient("cardealerapipics");
+            BlobContainerClient blobContainer = _blobServiceClient.GetBlobContainerClient(
+                _configuration["AzureImagesContainer"]);
             BlobClient blobClient = blobContainer.GetBlobClient(formFile.FileName);
+            
             await blobClient.UploadAsync(formFile.OpenReadStream());
         }
+
+      
     }
 }

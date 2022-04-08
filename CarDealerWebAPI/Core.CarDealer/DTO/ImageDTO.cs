@@ -9,6 +9,7 @@ namespace Core.CarDealer.DTO
 {
     public class ImageDTO
     {
+        public string ImageUrl { get; set; }
         public int CarId { get; set; }
     }
 }
