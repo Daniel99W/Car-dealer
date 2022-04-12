@@ -1,31 +1,25 @@
+using Core.CarDealer.Models;
 using NUnit.Framework;
+using System;
+using System.Net;
 using System.Net.Http;
-using Xunit;
+using System.Threading.Tasks;
+
 
 namespace TestCarWebAPI
 {
+
     public class TestWebAPICar
     {
-        private HttpClient _client;
+
         public TestWebAPICar()
         {
-            _client = new HttpClient();
-        }
-
-        private async HttpResponseMessage getCar(int carId)
-        {
-               return await _client.GetAsync()
-        }
-
-        [Test]
-        [TestCase("7")]
-        public void GetCarReturnsCarOk(int id)
-        {
-
             
-
-
         }
+
+        
+
+
 
     }
 }

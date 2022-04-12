@@ -12,7 +12,8 @@ namespace Core.CarDealer.Commands.Images
 {
     public class CreateImageCommand : IRequest<Image>
     {
-        public string ImageUrl { get; set; }
         public int CarId { get; set; }
+
+        public IFormFile FormFile { get; set; }
     }
 }

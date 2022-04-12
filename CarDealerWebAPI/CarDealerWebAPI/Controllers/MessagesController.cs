@@ -25,18 +25,24 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Message>> SendMessage(MessageDTO messageDTO)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             return await _mediator.Send(new CreateUnitOfWorkMessagesCommand
             {
                 Content = messageDTO.Content,
-                UserId = messageDTO.senderId,
+                UserId = messageDTO.SenderId,
                 Subject = messageDTO.Subject,
-                ReceiverId = messageDTO.receiverId
+                ReceiverId = messageDTO.ReceiverId
             });
         }
 
         [HttpPost]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages(GetMessagesDTO getMessagesDTO)
         {
+            if(!ModelState.IsValid)
+                return BadRequest();
+
             return new ActionResult<IEnumerable<Message>>(
                 await _mediator.Send(new GetMessagesBySenderReceiverQuery
             {

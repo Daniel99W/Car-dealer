@@ -141,6 +141,11 @@ namespace Infrastructure.CarDealer.Repositories
             return await _announcesContext.Cars.SumAsync(car => car.Price);
         }
 
+        public override Car Create(Car car)
+        {
+            return _announcesContext.Cars.Add(car).Entity;
+        }
+
 
 
     }

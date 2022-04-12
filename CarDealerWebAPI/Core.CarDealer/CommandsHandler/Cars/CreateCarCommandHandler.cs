@@ -2,6 +2,7 @@
 using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,10 @@ namespace Core.CarDealer.CommandsHandler.Cars
     {
         private IRepositoryCar _carRepository;
 
-        public CreateCarCommandHandler(IRepositoryCar carRepository)
+        public CreateCarCommandHandler(
+            IRepositoryCar carRepository,
+            IServiceBlob blobService)
+
         {
             _carRepository = carRepository;
         }
@@ -24,7 +28,6 @@ namespace Core.CarDealer.CommandsHandler.Cars
         {
             Car car = _carRepository.Create(new Car
             {
-                Id = request.Id,
                 CarNumber = request.CarNumber,
                 ProductionYear = request.ProductionYear,
                 Title = request.Title,
@@ -41,6 +44,7 @@ namespace Core.CarDealer.CommandsHandler.Cars
             });
 
             await _carRepository.SaveChangesAsync();
+
             return await Task.FromResult(car);
         }
 

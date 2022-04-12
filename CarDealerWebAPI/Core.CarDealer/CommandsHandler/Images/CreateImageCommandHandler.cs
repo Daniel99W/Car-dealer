@@ -25,9 +25,11 @@ namespace Core.CarDealer.CommandsHandler.Images
         { 
            Image image =  _repositoryImage.Create(new Image()
             {
-               ImageUrl = request.ImageUrl,
+               ImageUrl = request.FormFile.FileName,
                CarId = request.CarId
             });
+
+            await _serviceBlob.Upload(request.FormFile);
 
             await _repositoryImage.SaveChangesAsync();
             return await Task.FromResult(image);

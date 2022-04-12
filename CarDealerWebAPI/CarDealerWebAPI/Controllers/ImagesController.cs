@@ -23,24 +23,8 @@ namespace CarDealerWebAPI.Controllers
             _blobService = serviceBlob;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> UploadImage(IFormFile formFile)
-        {
-            await _blobService.Upload(formFile);
-            return Ok();
-        }
 
-
-        [HttpPost]
-        public async Task<ActionResult<Image>> Post(ImageDTO imageDTO)
-        {
-
-            return await _mediator.Send(new CreateImageCommand()
-            {
-                ImageUrl = imageDTO.ImageUrl,
-                CarId = imageDTO.CarId
-            });
-        }
+     
     }
 
 }

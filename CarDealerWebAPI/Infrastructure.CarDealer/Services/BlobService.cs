@@ -38,7 +38,7 @@ namespace Infrastructure.CarDealer.Services
         public async Task Upload(IFormFile formFile)
         {
             BlobContainerClient blobContainer = _blobServiceClient.GetBlobContainerClient(
-                _configuration["AzureImagesContainer"]);
+                _configuration.GetConnectionString("AzureImagesContainer"));
             BlobClient blobClient = blobContainer.GetBlobClient(formFile.FileName);
             
             await blobClient.UploadAsync(formFile.OpenReadStream());

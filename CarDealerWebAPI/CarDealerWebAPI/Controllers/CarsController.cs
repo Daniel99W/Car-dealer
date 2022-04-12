@@ -9,7 +9,8 @@ using Core.CarDealer.QueriesHandler.Cars;
 using Infrastructure.CarDealer.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace CarDealerWebAPI.Controllers
 {
@@ -26,15 +27,15 @@ namespace CarDealerWebAPI.Controllers
         [HttpGet("{userId}")]
         public async Task<ActionResult<Car>> GetCarByUserId(int userId)
         {
-            Car car = await _mediator.Send(new GetCarByUserIdQuery
+            Car? car = await _mediator.Send(new GetCarByUserIdQuery
             {
                 userId = userId
             });
 
-            if (car != null)
-                return new ActionResult<Car>(car);
+            if (car == null)
+                return NotFound();
 
-            return NotFound();
+            return car;
         }
 
         [HttpPost("{page}")]
@@ -65,40 +66,57 @@ namespace CarDealerWebAPI.Controllers
             if (paginatedDTO.NextPage >= paginatedDTO.TotalPages)
                 paginatedDTO.NextPage = null;
 
-            return new ActionResult<PaginatedDTO<Car>>(paginatedDTO);
+            return paginatedDTO;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Car>> Post(Car car)
+        public async Task<ActionResult> PostCar()
         {
-            return await _mediator.Send(new CreateCarCommand
+            IEnumerable<IFormFile> images = HttpContext.Request.Form.Files;
+            string jsonCar = HttpContext.Request.Form["car"];
+
+            CreateCarDTO createCarDTO = JsonSerializer.Deserialize<CreateCarDTO>(jsonCar);
+
+            Car car = await _mediator.Send(new CreateCarCommand
             {
-                Id = car.Id,
-                CarNumber = car.CarNumber,
-                ProductionYear = car.ProductionYear,
-                Price = car.Price,
-                Title = car.Title,
-                SecondHand = car.SecondHand,
-                AddingDate = car.AddingDate,
-                UserId = car.UserId,
-                FuelType = car.FuelType,
-                Description = car.Description,
-                Model = car.Model,
-                CilindricCapacity = car.CilindricCapacity,
-                BrandId = car.BrandId,
-                CarTypeId = car.CarTypeId
+                CarNumber = createCarDTO.CarNumber,
+                ProductionYear = createCarDTO.ProductionYear,
+                Price = createCarDTO.Price,
+                Title = createCarDTO.Title,
+                SecondHand = createCarDTO.SecondHand,
+                UserId = createCarDTO.UserId,
+                FuelType = createCarDTO.FuelType,
+                Description = createCarDTO.Description,
+                Model = createCarDTO.Model,
+                CilindricCapacity = createCarDTO.CilindricCapacity,
+                BrandId = createCarDTO.BrandId,
+                CarTypeId = createCarDTO.CarTypeId,
+                Images = images
             });
 
+            foreach (IFormFile image in images)
+                await _mediator.Send(new CreateImageCommand()
+                {
+                    CarId = car.Id,
+                    FormFile = image
+                });
+
+            return Ok("The car has been created with success!");
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Car>> Get(int id)
+        public async Task<ActionResult<Car>> GetCar(int id)
         {
-            return await _mediator.Send(new GetCarByIdQuery
+            Car? car =  await _mediator.Send(new GetCarByIdQuery
             {
                  Id = id
             });
+
+            if (car == null)
+                return NotFound();
+
+            return car;
         }
 
         [HttpGet]
@@ -108,9 +126,9 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Car>> Update(Car car)
+        public async Task<ActionResult> Update(Car car)
         {
-            return await _mediator.Send(new UpdateCarCommand()
+            await _mediator.Send(new UpdateCarCommand()
             {
                 Id = car.Id,
                 CarNumber = car.CarNumber,
@@ -127,10 +145,12 @@ namespace CarDealerWebAPI.Controllers
                 BrandId = car.BrandId,
                 CarTypeId = car.CarTypeId
             });
+
+           return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteCar(int id)
         {
             await _mediator.Send(new DeleteCarCommand()
             {
