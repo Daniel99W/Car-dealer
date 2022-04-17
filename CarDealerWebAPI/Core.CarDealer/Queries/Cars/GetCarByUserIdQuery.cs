@@ -10,6 +10,6 @@ namespace Core.CarDealer.Queries
 {
     public  class GetCarByUserIdQuery : IRequest<Car>
     {
-        public int userId { get; set; }
+        public Guid userId { get; set; }
     }
 }

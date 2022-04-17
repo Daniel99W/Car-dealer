@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Interfaces;
+﻿using Core.CarDealer.DTO;
+using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
 using MediatR;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.QueriesHandler
 {
-    public class GetCarsByFiltersQueryHandler : IRequestHandler<GetCarsByFiltersQuery,IEnumerable<Car>>
+    public class GetCarsByFiltersQueryHandler : IRequestHandler<GetCarsByFiltersQuery,PaginatedDTO<Car>>
     {
         IRepositoryCar _repository;
         public GetCarsByFiltersQueryHandler(IRepositoryCar repository)
@@ -18,7 +19,7 @@ namespace Core.CarDealer.QueriesHandler
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Car>> Handle(GetCarsByFiltersQuery request,CancellationToken cancellationToken)
+        public async Task<PaginatedDTO<Car>> Handle(GetCarsByFiltersQuery request,CancellationToken cancellationToken)
         {
             return await _repository.GetCars(
                 request.Page,

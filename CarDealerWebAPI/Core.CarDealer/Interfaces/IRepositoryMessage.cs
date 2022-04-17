@@ -10,7 +10,7 @@ namespace Core.CarDealer.Interfaces
     public interface IRepositoryMessage : IRepository<Message>
     {
 
-        public Task<IEnumerable<Message>> GetMessages(int senderId,int receiverId);
+        public Task<IEnumerable<Message>> GetMessages(Guid senderId,Guid receiverId);
 
         public Task<Message>? GetMessageBySubject(string subject);
     }

@@ -187,10 +187,10 @@ namespace Infrastructure.CarDealer
 
                 entity.Property(e => e.CarId).HasColumnName("car_id");
 
-                entity.Property(e => e.ImageUrl)
+                entity.Property(e => e.ImageName)
                     .HasMaxLength(300)
                     .IsUnicode(false)
-                    .HasColumnName("image_url");
+                    .HasColumnName("imageName");
 
                 entity.HasOne(d => d.Car)
                     .WithMany(p => p.Images)

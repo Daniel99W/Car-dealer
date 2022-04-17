@@ -10,7 +10,7 @@ namespace Core.CarDealer.Models
             Users = new HashSet<User>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
 
         public virtual ICollection<User> Users { get; set; }

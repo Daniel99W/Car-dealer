@@ -10,6 +10,6 @@ namespace Core.CarDealer.Queries.Images
 {
     public class GetImagesByCarIdQuery : IRequest<IEnumerable<Image>>
     {
-        public int CarId { get; set; }
+        public Guid CarId { get; set; }
     }
 }

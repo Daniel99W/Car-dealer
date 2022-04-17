@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Models;
+﻿using Core.CarDealer.DTO;
+using Core.CarDealer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Core.CarDealer.Interfaces
 {
     public interface IRepositoryCar : IRepository<Car>
     {
-        public Task<IEnumerable<Car>> GetCars(
+        public Task<PaginatedDTO<Car>> GetCars(
             int page,
             int carsPerPage,
             string? CarType,
@@ -23,7 +24,7 @@ namespace Core.CarDealer.Interfaces
 
         public Task<int> GetCarsNumber();
 
-        public Task<Car> GetCarByUserId(int id);
+        public Task<Car> GetCarByUserId(Guid id);
 
         public Task<int> GetCarsTotalPrice();
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Queries.Images
 {
-    public class GetImageByNameQuery : IRequest<byte[]>
+    public class GetImageByNameQuery : IRequest<Image>
     {
         public string ImageName { get; set; }
     }

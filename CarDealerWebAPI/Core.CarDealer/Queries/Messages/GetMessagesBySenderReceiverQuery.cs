@@ -10,7 +10,7 @@ namespace Core.CarDealer.Queries.Messages
 {
     public class GetMessagesBySenderReceiverQuery : IRequest<IEnumerable<Message>>
     {
-        public int SenderId { get; set; }
-        public int ReceiverId { get; set; }
+        public Guid SenderId { get; set; }
+        public Guid ReceiverId { get; set; }
     }
 }

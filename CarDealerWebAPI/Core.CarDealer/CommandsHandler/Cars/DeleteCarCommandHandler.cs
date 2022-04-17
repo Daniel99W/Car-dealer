@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.CommandsHandler.Cars
 {
-    public class DeleteCarCommandHandler : IRequestHandler<DeleteCarCommand,int>
+    public class DeleteCarCommandHandler : IRequestHandler<DeleteCarCommand,Guid>
     {
         private IRepositoryCar _repositoryCar;
         public DeleteCarCommandHandler(IRepositoryCar repositoryCar)
@@ -18,7 +18,7 @@ namespace Core.CarDealer.CommandsHandler.Cars
             _repositoryCar = repositoryCar;
         }
 
-        public async Task<int> Handle(DeleteCarCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteCarCommand request, CancellationToken cancellationToken)
         {
             _repositoryCar.Delete(new Car()
             {

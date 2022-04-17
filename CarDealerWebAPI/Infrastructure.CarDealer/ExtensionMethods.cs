@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.CarDealer.DTO;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +10,35 @@ namespace Infrastructure.CarDealer
 {
     public static class ExtensionMethods
     {
-        public static IQueryable<T> Paginate<T>(this IQueryable<T> query,int page,int itemsPerPage)
+        public static async Task<PaginatedDTO<T>> Paginate<T>(this IQueryable<T> query,int page,int itemsPerPage)
         {
             int rowsToBeSkiped = itemsPerPage * page - itemsPerPage;
 
-            return query
+            int totalItems = query.Count();
+
+            IEnumerable<T> results = await query
                 .Skip(rowsToBeSkiped)
-                .Take(itemsPerPage);
+                .Take(itemsPerPage)
+                .ToListAsync();
+
+            PaginatedDTO<T> paginated= new()
+            {
+                CurrentPage = page,
+                TotalPages =
+                Convert.ToInt32(Math.Ceiling((double)totalItems / itemsPerPage)),
+                PrevPage = page - 1,
+                NextPage = page + 1,
+                Items = results
+            };
+
+            if (paginated.PrevPage <= 0)
+                paginated.PrevPage = null;
+
+            if (paginated.NextPage > paginated.TotalPages)
+                paginated.NextPage = null;
+
+            return paginated;
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Infrastructure.CarDealer.Repositories
 
         }
 
-        public async Task<IEnumerable<Image>> GetImagesByCarId(int carId)
+        public async Task<IEnumerable<Image>> GetImagesByCarId(Guid carId)
         {
             return await _announcesContext.Images.Where(image => image.CarId == carId)
                 .ToListAsync();
@@ -27,6 +27,12 @@ namespace Infrastructure.CarDealer.Repositories
         {
             _announcesContext.Images.Add(obj);
             return obj;
+        }
+
+        public async Task<Image>? GetImageByName(string imageName)
+        {
+            return await _announcesContext.Images.Where(image => image.ImageName == imageName)
+                .SingleOrDefaultAsync();
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Core.CarDealer.Models
 {
     public partial class MessageTo
     {
-        public int Id { get; set; }
-        public int? UserId { get; set; }
-        public int? MessageId { get; set; }
+        public Guid Id { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? MessageId { get; set; }
 
         public virtual Message? Message { get; set; }
         public virtual User? User { get; set; }

@@ -11,7 +11,7 @@ namespace Core.CarDealer.Models
             Images = new HashSet<Image>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Title { get; set; }
 
@@ -20,13 +20,13 @@ namespace Core.CarDealer.Models
         public int Price { get; set; }
         public bool? SecondHand { get; set; }
         public DateTime AddingDate { get; set; }
-        public int? UserId { get; set; }
-        public int? FuelType { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? FuelType { get; set; }
         public string Description { get; set; } = null!;
         public string Model { get; set; } = null!;
         public int CilindricCapacity { get; set; }
-        public int? BrandId { get; set; }
-        public int? CarTypeId { get; set; }
+        public Guid? BrandId { get; set; }
+        public Guid? CarTypeId { get; set; }
 
         public virtual Brand? Brand { get; set; }
         public virtual CarType? CarType { get; set; }

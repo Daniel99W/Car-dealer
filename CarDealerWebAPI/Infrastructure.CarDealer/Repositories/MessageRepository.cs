@@ -24,7 +24,7 @@ namespace Infrastructure.CarDealer.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Message>>? GetMessages(int senderId,int receiverId)
+        public async Task<IEnumerable<Message>>? GetMessages(Guid senderId,Guid receiverId)
         {
             return await _announcesContext.Messages
                 .Join(_announcesContext.MessageTos,

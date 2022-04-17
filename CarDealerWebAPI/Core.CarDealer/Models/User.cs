@@ -13,12 +13,12 @@ namespace Core.CarDealer.Models
             UserCars = new HashSet<UserCar>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string SecondName { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public int? RoleId { get; set; }
+        public Guid? RoleId { get; set; }
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<Car> Cars { get; set; }

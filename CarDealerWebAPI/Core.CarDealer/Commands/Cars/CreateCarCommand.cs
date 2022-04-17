@@ -18,14 +18,13 @@ namespace Core.CarDealer.Commands
         public int Price { get; set; }
         public bool? SecondHand { get; set; }
         public DateTime AddingDate { get; set; }
-        public int? UserId { get; set; }
-        public int? FuelType { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? FuelType { get; set; }
         public string Description { get; set; } = null!;
         public string Model { get; set; } = null!;
         public int CilindricCapacity { get; set; }
-        public int? BrandId { get; set; }
-        public int? CarTypeId { get; set; }
-
+        public Guid? BrandId { get; set; }
+        public Guid? CarTypeId { get; set; }
         public IEnumerable<IFormFile> Images { get; set; }
 
     }

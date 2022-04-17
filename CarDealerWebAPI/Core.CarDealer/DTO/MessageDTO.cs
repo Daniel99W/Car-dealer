@@ -10,13 +10,13 @@ namespace Core.CarDealer.DTO
     public class MessageDTO
     {
         [Required]
-        public int SenderId { get; set; }
+        public Guid SenderId { get; set; }
         [Required]
         public string Subject { get; set; }
         [Required]
         public string Content { get; set; }
         [Required]
 
-        public int ReceiverId { get; set; }
+        public Guid ReceiverId { get; set; }
     }
 }

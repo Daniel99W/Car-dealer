@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Commands.Cars
 {
-    public class DeleteCarCommand : IRequest<int>
+    public class DeleteCarCommand : IRequest<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -24,12 +24,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.Brand", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -52,19 +50,17 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.Car", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddingDate")
                         .HasColumnType("date")
                         .HasColumnName("adding_date");
 
-                    b.Property<int?>("BrandId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("BrandId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("brand_id");
 
                     b.Property<string>("CarNumber")
@@ -74,8 +70,8 @@ namespace Infrastructure.CarDealer.Migrations
                         .HasColumnType("varchar(7)")
                         .HasColumnName("car_number");
 
-                    b.Property<int?>("CarTypeId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("CarTypeId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("car_type_id");
 
                     b.Property<int>("CilindricCapacity")
@@ -89,8 +85,8 @@ namespace Infrastructure.CarDealer.Migrations
                         .HasColumnType("varchar(3000)")
                         .HasColumnName("description");
 
-                    b.Property<int?>("FuelType")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("FuelType")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("fuel_type");
 
                     b.Property<string>("Model")
@@ -116,8 +112,8 @@ namespace Infrastructure.CarDealer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -135,19 +131,17 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.CarEquipment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("CarId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("car_id");
 
-                    b.Property<int?>("EquipmentId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("EquipmentId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("equipment_id");
 
                     b.HasKey("Id");
@@ -161,12 +155,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.CarType", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
@@ -181,12 +173,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.Equipment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
@@ -201,12 +191,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.FuelType", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
@@ -221,15 +209,13 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.Image", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("CarId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("car_id");
 
                     b.Property<string>("ImageUrl")
@@ -248,12 +234,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.Message", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -269,8 +253,8 @@ namespace Infrastructure.CarDealer.Migrations
                         .HasColumnType("varchar(300)")
                         .HasColumnName("subject");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -282,19 +266,17 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.MessageTo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("MessageId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("MessageId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("message_id");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -308,12 +290,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -329,12 +309,10 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -357,8 +335,8 @@ namespace Infrastructure.CarDealer.Migrations
                         .HasColumnType("varchar(500)")
                         .HasColumnName("password");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("RoleId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("role_id");
 
                     b.Property<string>("SecondName")
@@ -377,19 +355,17 @@ namespace Infrastructure.CarDealer.Migrations
 
             modelBuilder.Entity("Core.CarDealer.Models.UserCar", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("CarId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("car_id");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");

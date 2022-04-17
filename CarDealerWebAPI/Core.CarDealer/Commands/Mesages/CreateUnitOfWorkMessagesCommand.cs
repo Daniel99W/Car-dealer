@@ -10,10 +10,10 @@ namespace Core.CarDealer.Commands.Messages
 {
     public class CreateUnitOfWorkMessagesCommand : IRequest<Message>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }
 
-        public int ReceiverId { get; set; }
+        public Guid ReceiverId { get; set; }
     }
 }

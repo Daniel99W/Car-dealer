@@ -5,9 +5,9 @@ namespace Core.CarDealer.Models
 {
     public partial class UserCar
     {
-        public int Id { get; set; }
-        public int? UserId { get; set; }
-        public int? CarId { get; set; }
+        public Guid Id { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? CarId { get; set; }
 
         public virtual User? User { get; set; }
     }

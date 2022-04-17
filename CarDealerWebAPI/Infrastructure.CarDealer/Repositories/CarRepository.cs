@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Interfaces;
+﻿using Core.CarDealer.DTO;
+using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,7 +56,7 @@ namespace Infrastructure.CarDealer.Repositories
             return await GetCarQuery().ToListAsync();
         }
 
-        public async Task<Car>? GetCarByUserId(int userId)
+        public async Task<Car>? GetCarByUserId(Guid userId)
         {
             return await GetCarQuery()
                .Where(car => car.UserId == userId)
@@ -64,7 +65,7 @@ namespace Infrastructure.CarDealer.Repositories
 
         private Func<Car, int> orderByPrice = car => car.Price;
 
-        public async Task<IEnumerable<Car>> GetCars(
+        public async Task<PaginatedDTO<Car>> GetCars(
             int page,
             int carsPerPage,
             string? brand,
@@ -79,7 +80,7 @@ namespace Infrastructure.CarDealer.Repositories
 
             IQueryable<Car> query = GetCarQuery();
 
-            List<Car> cars = new();
+            PaginatedDTO<Car> paginated = new();
 
             if (minPrice != null && maxPrice != null)
                 query = query.Where(car => car.Price >= minPrice && car.Price <= maxPrice);
@@ -101,30 +102,28 @@ namespace Infrastructure.CarDealer.Repositories
                 query = query.Where(car => car.Title.Contains(title));
             if (orderBy != null && orderBy == true)
             {
-                cars = await query
-                    .Paginate(page, carsPerPage)
-                    .ToListAsync();
-                cars = cars.OrderBy(car => orderByPrice(car)).ToList();
+                paginated = await query
+                    .Paginate(page, carsPerPage);
+                   
+                paginated.Items = paginated.Items.OrderBy(car => orderByPrice(car)).ToList();
             }
             else if (orderBy != null)
             {
-                cars = await query
-                    .Paginate(page,carsPerPage)
-                    .ToListAsync();
-                cars = cars.OrderByDescending(car => orderByPrice(car)).ToList();
+                paginated = await query
+                    .Paginate(page, carsPerPage);
+
+                paginated.Items = paginated.Items.OrderByDescending(car => orderByPrice(car)).ToList();
             }
             else
             {
-                cars = await query
-                    .Paginate(page, carsPerPage)
-                    .ToListAsync();
+                paginated = await query
+                    .Paginate(page, carsPerPage);   
             }
 
-            cars = await query.ToListAsync();
-            return cars;  
+            return paginated;
         }
 
-        public override async Task<Car>? Read(int id)
+        public override async Task<Car>? Read(Guid id)
         {
             return await _announcesContext.Cars
                 .Where(car => car.Id == id)

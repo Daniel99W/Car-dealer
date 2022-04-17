@@ -9,6 +9,7 @@ namespace Core.CarDealer.Interfaces
 {
     public interface IRepositoryImage : IRepository<Image>
     {
-        public Task<IEnumerable<Image>> GetImagesByCarId(int carId);
+        public Task<IEnumerable<Image>> GetImagesByCarId(Guid carId);
+        public Task<Image>? GetImageByName(string imangeName);
     }
 }

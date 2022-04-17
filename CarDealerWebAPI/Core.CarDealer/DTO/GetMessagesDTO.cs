@@ -10,8 +10,8 @@ namespace Core.CarDealer.DTO
     public class GetMessagesDTO
     {
         [Required]
-        public int ReceiverId { get; set; }
+        public Guid ReceiverId { get; set; }
         [Required]
-        public int SenderId { get; set; }
+        public Guid SenderId { get; set; }
     }
 }

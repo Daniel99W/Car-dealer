@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Commands;
+﻿using AutoMapper;
+using Core.CarDealer.Commands;
 using Core.CarDealer.Commands.Cars;
 using Core.CarDealer.Commands.Images;
 using Core.CarDealer.DTO;
@@ -19,13 +20,15 @@ namespace CarDealerWebAPI.Controllers
     public class CarsController : ControllerBase
     {
         private IMediator _mediator;
-        public CarsController(IMediator mediator)
+        private MapperConfiguration _mapperConfiguration;
+        public CarsController(IMediator mediator,MapperConfiguration mapperConfiguration)
         {
             _mediator = mediator;
+            _mapperConfiguration = mapperConfiguration;
         }
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<Car>> GetCarByUserId(int userId)
+        public async Task<ActionResult<Car>> GetCarByUserId(Guid userId)
         {
             Car? car = await _mediator.Send(new GetCarByUserIdQuery
             {
@@ -42,59 +45,31 @@ namespace CarDealerWebAPI.Controllers
         public async Task<ActionResult<PaginatedDTO<Car>>> GetCars(int page,CarParametersQueryDTO carParametersQuery)
         { 
           
-            IEnumerable<Car> cars = await _mediator.Send(new GetCarsByFiltersQuery
-            {
-                Page = page,
-                CarsPerPage = carParametersQuery.CarsPerPage,
-                Brand = carParametersQuery.Brand,
-                CarType = carParametersQuery.CarType,
-                Title = carParametersQuery.Title,
-                ProductionYear = carParametersQuery.ProductionYear,
-                MinPrice = carParametersQuery.MinPrice,
-                MaxPrice = carParametersQuery.MaxPrice,
-                OrderBy = carParametersQuery.OrderBy
-            });
-
-            PaginatedDTO<Car> paginatedDTO = new();
-
-            paginatedDTO.CurrentPage = page;
-            paginatedDTO.TotalPages =
-                Convert.ToInt32(Math.Ceiling((double)cars.Count() / carParametersQuery.CarsPerPage));
-
-            if (paginatedDTO.PrevPage <= 0)
-                paginatedDTO.PrevPage = null;
-            if (paginatedDTO.NextPage >= paginatedDTO.TotalPages)
-                paginatedDTO.NextPage = null;
-
-            return paginatedDTO;
+            return await _mediator.Send();
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostCar()
+        public async Task<ActionResult> PostCar([FromForm] CreateCarDTO createCarDTO)
         {
-            IEnumerable<IFormFile> images = HttpContext.Request.Form.Files;
-            string jsonCar = HttpContext.Request.Form["car"];
-
-            CreateCarDTO createCarDTO = JsonSerializer.Deserialize<CreateCarDTO>(jsonCar);
 
             Car car = await _mediator.Send(new CreateCarCommand
             {
-                CarNumber = createCarDTO.CarNumber,
-                ProductionYear = createCarDTO.ProductionYear,
-                Price = createCarDTO.Price,
-                Title = createCarDTO.Title,
-                SecondHand = createCarDTO.SecondHand,
-                UserId = createCarDTO.UserId,
-                FuelType = createCarDTO.FuelType,
-                Description = createCarDTO.Description,
-                Model = createCarDTO.Model,
-                CilindricCapacity = createCarDTO.CilindricCapacity,
-                BrandId = createCarDTO.BrandId,
-                CarTypeId = createCarDTO.CarTypeId,
-                Images = images
+                CarNumber = createCarDTO.CarDTO.CarNumber,
+                ProductionYear = createCarDTO.CarDTO.ProductionYear,
+                Price = createCarDTO.CarDTO.Price,
+                Title = createCarDTO.CarDTO.Title,
+                SecondHand = createCarDTO.CarDTO.SecondHand,
+                UserId = createCarDTO.CarDTO.UserId,
+                FuelType = createCarDTO.CarDTO.FuelType,
+                Description = createCarDTO.CarDTO.Description,
+                Model = createCarDTO.CarDTO.Model,
+                CilindricCapacity = createCarDTO.CarDTO.CilindricCapacity,
+                BrandId = createCarDTO.CarDTO.BrandId,
+                CarTypeId = createCarDTO.CarDTO.CarTypeId,
+                Images = createCarDTO.Images
             });
 
-            foreach (IFormFile image in images)
+            foreach (IFormFile image in createCarDTO.Images)
                 await _mediator.Send(new CreateImageCommand()
                 {
                     CarId = car.Id,
@@ -106,7 +81,7 @@ namespace CarDealerWebAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Car>> GetCar(int id)
+        public async Task<ActionResult<Car>> GetCar(Guid id)
         {
             Car? car =  await _mediator.Send(new GetCarByIdQuery
             {
@@ -115,7 +90,6 @@ namespace CarDealerWebAPI.Controllers
 
             if (car == null)
                 return NotFound();
-
             return car;
         }
 
@@ -150,13 +124,12 @@ namespace CarDealerWebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteCar(int id)
+        public async Task<ActionResult> DeleteCar(Guid id)
         {
             await _mediator.Send(new DeleteCarCommand()
             {
                 Id = id
             });
-
             return Ok();
         }
 
