@@ -9,8 +9,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-MapperConfiguration config = ConfigureMapper.Configure();
-
 
 builder.Services.AddControllers()
     .AddJsonOptions(o => o.JsonSerializerOptions
@@ -31,7 +29,8 @@ builder.Services.AddScoped<IRepositoryMessageTo,MessageToRepository>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWorkMessages>();
 builder.Services.AddScoped<IServiceBlob,BlobService>();
 builder.Services.AddScoped<IRepositoryImage,ImageRepository>();
-builder.Services.AddAutoMapper(config);
+builder.Services.AddScoped<IRepositoryUserCar, UserCarRepository>();
+builder.Services.AddAutoMapper(ConfigureMapper.Configure);
 builder.Services.AddScoped<BlobService>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
 

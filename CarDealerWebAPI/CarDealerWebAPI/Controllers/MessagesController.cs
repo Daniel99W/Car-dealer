@@ -1,5 +1,5 @@
 ﻿
-using Core.CarDealer.Commands.Messages;
+using Core.CarDealer.Commands.Mesages;
 using Core.CarDealer.CommandsHandler.Messages;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;

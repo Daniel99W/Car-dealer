@@ -5,13 +5,9 @@ using Core.CarDealer.Commands.Images;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
-using Core.CarDealer.QueriesHandler;
 using Core.CarDealer.QueriesHandler.Cars;
-using Infrastructure.CarDealer.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Text.Json;
 
 namespace CarDealerWebAPI.Controllers
 {
@@ -20,11 +16,11 @@ namespace CarDealerWebAPI.Controllers
     public class CarsController : ControllerBase
     {
         private IMediator _mediator;
-        private MapperConfiguration _mapperConfiguration;
-        public CarsController(IMediator mediator,MapperConfiguration mapperConfiguration)
+        private IMapper _mapper;
+        public CarsController(IMediator mediator,IMapper mapper)
         {
             _mediator = mediator;
-            _mapperConfiguration = mapperConfiguration;
+            _mapper = mapper;
         }
 
         [HttpGet("{userId}")]
@@ -41,41 +37,26 @@ namespace CarDealerWebAPI.Controllers
             return car;
         }
 
-        [HttpPost("{page}")]
-        public async Task<ActionResult<PaginatedDTO<Car>>> GetCars(int page,CarParametersQueryDTO carParametersQuery)
-        { 
-          
-            return await _mediator.Send();
+        [HttpPost]
+        public async Task<ActionResult<PaginatedDTO<Car>>> GetCars(CarParametersQueryDTO carParametersQuery)
+        {
+            return await _mediator.Send(_mapper.Map<GetCarsByFiltersQuery>(carParametersQuery));
         }
 
         [HttpPost]
         public async Task<ActionResult> PostCar([FromForm] CreateCarDTO createCarDTO)
         {
+            Car car = await _mediator.Send(_mapper.Map<CreateCarCommand>(createCarDTO));
 
-            Car car = await _mediator.Send(new CreateCarCommand
+            foreach(IFormFile file in createCarDTO.Images)
             {
-                CarNumber = createCarDTO.CarDTO.CarNumber,
-                ProductionYear = createCarDTO.CarDTO.ProductionYear,
-                Price = createCarDTO.CarDTO.Price,
-                Title = createCarDTO.CarDTO.Title,
-                SecondHand = createCarDTO.CarDTO.SecondHand,
-                UserId = createCarDTO.CarDTO.UserId,
-                FuelType = createCarDTO.CarDTO.FuelType,
-                Description = createCarDTO.CarDTO.Description,
-                Model = createCarDTO.CarDTO.Model,
-                CilindricCapacity = createCarDTO.CarDTO.CilindricCapacity,
-                BrandId = createCarDTO.CarDTO.BrandId,
-                CarTypeId = createCarDTO.CarDTO.CarTypeId,
-                Images = createCarDTO.Images
-            });
-
-            foreach (IFormFile image in createCarDTO.Images)
-                await _mediator.Send(new CreateImageCommand()
+                await _mediator.Send(new CreateImageCommand
                 {
                     CarId = car.Id,
-                    FormFile = image
+                    FormFile = file
                 });
-
+            }
+         
             return Ok("The car has been created with success!");
         }
 
@@ -102,24 +83,7 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(Car car)
         {
-            await _mediator.Send(new UpdateCarCommand()
-            {
-                Id = car.Id,
-                CarNumber = car.CarNumber,
-                ProductionYear = car.ProductionYear,
-                Price = car.Price,
-                Title = car.Title,
-                SecondHand = car.SecondHand,
-                AddingDate = car.AddingDate,
-                UserId = car.UserId,
-                FuelType = car.FuelType,
-                Description = car.Description,
-                Model = car.Model,
-                CilindricCapacity = car.CilindricCapacity,
-                BrandId = car.BrandId,
-                CarTypeId = car.CarTypeId
-            });
-
+           await _mediator.Send(_mapper.Map<UpdateCarCommand>(car));
            return Ok();
         }
 

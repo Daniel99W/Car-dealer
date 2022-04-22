@@ -1,17 +1,11 @@
 ﻿using Core.CarDealer.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.CarDealer.Commands
 {
     public class CreateCarCommand : IRequest<Car>
     {
-        public string CarNumber { get; set; } = null!;
+        public string CarNumber { get; set; }
 
         public string? Title { get; set; }
         public int? ProductionYear { get; set; }
@@ -25,7 +19,6 @@ namespace Core.CarDealer.Commands
         public int CilindricCapacity { get; set; }
         public Guid? BrandId { get; set; }
         public Guid? CarTypeId { get; set; }
-        public IEnumerable<IFormFile> Images { get; set; }
 
     }
 }

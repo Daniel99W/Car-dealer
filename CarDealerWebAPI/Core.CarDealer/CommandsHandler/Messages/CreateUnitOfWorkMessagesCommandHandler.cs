@@ -1,5 +1,4 @@
-﻿using Core.CarDealer.Commands.Messages;
-using Core.CarDealer.Models;
+﻿using Core.CarDealer.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.CarDealer.Interfaces;
+using Core.CarDealer.Commands.Mesages;
 
 namespace Core.CarDealer.CommandsHandler.Messages
 {

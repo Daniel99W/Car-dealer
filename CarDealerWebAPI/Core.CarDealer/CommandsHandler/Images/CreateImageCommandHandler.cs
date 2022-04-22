@@ -2,11 +2,6 @@
 using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.CarDealer.CommandsHandler.Images
 {
@@ -25,11 +20,11 @@ namespace Core.CarDealer.CommandsHandler.Images
         {
            Image image =  _repositoryImage.Create(new Image()
             {
-               ImageName = request.FormFile.FileName+request.CarId,
+               ImageName = (request.FormFile.FileName+request.CarId).ToString(),
                CarId = request.CarId
             });
 
-            await _serviceBlob.Upload(request.FormFile);
+            await _serviceBlob.Upload(Utilities.Utilities.CreateImageWithNewName(request.FormFile,request.CarId));
 
             await _repositoryImage.SaveChangesAsync();
             return await Task.FromResult(image);

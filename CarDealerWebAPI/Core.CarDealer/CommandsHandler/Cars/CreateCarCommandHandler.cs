@@ -1,48 +1,33 @@
-﻿using Core.CarDealer.Commands;
+﻿using AutoMapper;
+using Core.CarDealer.Commands;
 using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.CarDealer.CommandsHandler.Cars
 {
     public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand,Car>
     {
         private IRepositoryCar _carRepository;
+        private IServiceBlob _blobService;
+        private IMapper _mapper;
 
         public CreateCarCommandHandler(
             IRepositoryCar carRepository,
-            IServiceBlob blobService)
+            IServiceBlob blobService,
+            IMapper mapper)
 
         {
             _carRepository = carRepository;
+            _blobService = blobService;
+            _mapper = mapper;
         }
-
+        
 
         public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
-            Car car = _carRepository.Create(new Car
-            {
-                CarNumber = request.CarNumber,
-                ProductionYear = request.ProductionYear,
-                Title = request.Title,
-                Price = request.Price,
-                SecondHand = request.SecondHand,
-                AddingDate = request.AddingDate,
-                UserId = request.UserId,
-                FuelType = request.FuelType,
-                Description = request.Description,
-                Model = request.Model,
-                CilindricCapacity = request.CilindricCapacity,
-                BrandId = request.BrandId,
-                CarTypeId = request.CarTypeId
-            });
-
+            Car car = _carRepository.Create(_mapper.Map<Car>(request));
+            Console.WriteLine(car.CarNumber);
             await _carRepository.SaveChangesAsync();
 
             return await Task.FromResult(car);
