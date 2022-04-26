@@ -1,0 +1,34 @@
+
+
+
+
+.navbar
+{
+    background-color: #0b2239;
+    color:#cfd9e0;
+    height:10%;
+    display:flex;
+    border-bottom:.2rem solid rgb(33, 37, 41);
+}
+
+.navbar .links .btn
+{
+    padding:0rem 1rem;
+    text-align: center;
+}
+
+.navbar .links a
+{
+    color:white;
+}
+
+.navbar .title
+{
+    margin-left:10%;
+}
+
+.navbar .btn
+{
+    font-size:1.1rem;
+}
+
