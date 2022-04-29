@@ -29,7 +29,13 @@ export  class Car
     public set carNumer(value: string) {
         this._carNumer = value;
     }
-    public _productionYear:number|undefined;
+    private _productionYear: number | undefined;
+    public get productionYear(): number | undefined {
+        return this._productionYear;
+    }
+    public set productionYear(value: number | undefined) {
+        this._productionYear = value;
+    }
     private _price!: number;
     public get price(): number {
         return this._price;

@@ -2,7 +2,7 @@
 
 
 
-export class PaginatedResultDTO<T>
+export class PaginatedDTO<T>
 {
     private _prevPage?: number | undefined;
     public get prevPage(): number | undefined {

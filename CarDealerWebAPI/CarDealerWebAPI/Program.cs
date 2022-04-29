@@ -29,10 +29,19 @@ builder.Services.AddScoped<IRepositoryMessageTo,MessageToRepository>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWorkMessages>();
 builder.Services.AddScoped<IServiceBlob,BlobService>();
 builder.Services.AddScoped<IRepositoryImage,ImageRepository>();
-builder.Services.AddScoped<IRepositoryUserCar, UserCarRepository>();
+builder.Services.AddScoped<IRepositoryUserCar,UserCarRepository>();
+builder.Services.AddScoped<IRepositoryBrand,BrandRepository>();
+builder.Services.AddScoped<IRepositoryCarType,CarTypeRepository>();
+builder.Services.AddScoped<IRepositoryFuelType,FuelTypeRepository>();
 builder.Services.AddAutoMapper(ConfigureMapper.Configure);
 builder.Services.AddScoped<BlobService>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
+builder.Services.AddCors(options => options.AddPolicy(
+                  "CorsPolicy",
+                  builder => builder.WithOrigins("http://localhost:4200")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials()));
 
 var app = builder.Build();
 
@@ -43,9 +52,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

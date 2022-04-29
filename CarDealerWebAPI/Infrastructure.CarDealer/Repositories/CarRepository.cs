@@ -20,8 +20,8 @@ namespace Infrastructure.CarDealer.Repositories
 
         private IQueryable<Car> GetCarQuery()
         {
-            return _announcesContext.Cars.
-                 Join(_announcesContext.Users,
+            return _announcesContext.Cars
+                 .Join(_announcesContext.Users,
                  car => car.UserId,
                  user => user.Id,
                  (car, user) => new { car, user })
@@ -48,6 +48,7 @@ namespace Infrastructure.CarDealer.Repositories
                      CilindricCapacity = carUserBrandType.carUserBrand.carUser.car.CilindricCapacity,
                      Brand = carUserBrandType.carUserBrand.brand,
                      CarType = carUserBrandType.carType,
+                     Title = carUserBrandType.carUserBrand.carUser.car.Title
                  });
         }
 
@@ -105,14 +106,15 @@ namespace Infrastructure.CarDealer.Repositories
                 paginated = await query
                     .Paginate(page, carsPerPage);
                    
-                paginated.Items = paginated.Items.OrderBy(car => orderByPrice(car)).ToList();
+                paginated.Results = paginated.Results.OrderBy(car => orderByPrice(car)).ToList();
             }
             else if (orderBy != null)
             {
                 paginated = await query
                     .Paginate(page, carsPerPage);
 
-                paginated.Items = paginated.Items.OrderByDescending(car => orderByPrice(car)).ToList();
+                paginated.Results
+                    = paginated.Results.OrderByDescending(car => orderByPrice(car)).ToList();
             }
             else
             {

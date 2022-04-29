@@ -16,7 +16,7 @@ namespace Infrastructure.CarDealer
 
             int totalItems = query.Count();
 
-            IEnumerable<T> results = await query
+            List<T> results = await query
                 .Skip(rowsToBeSkiped)
                 .Take(itemsPerPage)
                 .ToListAsync();
@@ -25,10 +25,10 @@ namespace Infrastructure.CarDealer
             {
                 CurrentPage = page,
                 TotalPages =
-                Convert.ToInt32(Math.Ceiling((double)totalItems / itemsPerPage)),
+                Convert.ToInt16(Math.Ceiling((double)totalItems / itemsPerPage)),
                 PrevPage = page - 1,
                 NextPage = page + 1,
-                Items = results
+                Results = results
             };
 
             if (paginated.PrevPage <= 0)

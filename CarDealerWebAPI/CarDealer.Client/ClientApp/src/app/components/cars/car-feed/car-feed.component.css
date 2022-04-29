@@ -7,27 +7,31 @@
     width:85%;
     margin:2rem auto;
     border:1px solid gray;
-    height:50%;
+    height:100%;
 }
 
 
 .feed
 {
     display:flex;
+    flex-wrap: wrap;
+    column-gap:3.33%;
+    row-gap: 5%;
     flex-direction: row;
 }
 
 .car
 {
-    width: 35%;
+    width: 30%;
     height:30%;
+    margin-top:.7rem;
     display:flex;
     border:1px solid gainsboro;
 }
 
 .details    
 {
-    width:100%;
+    width:99%;
     border-left:1px solid gainsboro;
     text-indent: .5rem;
 }

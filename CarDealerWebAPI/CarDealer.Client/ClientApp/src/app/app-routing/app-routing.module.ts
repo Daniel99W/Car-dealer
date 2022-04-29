@@ -17,7 +17,8 @@ const routes:Routes =
   {path:'car/:id',component:CarPageComponent},
   {path:'favorites',component:FavoritesComponent},
   {path:'signUp',component:SignUpComponent},
-  {path:'login',component:LoginComponent}
+  {path:'login',component:LoginComponent},
+  {path:'addCar',component:AddCarComponent}
 ];
 
 @NgModule({

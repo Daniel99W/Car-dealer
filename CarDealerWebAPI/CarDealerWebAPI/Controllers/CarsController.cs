@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarDealerWebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
+    [Produces("application/json")]
     [ApiController]
     public class CarsController : ControllerBase
     {
@@ -40,7 +41,8 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<PaginatedDTO<Car>>> GetCars(CarParametersQueryDTO carParametersQuery)
         {
-            return await _mediator.Send(_mapper.Map<GetCarsByFiltersQuery>(carParametersQuery));
+            return new ActionResult<PaginatedDTO<Car>>(await
+                _mediator.Send(_mapper.Map<GetCarsByFiltersQuery>(carParametersQuery)));
         }
 
         [HttpPost]

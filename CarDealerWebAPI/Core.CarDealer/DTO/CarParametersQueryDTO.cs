@@ -9,7 +9,7 @@ namespace Core.CarDealer.DTO
 {
     public class CarParametersQueryDTO
     {
-
+        [Required]
         public int Page { get; set; } = 1;
         public string? Brand { get; set; }
         public string? CarType { get; set; }
