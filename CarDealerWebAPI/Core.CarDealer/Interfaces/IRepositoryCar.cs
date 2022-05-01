@@ -24,7 +24,7 @@ namespace Core.CarDealer.Interfaces
 
         public Task<int> GetCarsNumber();
 
-        public Task<Car> GetCarByUserId(Guid id);
+        public Task<Car?> GetCarByUserId(Guid id);
 
         public Task<int> GetCarsTotalPrice();
 

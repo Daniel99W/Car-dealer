@@ -5,8 +5,8 @@ using Core.CarDealer.Models;
 using Core.CarDealer.Queries.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
-
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 
 namespace CarDealerWebAPI.Controllers
 {
@@ -40,6 +40,39 @@ namespace CarDealerWebAPI.Controllers
 
             return _mapper.Map<GetUserDTO>(user);
        }
+
+       [HttpPost]
+       public async Task<ActionResult> SignUp(SignUpUserDTO user)
+       {
+            await _mediator.Send(new SignUpUserCommand()
+            {
+                Email = user.Email,
+                Password = user.Password,
+                Name = user.Name,
+                SecondName = user.SecondName
+            });
+            return Ok();
+       }
+
+       [HttpPost]
+       public async Task<ActionResult> Login(LoginDTO loginDTO)
+        {
+            JwtSecurityToken? jwt = await _mediator.Send(new LoginUserCommand()
+            {
+                Email = loginDTO.Email,
+                Password = loginDTO.Password
+            });
+            if (jwt == null)
+                return NotFound();
+
+            var tokenEncoded = new JwtSecurityTokenHandler().WriteToken(jwt);
+            Cookie cookie = new("token", tokenEncoded)
+            {
+                Expires = jwt.ValidTo
+            };
+            return Ok(cookie);
+        }
+       
 
        
 

@@ -9,5 +9,6 @@ namespace Core.CarDealer.Interfaces
 {
     public interface IRepositoryUser : IRepository<User>
     {
+        public Task<User?> GetUserByEmail(string email);
     }
 }

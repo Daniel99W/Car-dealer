@@ -1,1 +1,23 @@
-<p>login works!</p>
+
+
+
+<div class="container">
+    <div class="container_login">
+        <div class="title">
+           <h1> Welcome back! </h1>
+           
+        </div>
+        <div class="login_inputs">
+            <div class="email">
+                <input type="text" placeholder="Email address" [(ngModel)]="loginDTO.Email">
+            </div>
+            <div class="password">
+                <input type="password" placeholder="Password" [(ngModel)]="loginDTO.Password">
+            </div>
+            <div class="btn">
+                <button (click)="Login()">LOGIN</button>
+            </div>
+        </div>
+        
+    </div>
+</div>

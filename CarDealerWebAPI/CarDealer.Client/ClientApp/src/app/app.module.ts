@@ -16,7 +16,11 @@ import {MatIconModule} from '@angular/material/icon';
 import { FavoritesComponent } from './components/cars/favorites/favorites.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component'; 
-
+import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button'; 
+import { JwtHelperService,JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -38,9 +42,16 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     MatToolbarModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    AngularEditorModule
   ],
-  providers: [],
+  providers: [
+    JwtHelperService,{provide:JWT_OPTIONS,useValue:JWT_OPTIONS},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

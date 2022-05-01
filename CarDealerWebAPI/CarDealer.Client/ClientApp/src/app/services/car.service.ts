@@ -36,4 +36,9 @@ export class CarService
     return this._httpClient.post<PaginatedDTO<Car>>(CarUrls.getCarsUrl,body);
   }
 
+  public getCar(id:string)
+  {
+    return this._httpClient.get<Car>(CarUrls.getCar+`/${id}`);
+  }
+
 }

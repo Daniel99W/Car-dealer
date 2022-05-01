@@ -18,8 +18,9 @@ namespace Infrastructure.CarDealer.Repositories
            
         }
 
-
-
-
+        public async Task<User?> GetUserByEmail(string email)
+        {
+            return await _announcesContext.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+        }
     }
 }

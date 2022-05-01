@@ -57,7 +57,7 @@ namespace Infrastructure.CarDealer.Repositories
             return await GetCarQuery().ToListAsync();
         }
 
-        public async Task<Car>? GetCarByUserId(Guid userId)
+        public async Task<Car?> GetCarByUserId(Guid userId)
         {
             return await GetCarQuery()
                .Where(car => car.UserId == userId)

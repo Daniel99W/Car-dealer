@@ -7,7 +7,6 @@
     width:85%;
     margin:2rem auto;
     border:1px solid gray;
-    height:100%;
 }
 
 
@@ -15,29 +14,50 @@
 {
     display:flex;
     flex-wrap: wrap;
-    column-gap:3.33%;
+    column-gap:2%;
     row-gap: 5%;
+    height: 100%;
     flex-direction: row;
 }
 
 .car
 {
     width: 30%;
-    height:30%;
     margin-top:.7rem;
-    display:flex;
     border:1px solid gainsboro;
 }
 
-.details    
+
+
+
+.heartBtn
 {
-    width:99%;
-    border-left:1px solid gainsboro;
-    text-indent: .5rem;
+    background-color: #0b2239;
+    color:white;
 }
 
-.details .title
+.heart:hover
 {
-    font-weight: bold;
-    text-align: center;
+    color:red;
 }
+
+.details
+{
+    background-color: #0b2239;
+    color:white;
+}
+
+.favorite
+{
+    color:#0b2239;
+    border:1px solid gray;
+}
+
+.favorite:hover
+{
+    color:white;
+    background-color: #0b2239;
+}
+
+
+

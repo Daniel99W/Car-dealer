@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarDealerWebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [Produces("application/json")]
     [ApiController]
     public class CarsController : ControllerBase
     {

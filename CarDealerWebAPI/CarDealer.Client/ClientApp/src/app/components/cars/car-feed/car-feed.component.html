@@ -6,24 +6,30 @@
 
     </div>
     <div class="feed">
-        <div *ngFor = "let car of paginatedDTO?.results" class="car">
-            <div class="image">
-                <img src="https://cardealerwebapi.blob.core.windows.net/cardealerapipics/image27f053fec-238a-4fdc-3494-08da23b0d29c"
-                width="150px" height="150px"
-                >
-            </div>
-            <div class="details">
-                <h3 class="title">{{car.title}}</h3>
+        <mat-card *ngFor = "let car of paginatedDTO?.results" class="car">
+            <mat-card-header>
+                <mat-card-title>{{car.title}} - <span> {{car.price}} </span>&euro;</mat-card-title>
+                <mat-card-subtitle>Car added on {{car.addingDate}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image 
+            src = "https://cardealerwebapi.blob.core.windows.net/cardealerapipics/image27f053fec-238a-4fdc-3494-08da23b0d29c"
+            >
+            <mat-card-content>
                 <ul>
-                    <li>{{car.productionYear}}</li>
-                    <li>{{car.fuelType?.name}}</li>
+                    <li>Production Year : {{car.productionYear}}</li>
+                    <li *ngIf ="car.modelName != null">{{car.modelName}}</li>
+                    <li>Cilindric Capacity : {{car.cilindricCapacity}}</li>
                 </ul>
-
-                <div class="price">
-                    <span>Price:</span>
-                    <span>{{car.price}}</span>
-                </div>
-            </div>
-        </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button class="details" (click)="getCar(car.id)">
+                    Details
+                    <mat-icon>subject</mat-icon>
+                </button>
+               <button mat-button class="favorite">
+                <mat-icon>favorite</mat-icon>
+               </button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>
