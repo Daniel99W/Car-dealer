@@ -2,11 +2,12 @@ import { User } from "oidc-client";
 import { Brand } from "./Brand";
 import { CarType } from "./CarType";
 import { FuelType } from "./FuelType";
+import { Image } from "./Image";
 
 
 
 
-export  class Car
+export class Car
 {
     private _id!: string;
     public get id(): string {
@@ -114,5 +115,15 @@ export  class Car
     public set user(value: User | undefined) {
         this._user = value;
     }
+
+    private _images!: Array<Image>;
+    public get images(): Array<Image> {
+        return this._images;
+    }
+    public set images(value: Array<Image>) {
+        this._images = value;
+    }
+
+
 
 }

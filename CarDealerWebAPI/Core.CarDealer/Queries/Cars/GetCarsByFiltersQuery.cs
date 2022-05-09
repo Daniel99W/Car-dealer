@@ -16,8 +16,8 @@ namespace Core.CarDealer.Queries
         public int Page { get; set; }
         [Required]
         public int CarsPerPage { get; set; }
-        public string? CarType { get; set; }
-        public string? Brand { get; set; }
+        public Guid? CarTypeId { get; set; }
+        public Guid? BrandId { get; set; }
 
         public string? Title { get; set; }
 

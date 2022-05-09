@@ -19,8 +19,8 @@ namespace Core.CarDealer.QueriesHandler
             return await _repository.GetCars(
                 request.Page,
                 request.CarsPerPage,
-                request.Brand,
-                request.CarType,
+                request.BrandId,
+                request.CarTypeId,
                 request.Title,
                 request.ProductionYear,
                 request.MinPrice,

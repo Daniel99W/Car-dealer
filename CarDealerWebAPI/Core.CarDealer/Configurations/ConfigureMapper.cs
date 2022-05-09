@@ -18,15 +18,18 @@ namespace Core.CarDealer.Configurations
     {
         public static void Configure(IMapperConfigurationExpression mapperConfigurationExpression)
         {
-             mapperConfigurationExpression.CreateMap<CarParametersQueryDTO, GetCarsByFiltersQuery>();
-             mapperConfigurationExpression.CreateMap<CreateCarDTO, CreateCarCommand>();
-             mapperConfigurationExpression.CreateMap<Car, UpdateCarCommand>();
-             mapperConfigurationExpression.CreateMap<CreateUserDTO, CreateUserCommand>();
-             mapperConfigurationExpression.CreateMap<CreateUserCommand, User>();
-             mapperConfigurationExpression.CreateMap<User, GetUserDTO>();
-             mapperConfigurationExpression.CreateMap<CreateCarCommand, Car>();
-             mapperConfigurationExpression.CreateMap<CreateUserCarCommand, UserCar>();
-             mapperConfigurationExpression.CreateMap<FavoriteDTO, CreateUserCarCommand>();
+             mapperConfigurationExpression.CreateMap<CarParametersQueryDTO,GetCarsByFiltersQuery>();
+             mapperConfigurationExpression.CreateMap<CreateCarDTO,CreateCarCommand>();
+             mapperConfigurationExpression.CreateMap<Car,UpdateCarCommand>();
+             mapperConfigurationExpression.CreateMap<CreateUserDTO,CreateUserCommand>();
+             mapperConfigurationExpression.CreateMap<CreateUserCommand,User>();
+             mapperConfigurationExpression.CreateMap<User,GetUserDTO>();
+             mapperConfigurationExpression.CreateMap<CreateCarCommand,Car>();
+             mapperConfigurationExpression.CreateMap<CreateUserCarCommand,UserCar>();
+             mapperConfigurationExpression.CreateMap<FavoriteDTO,CreateUserCarCommand>();
+             mapperConfigurationExpression.CreateMap<Brand,GetBrandDTO>();
+             mapperConfigurationExpression.CreateMap<CarType,GetCarTypeDTO>();
+             mapperConfigurationExpression.CreateMap<FuelType,FuelTypeDTO>();
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Commands.Brands;
+﻿using AutoMapper;
+using Core.CarDealer.Commands.Brands;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries.Brands;
@@ -13,9 +14,14 @@ namespace CarDealerWebAPI.Controllers
     public class BrandController : ControllerBase
     {
         private IMediator _mediator;
-        public BrandController(IMediator mediator)
+        private IMapper _mapper;
+        public BrandController(
+            IMediator mediator,
+            IMapper mapper
+            )
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
         [HttpPost]
         public async Task<ActionResult> AddBrand(CreateBrandDTO createBrandDTO)
@@ -28,9 +34,10 @@ namespace CarDealerWebAPI.Controllers
             return Ok(200);
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        public async Task<ActionResult<IEnumerable<GetBrandDTO>>> GetBrands()
         {
-            return new ActionResult<IEnumerable<Brand>>(await _mediator.Send(new GetBrandsQuery()));
+            return new ActionResult<IEnumerable<GetBrandDTO>>(_mapper.Map<IEnumerable<Brand>, IEnumerable<GetBrandDTO>>(
+                await _mediator.Send(new GetBrandsQuery())));
         }
 
 

@@ -21,6 +21,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button'; 
 import { JwtHelperService,JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
-    AngularEditorModule
+    AngularEditorModule,
+    ReactiveFormsModule
   ],
   providers: [
     JwtHelperService,{provide:JWT_OPTIONS,useValue:JWT_OPTIONS},

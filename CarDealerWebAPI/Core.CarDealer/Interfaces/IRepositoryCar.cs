@@ -13,8 +13,8 @@ namespace Core.CarDealer.Interfaces
         public Task<PaginatedDTO<Car>> GetCars(
             int page,
             int carsPerPage,
-            string? CarType,
-            string? Brand,
+            Guid? CarTypeId,
+            Guid? BrandId,
             string? title,
             int? productionYear,
             int? minPrice,

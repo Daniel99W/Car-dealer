@@ -18,13 +18,17 @@ namespace Core.CarDealer.CommandsHandler.Images
         }
         public async Task<Image> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
-           Image image =  _repositoryImage.Create(new Image()
+
+            string fileName = request.FormFile.FileName[..request.FormFile.FileName.IndexOf('.')];
+            string imageName = fileName + request.CarId.ToString() + ".jpg";
+
+            Image image = _repositoryImage.Create(new Image()
             {
-               ImageName = (request.FormFile.FileName+request.CarId).ToString(),
-               CarId = request.CarId
+                ImageName = imageName,
+                CarId = request.CarId
             });
 
-            await _serviceBlob.Upload(Utilities.Utilities.CreateImageWithNewName(request.FormFile,request.CarId));
+            await _serviceBlob.Upload(Utilities.Utilities.CreateImageWithNewName(request.FormFile,imageName));
 
             await _repositoryImage.SaveChangesAsync();
             return await Task.FromResult(image);
