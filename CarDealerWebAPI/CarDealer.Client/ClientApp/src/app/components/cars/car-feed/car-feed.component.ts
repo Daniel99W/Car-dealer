@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { CarParametersQueryDTO } from 'src/app/DTOs/CarParametersQueryDTO';
-import { PaginatedDTO } from 'src/app/DTOs/PaginatedDTO';
-import { Car } from 'src/app/Models/Car';
-import { BrandService } from 'src/app/services/brand.service';
-import { CarTypeService } from 'src/app/services/car-type.service';
-import { CarService } from 'src/app/services/car.service';
+import { CarParametersQueryDTO } from '../../../DTOs/CarParametersQueryDTO';
+import { PaginatedDTO } from '../../../DTOs/PaginatedDTO';
+import { Car } from '../../../Models/Car';
+import { BrandService } from '../../../services/brand.service';
+import { CarTypeService } from '../../../services/car-type.service';
+import { CarService } from '../../../services/car.service';
 import { Brand } from '../../../Models/Brand';
 import { CarType } from '../../../Models/CarType';
 import { Options } from '../../../Models/Options';
 import { forkJoin, from } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TokenService } from '../../../services/token.service';
+import { SecurityService } from '../../../services/security.service';
+import { FavoriteCarService } from '../../../services/favorite-car.service';
 
 @Component({
   selector: 'app-car-feed',
@@ -25,8 +28,10 @@ export class CarFeedComponent implements OnInit
   private paginatedDTO?:PaginatedDTO<Car>;
   private carParametersQueryDTO?:CarParametersQueryDTO;
   private brandService!:BrandService;
-  private isFavoriteVisible:boolean;
   private carTypeService!:CarTypeService;
+  private securityService:SecurityService;
+  private tokenService:TokenService;
+  private favoriteCarService:FavoriteCarService;
 
   private searchCarFormGroup!:FormGroup;
 
@@ -40,7 +45,10 @@ export class CarFeedComponent implements OnInit
     carService:CarService,
     brandService:BrandService,
     carTypeService:CarTypeService,
-    router:Router
+    securityService:SecurityService,
+    router:Router,
+    tokenService:TokenService,
+    favoriteCarService:FavoriteCarService
     ) 
   { 
     this.carService = carService;
@@ -48,7 +56,9 @@ export class CarFeedComponent implements OnInit
     this.carParametersQueryDTO = new CarParametersQueryDTO();
     this.brandService = brandService;
     this.carTypeService = carTypeService;
-    this.isFavoriteVisible = false;
+    this.securityService = securityService;
+    this.tokenService = tokenService;
+    this.favoriteCarService = favoriteCarService;
     this.router = router;
     this.brands = new Options<Brand>();
     this.carTypes = new Options<CarType>();
@@ -94,7 +104,6 @@ export class CarFeedComponent implements OnInit
   {
     let carParametersQueryDTO = new CarParametersQueryDTO();
     carParametersQueryDTO.productionYear = this.searchCarFormGroup.get('ProductionYear')?.value;
-    carParametersQueryDTO.orderBy = this.orderBy.selectedOption;
     carParametersQueryDTO.minPrice = this.searchCarFormGroup.get('MinPrice')?.value;
     carParametersQueryDTO.maxPrice = this.searchCarFormGroup.get('MaxPrice')?.value;
     carParametersQueryDTO.title = this.searchCarFormGroup.get('Title')?.value;
@@ -157,6 +166,20 @@ export class CarFeedComponent implements OnInit
   public get getOrderBy():Options<boolean>
   {
     return this.orderBy;
+  }
+
+  public addToFavorite(carId:string)
+  {
+    if(!this.securityService.isAuthenticated)
+    {
+      let userId = this.tokenService.getTokenObject().userId;
+      this.favoriteCarService.addToFavorite(carId,userId);
+    }
+  }
+
+  public getSecurityService():SecurityService
+  {
+    return this.securityService;
   }
 
   public counter(i:number):Array<number>

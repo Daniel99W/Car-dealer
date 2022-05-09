@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { CarUrls } from '../Constants/CarUrls';
+import { UrlConstants } from '../Constants/UrlConstants';
 import { CarParametersQueryDTO } from '../DTOs/CarParametersQueryDTO';
 import { CreateCarDTO } from '../DTOs/CreateCarDTO';
 import { PaginatedDTO } from '../DTOs/PaginatedDTO';
@@ -36,12 +36,12 @@ export class CarService
       MaxPrice:carParametersQueryDTO.maxPrice,
       OrderBy:carParametersQueryDTO.orderBy
     }
-    return this._httpClient.post<PaginatedDTO<Car>>(CarUrls.getCarsUrl,body);
+    return this._httpClient.post<PaginatedDTO<Car>>(UrlConstants.apiUrl+'/Cars/GetCars',body);
   }
 
   public getCar(id:string)
   {
-    return this._httpClient.get<Car>(CarUrls.getCar+`/${id}`);
+    return this._httpClient.get<Car>(UrlConstants.apiUrl+`/Cars/GetCar/${id}`);
   }
 
 
@@ -67,7 +67,7 @@ export class CarService
     for(let i = 0;i<images.length;++i)
       formData.append('Images',images[i],images[i].name);
 
-    return this._httpClient.post<any>(CarUrls.addCar,formData); 
+    return this._httpClient.post<any>(UrlConstants.apiUrl+'/Cars/PostCar',formData); 
   }
 
 

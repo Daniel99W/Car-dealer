@@ -3,21 +3,21 @@
 
 export class Token
 {
-    private _userId: number;
+    private _userId: string;
     private _role: string;
 
 
-    constructor(userId:number,role:string)
+    constructor(userId:string,role:string)
     {
         this._userId = userId;
         this._role = role;
     }
 
-    public get userId(): number 
+    public get userId():string
     {
         return this._userId;
     }
-    public set userId(value: number) 
+    public set userId(value: string) 
     {
         this._userId = value;
     }

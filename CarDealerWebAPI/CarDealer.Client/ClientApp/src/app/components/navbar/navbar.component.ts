@@ -27,11 +27,17 @@ export class NavbarComponent implements OnInit
 
   ngOnInit(): void 
   {
+
   }
 
   public isAuthorized(role:string)
   {
     return this.tokenService.getTokenObject().role == role ? true:false;
+  }
+
+  public isAuthenticated():boolean
+  {
+    return this.securityService.isAuthenticated;
   }
 
 }

@@ -29,7 +29,7 @@ export class TokenService
   {
     let tokenCoded:string = this.cookieService.get("accessToken") as string;
 
-    let userId:number = this.jwtHelper.decodeToken(tokenCoded)["UserId"] as number;
+    let userId:string = this.jwtHelper.decodeToken(tokenCoded)["UserId"];
     let role:string = this.jwtHelper.decodeToken(tokenCoded)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
     let token:Token = new Token(userId,role);

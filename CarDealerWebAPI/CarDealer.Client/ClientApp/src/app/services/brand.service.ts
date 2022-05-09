@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BrandUrls } from '../Constants/BrandUrls';
+import { UrlConstants } from '../Constants/UrlConstants';
 import { Brand } from '../Models/Brand';
 
 @Injectable({
@@ -18,6 +18,6 @@ export class BrandService
 
   public getBrands():Observable<Array<Brand>>
   {
-    return this._httpClient.get<Array<Brand>>(BrandUrls.getBrands);
+    return this._httpClient.get<Array<Brand>>(UrlConstants.apiUrl+'/Brand/GetBrands');
   }
 }

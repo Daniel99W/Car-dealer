@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CarTypeUrls } from '../Constants/CarTypeUrls';
+import { UrlConstants } from '../Constants/UrlConstants';
 import { CarType } from '../Models/CarType';
 
 @Injectable({
@@ -19,6 +19,6 @@ export class CarTypeService
   public getCarTypes():Observable<Array<CarType>>
   {
 
-    return this._httpClient.get<Array<CarType>>(CarTypeUrls.getCarTypes);
+    return this._httpClient.get<Array<CarType>>(UrlConstants.apiUrl+'/CarType/GetCarTypes');
   }
 }

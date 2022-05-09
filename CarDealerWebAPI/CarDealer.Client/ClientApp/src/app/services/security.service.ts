@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { SecurityUrls } from '../Constants/SecurityUrls';
+import { UrlConstants } from '../Constants/UrlConstants';
 import { CreateUserDTO } from '../DTOs/CreateUserDTO';
 import { LoginDTO } from '../DTOs/LoginDTO';
 
@@ -30,13 +30,12 @@ export class SecurityService
       Email:loginDTO.Email,
       Password:loginDTO.Password
     }
-    return this.httpClient.post<any>(SecurityUrls.login,body);
+    return this.httpClient.post(UrlConstants.apiUrl+'/User/Login',body);
   }
 
-  public signUp(createUserDTO:CreateUserDTO)
+  public signUp(createUserDTO:CreateUserDTO):Observable<any>
   {
-
-    return this.httpClient.post<any>(SecurityUrls.signUp,createUserDTO);
+    return this.httpClient.post(UrlConstants.apiUrl+'/User/SignUp',createUserDTO);
   }
 
   public set isAuthenticated(value:boolean)

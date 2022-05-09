@@ -116,7 +116,8 @@
                     Details
                     <mat-icon>subject</mat-icon>
                 </button>
-               <button mat-button class="favorite">
+               <button mat-button class="favorite" (click)="addToFavorite(car.id)"
+                >
                 <mat-icon>favorite</mat-icon>
                </button>
             </mat-card-actions>
