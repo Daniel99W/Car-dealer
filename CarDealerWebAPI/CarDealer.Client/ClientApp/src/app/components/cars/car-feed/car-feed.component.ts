@@ -14,6 +14,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TokenService } from '../../../services/token.service';
 import { SecurityService } from '../../../services/security.service';
 import { FavoriteCarService } from '../../../services/favorite-car.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FavoriteCarAddedComponent } from '../../favoriteCarDialogs/favorite-car-added/favorite-car-added.component';
 
 @Component({
   selector: 'app-car-feed',
@@ -22,8 +24,6 @@ import { FavoriteCarService } from '../../../services/favorite-car.service';
 })
 export class CarFeedComponent implements OnInit 
 {
-
-
   private carService!:CarService;
   private paginatedDTO?:PaginatedDTO<Car>;
   private carParametersQueryDTO?:CarParametersQueryDTO;
@@ -32,6 +32,7 @@ export class CarFeedComponent implements OnInit
   private securityService:SecurityService;
   private tokenService:TokenService;
   private favoriteCarService:FavoriteCarService;
+  private dialog:MatDialog;
 
   private searchCarFormGroup!:FormGroup;
 
@@ -48,7 +49,8 @@ export class CarFeedComponent implements OnInit
     securityService:SecurityService,
     router:Router,
     tokenService:TokenService,
-    favoriteCarService:FavoriteCarService
+    favoriteCarService:FavoriteCarService,
+    dialog:MatDialog
     ) 
   { 
     this.carService = carService;
@@ -60,6 +62,7 @@ export class CarFeedComponent implements OnInit
     this.tokenService = tokenService;
     this.favoriteCarService = favoriteCarService;
     this.router = router;
+    this.dialog = dialog;
     this.brands = new Options<Brand>();
     this.carTypes = new Options<CarType>();
     this.orderBy = new Options<boolean>();
@@ -170,10 +173,34 @@ export class CarFeedComponent implements OnInit
 
   public addToFavorite(carId:string)
   {
-    if(!this.securityService.isAuthenticated)
+    if(this.securityService.isAuthenticated)
     {
       let userId = this.tokenService.getTokenObject().userId;
-      this.favoriteCarService.addToFavorite(carId,userId);
+      this.favoriteCarService.addToFavorite(carId,userId)
+      .subscribe(res =>
+        {
+          this.dialog.open(FavoriteCarAddedComponent,
+            {
+              data:{
+                message:'The car was added with much success',
+                icon:'done',
+                color:'green'
+              }
+            })
+
+          console.log(res);
+        },err=>
+        {
+          this.dialog.open(FavoriteCarAddedComponent,
+            {
+              data:
+              {
+                message:'This car is already in the favorite list!',
+                icon:'clear',
+                color:'red'
+              }
+            })
+        })
     }
   }
 

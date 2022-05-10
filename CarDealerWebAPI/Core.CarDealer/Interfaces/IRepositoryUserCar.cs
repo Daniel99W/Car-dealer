@@ -10,5 +10,9 @@ namespace Core.CarDealer.Interfaces
     public interface IRepositoryUserCar : IRepository<UserCar>
     {
         public Task<IEnumerable<Car>> GetAllFavoriteCarsByUser(Guid userId);
+
+        public Task<bool> CheckIfCarIsAddedToFavorite(Guid userId,Guid carId);
+
+        public Task RemoveCarFromFavoriteList(Guid carId,Guid userId);
     }
 }

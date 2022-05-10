@@ -25,18 +25,37 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCarUserFavoriteList(FavoriteDTO favoriteDTO)
         {
+            if (await _mediator.Send(new CheckIfCarIsAddedToFavoriteListQuery()
+            {
+                UserId = favoriteDTO.UserId,
+                CarId = favoriteDTO.CarId,
+            }))
+            {
+                return BadRequest();
+            }
 
             await _mediator.Send(_mapper.Map<CreateUserCarCommand>(favoriteDTO));
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> GetUserCarsByUserId(Guid userId)
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetUserFavoriteCarsByUserId(Guid userId)
         {
-            return new ActionResult<IEnumerable<Car>>(await _mediator.Send(new GetUserFavoriteCarByUserIdQuery
+            return new ActionResult<IEnumerable<Car>>(await _mediator.Send(new GetUserFavoriteCarsByUserIdQuery
             {
                 UserId = userId
             }));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveCarFromUserFavoriteList(FavoriteDTO favoriteDTO)
+        {
+           await _mediator.Send(new RemoveCarFromUserFavoriteListQuery()
+            {
+                UserId = favoriteDTO.UserId,
+                CarId = favoriteDTO.CarId,
+            });
+            return Ok();
         }
     }
 }

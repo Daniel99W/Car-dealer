@@ -1,0 +1,50 @@
+
+
+
+body
+{
+    background-color:gainsboro;
+}
+
+.container
+{
+    width:70%;
+    margin:5% auto;
+    border:3px solid gainsboro;
+    background-color: white;
+    border-radius:2%;
+}
+
+.car 
+{
+    border:1px solid black;
+    display:flex;
+    background-color:#2f4052;
+    color:white;
+    margin:.5rem auto;
+    border-radius:2%;
+}
+
+.car .title
+{
+    width:50%;
+    text-overflow:"...";
+}
+
+.car .carNumber
+{
+    width:15%;
+}
+
+.car .removeCarFromFavoriteList
+{
+   width:15%;
+   margin:0rem auto;
+}
+
+.pageTitle
+{
+    width:99%;
+    text-align: center;
+    margin:.6rem auto;
+}

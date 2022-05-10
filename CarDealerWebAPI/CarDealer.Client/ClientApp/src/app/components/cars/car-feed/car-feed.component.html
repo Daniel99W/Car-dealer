@@ -6,8 +6,7 @@
     
 
 
-<div class="container">
-    
+<div class="container"> 
     <div class="feed">
         <div class="filters">
             <form>
@@ -96,7 +95,7 @@
         </div>
         <mat-card *ngFor = "let car of getPaginatedDTO?.results" class="car">
             <mat-card-header>
-                <mat-card-title>{{car.title}} - <span> {{car.price}} </span>&euro;</mat-card-title>
+                <mat-card-title> <span class="title" >{{car.title}}</span> - <span> {{car.price}} </span>&euro;</mat-card-title>
                 <mat-card-subtitle>Car added on {{car.addingDate}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image 

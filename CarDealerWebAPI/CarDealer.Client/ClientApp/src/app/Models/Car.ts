@@ -23,12 +23,12 @@ export class Car
     public set title(value: string) {
         this._title = value;
     }
-    private _carNumer!: string;
-    public get carNumer(): string {
-        return this._carNumer;
+    private _carNumber!: string;
+    public get carNumber(): string {
+        return this._carNumber;
     }
-    public set carNumer(value: string) {
-        this._carNumer = value;
+    public set carNumber(value: string) {
+        this._carNumber = value;
     }
     private _productionYear: number | undefined;
     public get productionYear(): number | undefined {

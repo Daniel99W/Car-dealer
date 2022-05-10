@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Options } from '../../../Models/Options';
 import { CarService } from '../../../services/car.service';
 import { CreateCarDTO } from '../../../DTOs/CreateCarDTO';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-add-car',
@@ -22,6 +23,7 @@ export class AddCarComponent implements OnInit
   private carTypeService:CarTypeService;
   private fuelTypeService:FuelTypeService;
   private carService:CarService;
+  private tokenService:TokenService;
 
   private IsSecondHand:boolean;
 
@@ -37,13 +39,15 @@ export class AddCarComponent implements OnInit
     brandService:BrandService,
     carTypeService:CarTypeService,
     fuelTypeService:FuelTypeService,
-    carService:CarService
+    carService:CarService,
+    tokenService:TokenService
     ) 
   {
     this.brandService = brandService;
     this.carTypeService = carTypeService;
     this.fuelTypeService = fuelTypeService;
     this.carService = carService;
+    this.tokenService = tokenService;
     this.IsSecondHand = false;
     this.brands = new Options<Brand>();
     this.carTypes = new Options<CarType>();
@@ -155,7 +159,6 @@ export class AddCarComponent implements OnInit
 
   public addCar()
   {
-
     let createCarDTO = new CreateCarDTO(
       this.form.get('title')!.value,
       this.form.get('carNumber')!.value,
@@ -163,8 +166,7 @@ export class AddCarComponent implements OnInit
       this.form.get('price')!.value,
       this.form.get('secondHand')!.value,
       this.form.get('addingDate')!.value,
-      "B43B7927-C78C-4B33-8F1B-08DA238564C4",
-
+      this.tokenService.getTokenObject().userId,
       this.form.get('description')!.value,
       this.form.get('modelName')!.value,
       this.form.get('cilindricCapacity')!.value,
@@ -172,8 +174,9 @@ export class AddCarComponent implements OnInit
       this.brands.selectedOption?.id,
       this.carTypes.selectedOption?.id,
       );
-
-    this.carService.addCar(createCarDTO,this.images).subscribe(res => 
+    this.carService.addCar(createCarDTO,this.images)
+    .subscribe(
+      res => 
       console.log(res));
   }
 

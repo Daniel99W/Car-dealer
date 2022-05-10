@@ -116,11 +116,15 @@ body
 
 .btn 
 {
-    background-color:#0b2239;
-    color:whitesmoke;
+    background-color: whitesmoke;
+    color:#0b2239;
     margin:0rem .3rem;
     text-align: center;
+    border:2px solid #0b2239;
+    font-weight: bold;
 }
+
+
 
 
 

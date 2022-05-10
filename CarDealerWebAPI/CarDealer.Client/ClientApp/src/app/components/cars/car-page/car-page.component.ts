@@ -39,6 +39,11 @@ export class CarPageComponent implements OnInit
       })
   }
 
+  public get getCar()
+  {
+    return this._car;
+  }
+
  
 
 }

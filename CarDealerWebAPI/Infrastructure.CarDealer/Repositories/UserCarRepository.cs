@@ -17,10 +17,23 @@ namespace Infrastructure.CarDealer.Repositories
 
         }
 
+        public async Task<bool> CheckIfCarIsAddedToFavorite(Guid userId,Guid carId)
+        {
+            UserCar ? userCar = await 
+            _announcesContext.UserCars.Where(
+            userCar => 
+            (userCar.UserId == userId) &&
+            (userCar.CarId == carId)).SingleOrDefaultAsync();
+
+            if (userCar == null)
+                return false;
+            return true;
+        }
+
         public async Task<IEnumerable<Car>> GetAllFavoriteCarsByUser(Guid userId)
         {
             return await _announcesContext.UserCars.Join(_announcesContext.Cars,
-                userCar => userCar.Id,
+                userCar => userCar.CarId,
                 car => car.Id,
                 (userCar, car) => new { userCar, car })
                 .Where(userCar => userCar.userCar.UserId == userId)
@@ -31,9 +44,20 @@ namespace Infrastructure.CarDealer.Repositories
                     BrandId = userCar.car.BrandId,
                     CarNumber = userCar.car.CarNumber,
                     CarTypeId = userCar.car.CarTypeId,
+                    Price = userCar.car.Price,
                 })
                 .ToListAsync();
 
+        }
+
+        public async Task RemoveCarFromFavoriteList(Guid carId, Guid userId)
+        {
+            UserCar userCar = await _announcesContext.UserCars
+                .Where(userCar => userCar.CarId == carId && userCar.UserId == userId)
+                .SingleAsync();
+
+            _announcesContext.UserCars.Remove(userCar);
+            await _announcesContext.SaveChangesAsync();
         }
     }
 }

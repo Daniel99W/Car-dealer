@@ -1,1 +1,31 @@
-<p>favorites works!</p>
+
+
+
+
+
+<div class="container">
+    <h1 class="pageTitle">Cars in the favorite list</h1>
+    <div 
+    *ngFor="let car of getFavoriteCars"
+    class="car">
+        <div class="title">
+            {{car.title}}
+        </div>
+        <div class="carNumber">
+            <b>Car Number:</b>
+            {{car.carNumber}}
+        </div>
+        <div class="price">
+            <b>Price:</b>
+            {{car.price}}
+        </div>
+        <div class="removeCarFromFavorite">
+            <button mat-button color="warn" (click)="removeCar(car.id)">
+                <mat-icon>
+                   delete
+                </mat-icon>
+                Remove Car
+            </button>
+        </div>
+    </div>
+</div>

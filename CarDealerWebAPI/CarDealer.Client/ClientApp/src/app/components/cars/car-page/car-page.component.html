@@ -1,1 +1,57 @@
-<p>car-page works!</p>
+
+
+
+
+<div class="container">
+    <div class="title">
+        <h1>{{getCar?.title}}</h1>
+        <h2><b>Price:</b><span style="color:red;">{{getCar?.price}}&euro;</span></h2>
+        <span>Added on:
+            {{getCar?.addingDate}}
+        </span>
+        
+    </div>
+    <div class="content">
+        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div *ngFor="let image of getCar?.images" class="carousel-item active">
+                    <img class="d-block" width="400px" height="400px" 
+                    src="https://cardealerpictures.blob.core.windows.net/picsstorage/{{image.imageName}}">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+        </div>
+        <div class="details">
+            <h2 style="text-indent:1.2rem;text-decoration:underline;">Car Details:</h2>
+            <div class="lists">
+                <ul class="firstListDetails">
+                    <li>Car Number:<span class="itemProperty">{{getCar?.carNumber}}</span></li>
+                    <li>Production Year:<span class="itemProperty">{{getCar?.productionYear}}</span></li>
+                    <li>Second Hand:<span class="itemProperty">{{getCar?.secondHand}}</span></li>
+                    <li>Cilindric Capacity:<span class="itemProperty">{{getCar?.cilindricCapacity}}</span></li>
+                </ul>
+                <ul class="secondListDetails">
+                    <li>Brand: {{getCar?.brand!.name}}</li>
+                    <li>Model Name {{getCar?.modelName}}</li>
+                    <li>Fuel Type {{getCar?.fuelType?.name}}</li>
+                    <li>Car Type: {{getCar?.carType?.name}}</li>
+                </ul> 
+            </div>
+        </div>
+        <div class="description">
+           <p> {{getCar?.description}}
+            </p>
+        </div>
+        
+    </div>
+    <div class="sidebar">
+        
+    </div>
+</div>

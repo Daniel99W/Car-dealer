@@ -11,16 +11,18 @@ import { LoginDTO } from '../DTOs/LoginDTO';
 })
 export class SecurityService 
 {
-  private httpClient;
-  private cookieService;
+  private _httpClient;
+  private _cookieService;
+  private _isAuthenticated:boolean;
 
   constructor(
     httpClient:HttpClient,
     cookieService:CookieService
     ) 
   { 
-    this.httpClient = httpClient;
-    this.cookieService = cookieService;
+    this._httpClient = httpClient;
+    this._cookieService = cookieService;
+    this._isAuthenticated = false;
   }
 
   public login(loginDTO:LoginDTO):Observable<any>
@@ -30,23 +32,23 @@ export class SecurityService
       Email:loginDTO.Email,
       Password:loginDTO.Password
     }
-    return this.httpClient.post(UrlConstants.apiUrl+'/User/Login',body);
+    return this._httpClient.post(UrlConstants.apiUrl+'/Users/Login',body);
   }
 
   public signUp(createUserDTO:CreateUserDTO):Observable<any>
   {
-    return this.httpClient.post(UrlConstants.apiUrl+'/User/SignUp',createUserDTO);
+    return this._httpClient.post(UrlConstants.apiUrl+'/Users/SignUp',createUserDTO);
   }
 
   public set isAuthenticated(value:boolean)
   {
-    this.isAuthenticated = value;
+    this._isAuthenticated = value;
   }
   public get isAuthenticated():boolean
   {
-    if(this.cookieService.get('accessToken'))
-      return this.isAuthenticated;
+    if(this._cookieService.get('accessToken'))
+      return this._isAuthenticated = true;
 
-    return this.isAuthenticated;
+    return this._isAuthenticated;
   }
 }

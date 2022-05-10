@@ -22,6 +22,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { JwtHelperService,JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FavoriteCarAddedComponent } from './components/favoriteCarDialogs/favorite-car-added/favorite-car-added.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditUserComponent,
     FavoritesComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    FavoriteCarAddedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -48,7 +51,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     AngularEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [
     JwtHelperService,{provide:JWT_OPTIONS,useValue:JWT_OPTIONS},

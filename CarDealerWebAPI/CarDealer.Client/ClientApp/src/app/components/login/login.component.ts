@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit
             {
               let token:string = res.value;
               console.log(res);
-              this.cookieService.set('accessToken',token,res.expires);
+              this.cookieService.set('accessToken',token);
             }
       });
   }

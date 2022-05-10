@@ -19,7 +19,7 @@ export class FavoriteCarService
 
   public getFavoriteCarsByUserId(userId:string):Observable<Array<Car>>
   {
-    return this._httpClient.get<Array<Car>>(UrlConstants.apiUrl+`/UserCar/GetUserFavoriteCarsByUserId${userId}`);
+    return this._httpClient.get<Array<Car>>(UrlConstants.apiUrl+`/UserCar/GetUserFavoriteCarsByUserId/${userId}`);
   }
 
   public addToFavorite(carId:string,userId:string):Observable<any>
@@ -29,7 +29,16 @@ export class FavoriteCarService
       CarId:carId,
       UserId:userId
     }
-
     return this._httpClient.post(UrlConstants.apiUrl+'/UserCar/AddCarUserFavoriteList',body);
+  }
+
+  public removeCarFromUserFavoriteList(userId:string,carId:string):Observable<any>
+  {
+    let body = 
+    {
+      CarId:carId,
+      UserId:userId
+    }
+    return this._httpClient.post(UrlConstants.apiUrl+'/UserCar/RemoveCarFromUserFavoriteList',body);
   }
 }

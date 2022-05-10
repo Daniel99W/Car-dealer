@@ -18,7 +18,7 @@ namespace Infrastructure.CarDealer.Repositories
 
         }
 
-        private IQueryable<Car> GetFeedCarQuery()
+        private IQueryable<Car> GetCarQuery()
         {
             return _announcesContext.Cars
                  .Join(_announcesContext.Users,
@@ -56,12 +56,12 @@ namespace Infrastructure.CarDealer.Repositories
 
         public async override Task<IEnumerable<Car>> GetItems()
         {
-            return await GetFeedCarQuery().ToListAsync();
+            return await GetCarQuery().ToListAsync();
         }
 
         public async Task<Car?> GetCarByUserId(Guid userId)
         {
-            return await GetFeedCarQuery()
+            return await GetCarQuery()
                .Where(car => car.UserId == userId)
                .SingleOrDefaultAsync();
         }
@@ -81,7 +81,7 @@ namespace Infrastructure.CarDealer.Repositories
             )
         {
 
-            IQueryable<Car> query = GetFeedCarQuery();
+            IQueryable<Car> query = GetCarQuery();
 
             PaginatedDTO<Car> paginated = new();
 
@@ -127,16 +127,16 @@ namespace Infrastructure.CarDealer.Repositories
             return paginated;
         }
 
-        public override async Task<Car>? Read(Guid id)
+        public override async Task<Car?> Read(Guid id)
         {
-            return await _announcesContext.Cars
+            return await GetCarQuery()
                 .Where(car => car.Id == id)
                 .SingleOrDefaultAsync();
         }
 
         public async Task<int> GetCarsNumber()
         {
-            return await GetFeedCarQuery().CountAsync();
+            return await GetCarQuery().CountAsync();
         }
 
         public async Task<int> GetCarsTotalPrice()
