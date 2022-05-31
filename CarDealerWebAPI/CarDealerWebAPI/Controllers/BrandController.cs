@@ -40,6 +40,38 @@ namespace CarDealerWebAPI.Controllers
                 await _mediator.Send(new GetBrandsQuery())));
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Brand>> GetBrand(Guid id)
+        {
+            return await _mediator.Send(new GetBrandQuery()
+            {
+                Id = id
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBrand(Guid id)
+        {
+            await _mediator.Send(new DeleteBrandCommand()
+            {
+                Id = id
+            });
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Brand>> UpdateBrand(Brand brand)
+        {
+            return await _mediator.Send(new UpdateBrandCommand()
+            {
+                Id=brand.Id,
+                Name = brand.Name,
+                Description=brand.Description,
+            });
+        }
+
+
+
 
            
 

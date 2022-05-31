@@ -25,15 +25,18 @@ export class TokenService
   }
 
 
-  public getTokenObject():Token
+  public getTokenObject():Token|null
   {
-    let tokenCoded:string = this.cookieService.get("accessToken") as string;
+    let tokenCoded:string = this.cookieService.get("accessToken");
+    if(tokenCoded.length > 0)
+    {
+      let userId:string = this.jwtHelper.decodeToken(tokenCoded)["UserId"];
+      let role:string = this.jwtHelper.decodeToken(tokenCoded)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    let userId:string = this.jwtHelper.decodeToken(tokenCoded)["UserId"];
-    let role:string = this.jwtHelper.decodeToken(tokenCoded)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+      let token:Token = new Token(userId,role);
 
-    let token:Token = new Token(userId,role);
-    
-    return token;
+      return token;
+    }
+    return null;
   }
 }

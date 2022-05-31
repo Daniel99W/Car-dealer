@@ -1,1 +1,57 @@
-<p>sign-up works!</p>
+
+
+
+
+
+
+
+<div class="container">
+    <div class="title">
+        <h2>Create an account and start selling cars for free!</h2>
+    </div>
+    <div class="details">
+        <div class="name">
+            <label for="" class="form-label">
+                First Name
+            </label>
+            <input type="text" [formControl]="$any(userForm.get('name'))" class="form-control"
+            placeholder="your first name"
+            >
+        </div>
+        <div class="secondName">
+            <label for="" class="form-label">
+                Second Name
+            </label>
+            <input type="text" [formControl]="$any(userForm.get('secondName'))" class="form-control"
+            placeholder="your second name"
+            >
+        </div>
+        <div class="password">
+            <label for="" class="form-label"
+            
+            >
+                Password
+            </label>
+            <input type="password" [formControl]="$any(userForm.get('password'))" class="form-control"
+            placeholder="password"
+            >
+        </div>
+        <div class="email">
+            <label for="" class="form-label"
+            
+            >
+               Email
+            </label>
+            <input type="email" [formControl]="$any(userForm.get('email'))" class="form-control"
+            placeholder="email"
+            >
+        </div>
+        <div class="signUp">
+            <div class="signUpButton">
+                <button mat-button (click)="signUp()">
+                    Sign up
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

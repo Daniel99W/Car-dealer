@@ -218,7 +218,7 @@ namespace Infrastructure.CarDealer.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("car_id");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageName")
                         .IsRequired()
                         .HasMaxLength(300)
                         .IsUnicode(false)
@@ -245,13 +245,6 @@ namespace Infrastructure.CarDealer.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(1000)")
                         .HasColumnName("content");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("subject");
 
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier")

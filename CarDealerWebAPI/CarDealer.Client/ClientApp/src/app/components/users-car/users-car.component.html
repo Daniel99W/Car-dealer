@@ -1,0 +1,32 @@
+
+
+
+<div class="container">
+    <h2 class="usersCarsTitle">These are the cars added by you</h2>
+    <div *ngFor="let car of getCars" class="car">
+        <div class="image">
+            <img class="d-block" width="80px" height="80px" 
+                    src="https://cardealerpictures.blob.core.windows.net/picsstorage/{{car.images[0].imageName}}">
+        </div>
+        <div class="title" (click)="getCar(car.id)">
+            {{car.title}}
+        </div>
+        <div class="price">
+            {{car.price}}&euro;
+        </div>
+        <div class="actions">
+            <div class="edit" >
+                <button mat-button
+                (click)="editCar(car.id)"
+                >
+                    Edit
+                </button>
+            </div>
+            <div class="delete" >
+                <button mat-button color="warn" (click)="deleteCar(car.id)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

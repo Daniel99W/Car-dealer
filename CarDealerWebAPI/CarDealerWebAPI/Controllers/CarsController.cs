@@ -5,6 +5,7 @@ using Core.CarDealer.Commands.Images;
 using Core.CarDealer.DTO;
 using Core.CarDealer.Models;
 using Core.CarDealer.Queries;
+using Core.CarDealer.Queries.Cars;
 using Core.CarDealer.QueriesHandler.Cars;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace CarDealerWebAPI.Controllers
     {
         private IMediator _mediator;
         private IMapper _mapper;
-        public CarsController(IMediator mediator,IMapper mapper)
+        public CarsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -37,6 +38,16 @@ namespace CarDealerWebAPI.Controllers
             return car;
         }
 
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetCarsByUserId(Guid userId)
+        {
+            return new ActionResult<IEnumerable<Car>>(
+                await _mediator.Send(new GetCarsByUserIdQuery
+                {
+                    UserId = userId
+                }));
+        }
+
         [HttpPost]
         public async Task<ActionResult<PaginatedDTO<Car>>> GetCars(CarParametersQueryDTO carParametersQuery)
         {
@@ -49,7 +60,7 @@ namespace CarDealerWebAPI.Controllers
         {
             Car car = await _mediator.Send(_mapper.Map<CreateCarCommand>(createCarDTO));
 
-            foreach(IFormFile file in createCarDTO.Images)
+            foreach (IFormFile file in createCarDTO.Images)
             {
                 await _mediator.Send(new CreateImageCommand
                 {
@@ -57,7 +68,7 @@ namespace CarDealerWebAPI.Controllers
                     FormFile = file
                 });
             }
-         
+
             return Ok("The car has been created with success!");
         }
 
@@ -65,9 +76,9 @@ namespace CarDealerWebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Car>> GetCar(Guid id)
         {
-            Car? car =  await _mediator.Send(new GetCarByIdQuery
+            Car? car = await _mediator.Send(new GetCarByIdQuery
             {
-                 Id = id
+                Id = id
             });
 
             if (car == null)
@@ -84,8 +95,8 @@ namespace CarDealerWebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(Car car)
         {
-           await _mediator.Send(_mapper.Map<UpdateCarCommand>(car));
-           return Ok();
+            await _mediator.Send(_mapper.Map<UpdateCarCommand>(car));
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -96,6 +107,15 @@ namespace CarDealerWebAPI.Controllers
                 Id = id
             });
             return Ok();
+        }
+
+        [HttpGet("{userId?}")]
+        public async Task<ActionResult<int>> GetCarsNumber(Guid? userId)
+        {
+            return await _mediator.Send(new GetCarsNumberQuery()
+            {
+               UserId = userId
+            });
         }
 
 

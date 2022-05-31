@@ -32,5 +32,41 @@ namespace CarDealerWebAPI.Controllers
         {
             return new ActionResult<IEnumerable<CarType>>(await _mediator.Send(new GetCarTypesQuery()));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCarType(Guid id)
+        {
+            await _mediator.Send(new DeleteCarTypeCommand()
+            {
+                Id = id
+            });
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CarType>> UpdateCarType(CarType carType)
+        {
+            return await _mediator.Send(new UpdateCarTypeCommand()
+            {
+                Id = carType.Id,
+                Name = carType.Name,
+            });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CarType>> GetCarType(Guid id)
+        {
+            CarType ? carType =  await _mediator.Send(new GetCarTypeQuery()
+            {
+                Id = id
+            });
+
+            if (carType == null)
+                return NotFound();
+
+            return carType;
+        }
+
+
     }
 }

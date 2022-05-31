@@ -2,11 +2,6 @@
 using Core.CarDealer.Interfaces;
 using Core.CarDealer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.CarDealer.Repositories
 {
@@ -54,10 +49,7 @@ namespace Infrastructure.CarDealer.Repositories
                  });
         }
 
-        public async override Task<IEnumerable<Car>> GetItems()
-        {
-            return await GetCarQuery().ToListAsync();
-        }
+        
 
         public async Task<Car?> GetCarByUserId(Guid userId)
         {
@@ -74,16 +66,21 @@ namespace Infrastructure.CarDealer.Repositories
             Guid? brandId,
             Guid? carTypeId,
             string? title,
-            int? productionYear,
+            int? minProductionYear,
+            int? maxProductionYear,
             int? minPrice,
             int? maxPrice,
-            bool? orderBy
+            bool? orderBy,
+            Guid? userId
             )
         {
 
             IQueryable<Car> query = GetCarQuery();
 
             PaginatedDTO<Car> paginated = new();
+
+            if(userId != null)
+                query = query.Where(car => car.UserId == userId);
 
             if (minPrice != null && maxPrice != null)
                 query = query.Where(car => car.Price >= minPrice && car.Price <= maxPrice);
@@ -94,13 +91,22 @@ namespace Infrastructure.CarDealer.Repositories
                 else if (maxPrice != null)
                     query = query.Where(car => car.Price <= maxPrice);
             }
-
             if (brandId != null)
                 query = query.Where(car => car.Brand.Id == brandId);
             if (carTypeId != null)
                 query = query.Where(car => car.CarType.Id == carTypeId);
-            if (productionYear != null)
-                query = query.Where(car => car.ProductionYear == productionYear);
+            if (minProductionYear != null && maxProductionYear != null)
+            {
+                query = query.Where(car => 
+                car.ProductionYear >= minProductionYear && car.ProductionYear <= maxProductionYear);
+            }
+            else
+            {
+                if(minProductionYear != null)
+                    query= query.Where(car => car.ProductionYear >= minProductionYear);
+                else if(maxProductionYear != null)
+                    query = query.Where(car => car.ProductionYear <= maxProductionYear);
+            }
             if(title != null)
                 query = query.Where(car => car.Title.Contains(title));
             if (orderBy != null && orderBy == true)
@@ -108,7 +114,7 @@ namespace Infrastructure.CarDealer.Repositories
                 paginated = await query
                     .Paginate(page, carsPerPage);
                    
-                paginated.Results = paginated.Results.OrderBy(car => orderByPrice(car)).ToList();
+                paginated.Results = paginated.Results.OrderBy(car => car.Price).ToList();
             }
             else if (orderBy != null)
             {
@@ -116,7 +122,7 @@ namespace Infrastructure.CarDealer.Repositories
                     .Paginate(page, carsPerPage);
 
                 paginated.Results
-                    = paginated.Results.OrderByDescending(car => orderByPrice(car)).ToList();
+                    = paginated.Results.OrderByDescending(car => car.Price).ToList();
             }
             else
             {
@@ -134,8 +140,14 @@ namespace Infrastructure.CarDealer.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<int> GetCarsNumber()
+        public async Task<int> GetCarsNumber(Guid? userId)
         {
+            if (userId != null)
+            {
+                return await GetCarQuery()
+                    .Where(car => car.UserId == userId)
+                    .CountAsync();
+            }
             return await GetCarQuery().CountAsync();
         }
 
@@ -149,7 +161,13 @@ namespace Infrastructure.CarDealer.Repositories
             return _announcesContext.Cars.Add(car).Entity;
         }
 
+        public async Task<IEnumerable<Car>> GetCarsByUserId(Guid userId)
+        {
+            return await GetCarQuery()
+                .Where(car => car.UserId == userId)
+                .ToListAsync();
+        }
 
-
+        
     }
 }

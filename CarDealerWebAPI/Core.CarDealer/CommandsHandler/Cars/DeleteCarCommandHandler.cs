@@ -19,6 +19,7 @@ namespace Core.CarDealer.CommandsHandler.Cars
             {
                 Id = request.Id
             });
+            await _repositoryCar.SaveChangesAsync();
 
             return await Task.FromResult(request.Id);
         }

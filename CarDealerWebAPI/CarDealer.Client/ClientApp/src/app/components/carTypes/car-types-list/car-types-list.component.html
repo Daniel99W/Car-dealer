@@ -1,0 +1,21 @@
+
+
+
+<div class="container">
+    <div class="carTypeList">
+        <div *ngFor="let carType of getCarTypes" class="brand">
+            <div class="brandName">
+                {{carType.name}}
+            </div>
+            <div class="actions">
+                <div class="edit">
+                    <button mat-button (click)="editCarType(carType.id)">EDIT</button>
+                </div>
+                <div class="delete">
+                    <button mat-button (click)="deleteCarType(carType.id)">DELETE</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

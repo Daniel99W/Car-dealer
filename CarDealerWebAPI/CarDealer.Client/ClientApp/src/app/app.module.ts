@@ -23,7 +23,19 @@ import { JwtHelperService,JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
-import { FavoriteCarAddedComponent } from './components/favoriteCarDialogs/favorite-car-added/favorite-car-added.component'
+import { UsersCarComponent } from './components/users-car/users-car.component';
+import { AddBrandComponent } from './components/brands/add-brand/add-brand.component';
+import { EditBrandComponent } from './components/brands/edit-brand/edit-brand.component';
+import { BrandsListComponent } from './components/brands/brands-list/brands-list.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { AddCarTypeComponent } from './components/carTypes/add-car-type/add-car-type.component';
+import { CarTypesListComponent } from './components/carTypes/car-types-list/car-types-list.component';
+import { EditCarTypeComponent } from './components/carTypes/edit-car-type/edit-car-type.component';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { CarAddedComponent } from './components/snackbars/car-added/car-added.component';
+import {MatCarouselModule} from '@ngbmodule/material-carousel';
+import { CarIsAlreadyAddedComponent } from './components/snackbars/car-is-already-added/car-is-already-added.component';
+import { UserNotLoggedComponent } from './components/snackbars/user-not-logged/user-not-logged.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +49,16 @@ import { FavoriteCarAddedComponent } from './components/favoriteCarDialogs/favor
     FavoritesComponent,
     LoginComponent,
     SignUpComponent,
-    FavoriteCarAddedComponent
+    UsersCarComponent,
+    AddBrandComponent,
+    EditBrandComponent,
+    BrandsListComponent,
+    AddCarTypeComponent,
+    CarTypesListComponent,
+    EditCarTypeComponent,
+    CarAddedComponent,
+    CarIsAlreadyAddedComponent,
+    UserNotLoggedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +73,10 @@ import { FavoriteCarAddedComponent } from './components/favoriteCarDialogs/favor
     MatFormFieldModule,
     AngularEditorModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatCarouselModule.forRoot(),
   ],
   providers: [
     JwtHelperService,{provide:JWT_OPTIONS,useValue:JWT_OPTIONS},

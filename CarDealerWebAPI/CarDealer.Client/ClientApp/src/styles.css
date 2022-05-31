@@ -17,3 +17,29 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.carAddedSnackbar
+{
+  background-color:rgb(39, 180, 173);
+  color:white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border:1px solid 
+}
+
+.carIsAlreadyAddedSnackbar
+{
+  background-color:crimson;
+  color:white;
+  font-weight:bold;
+  font-size:1.2rem;
+}
+
+.userNotLogged
+{
+  background-color:darkslategrey;
+  color:crimson;
+  font-weight: bold;
+  font-size:1.2rem;
+}

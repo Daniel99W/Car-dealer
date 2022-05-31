@@ -32,13 +32,21 @@ export class CarParametersQueryDTO
     public set title(value: string | undefined) {
         this._title = value;
     }
-    private _productionYear?: string | undefined;
-    public get productionYear(): string | undefined {
-        return this._productionYear;
+    private _minProductionYear?: string | undefined;
+    public get minProductionYear(): string | undefined {
+        return this._minProductionYear;
     }
-    public set productionYear(value: string | undefined) {
-        this._productionYear = value;
+    public set minProductionYear(value: string | undefined) {
+        this._minProductionYear = value;
     }
+    private _maxProductionYear?: string | undefined;
+    public get maxProductionYear(): string | undefined {
+        return this._maxProductionYear;
+    }
+    public set maxProductionYear(value: string | undefined) {
+        this._maxProductionYear = value;
+    }
+
     private _minPrice?: string | undefined;
     public get minPrice(): string | undefined {
         return this._minPrice;
@@ -67,6 +75,17 @@ export class CarParametersQueryDTO
     public set carsPerPage(value: number) {
         this._carsPerPage = value;
     }
+
+    private _userId?: string|undefined
+    public get userId():string|undefined 
+    {
+        return this._userId;
+    }
+    public set userId(value:string|undefined) 
+    {
+        this._userId = value;
+    }
+
 
     constructor()
     {

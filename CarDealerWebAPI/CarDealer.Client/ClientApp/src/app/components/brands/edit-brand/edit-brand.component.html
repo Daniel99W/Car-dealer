@@ -1,0 +1,28 @@
+
+
+
+<div class="container">
+    <div class="brandForm">
+        
+        <div class="brandName">
+            <label for="name">Brand Name:</label>
+            <input type="text" [(ngModel)] = "getBrand.name"
+            placeholder="name of the brand"
+            id="name" class="form-control">
+        </div>
+        <div class="brandDescription">
+            <label for="description">Brand Description:</label>
+            <textarea [(ngModel)] = "getBrand.description" 
+            placeholder="description of brand" cols="23" rows="3"
+            >
+
+            </textarea>
+        </div>
+        <div class="button">
+            <button mat-button (click)="editBrand()">
+                EDIT BRAND
+            </button>
+        </div>
+    </div>
+   
+</div>

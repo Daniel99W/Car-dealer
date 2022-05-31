@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+.container
+{
+    width:50%;
+    border:2px solid gainsboro;
+    margin:5rem auto;
+}
+
+
+.brandForm
+{
+    width:50%;
+    margin:0rem auto;
+}
+
+
+.brandName, .brandDescription
+{
+    margin:2rem;
+}
+
+
+.button
+{
+    text-align: center;
+}
+
+.button button 
+{
+    background-color: #0b2239;
+    color:whitesmoke;
+    margin-bottom:2rem;
+}

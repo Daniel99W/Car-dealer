@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginDTO } from 'src/app/DTOs/LoginDTO';
 import { SecurityService } from 'src/app/services/security.service';
@@ -14,15 +15,18 @@ export class LoginComponent implements OnInit
   private _loginDTO!:LoginDTO;
   private _securityService:SecurityService;
   private cookieService:CookieService;
+  private router:Router;
 
   constructor(
     securityService:SecurityService,
-    cookieService:CookieService
+    cookieService:CookieService,
+    router:Router
     ) 
   {
     this._loginDTO = new LoginDTO();
     this._securityService = securityService;
     this.cookieService = cookieService;
+    this.router = router;
   }
 
   ngOnInit(): void 
@@ -43,8 +47,8 @@ export class LoginComponent implements OnInit
         if(res.value != null)
             {
               let token:string = res.value;
-              console.log(res);
               this.cookieService.set('accessToken',token);
+              this.router.navigate(['carFeed']);
             }
       });
   }

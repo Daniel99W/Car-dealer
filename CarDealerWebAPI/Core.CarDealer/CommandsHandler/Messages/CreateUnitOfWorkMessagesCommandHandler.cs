@@ -22,7 +22,6 @@ namespace Core.CarDealer.CommandsHandler.Messages
         {
            Message message =  _unitOfWork._repositoryMessage.Create(new Message()
            {
-                Subject = request.Subject,
                 Content = request.Content,
                 UserId = request.UserId
            });

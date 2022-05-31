@@ -1,4 +1,5 @@
 using AutoMapper;
+using CarDealerWebAPI.HubConfig;
 using Core.CarDealer;
 using Core.CarDealer.Configurations;
 using Core.CarDealer.Interfaces;
@@ -41,6 +42,7 @@ builder.Services.AddScoped<IServiceAuth,AuthService>();
 builder.Services.AddAutoMapper(ConfigureMapper.Configure);
 builder.Services.AddScoped<BlobService>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
+builder.Services.AddSignalR();
 builder.Services.AddCors(options => options.AddPolicy(
                   "CorsPolicy",
                   builder => builder.WithOrigins("http://localhost:4200")
@@ -81,8 +83,14 @@ app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chatHub");
+});
 
 app.Run();

@@ -1,20 +1,12 @@
 
-
-
-
-body
-{
-    background-color:gainsboro;
-}
-
 .container
 {
     width:85%;
     margin:2rem auto;
-    border:1px solid gray;
+    border:1px solid #2f4052;
     background-color: whitesmoke;
+    border-radius: 2%;
 }
-
 
 .feed
 {
@@ -34,7 +26,6 @@ body
     margin-top:.7rem;
     border:1px solid gainsboro;
 }
-
 
 
 
@@ -122,6 +113,11 @@ body
     text-align: center;
     border:2px solid #0b2239;
     font-weight: bold;
+}
+
+.actions
+{
+    display:flex;
 }
 
 

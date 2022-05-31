@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="carTypeForm">
+        <div class="carTypeName">
+            <label for="name">Brand Name:</label>
+            <input type="text" [formControl]="Name" 
+            placeholder="name of the brand"
+            id="name" class="form-control">
+        </div>
+        <div class="button">
+            <button mat-button (click)="addCarType()">
+                Add Car Type
+            </button>
+        </div>
+    </div>
+   
+</div>

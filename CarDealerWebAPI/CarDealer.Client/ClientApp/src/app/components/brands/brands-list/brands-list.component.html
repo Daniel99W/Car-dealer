@@ -1,0 +1,27 @@
+
+
+
+
+
+
+<div class="container">
+    <div class="brandList">
+        <div *ngFor="let brand of getBrands" class="brand">
+            <div class="brandName">
+                {{brand.name}}
+            </div>
+            <div class="brandDescription">
+                {{brand.description}}
+            </div>
+            <div class="actions">
+                <div class="edit">
+                    <button mat-button (click)="editBrand(brand.id)">EDIT</button>
+                </div>
+                <div class="delete">
+                    <button mat-button (click)="deleteBrand(brand.id)">DELETE</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

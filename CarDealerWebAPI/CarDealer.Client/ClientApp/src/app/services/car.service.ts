@@ -1,5 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -30,11 +31,12 @@ export class CarService
       CarsPerPage:carParametersQueryDTO.carsPerPage,
       BrandId:carParametersQueryDTO.brand,
       CarTypeId:carParametersQueryDTO.carType,
+      UserId:carParametersQueryDTO.userId,
       Title:carParametersQueryDTO.title,
-      ProductionYear:carParametersQueryDTO.productionYear,
+      MinProductionYear:carParametersQueryDTO.minProductionYear,
+      MaxProductionYear:carParametersQueryDTO.maxProductionYear,
       MinPrice:carParametersQueryDTO.minPrice,
-      MaxPrice:carParametersQueryDTO.maxPrice,
-      OrderBy:carParametersQueryDTO.orderBy
+      MaxPrice:carParametersQueryDTO.maxPrice
     }
     return this._httpClient.post<PaginatedDTO<Car>>(UrlConstants.apiUrl+'/Cars/GetCars',body);
   }
@@ -42,6 +44,11 @@ export class CarService
   public getCar(id:string)
   {
     return this._httpClient.get<Car>(UrlConstants.apiUrl+`/Cars/GetCar/${id}`);
+  }
+
+  public getCarsByUserId(userId:string)
+  {
+    return this._httpClient.get<Array<Car>>(UrlConstants.apiUrl+`/Cars/GetCarsByUserId/`+userId);
   }
 
 
@@ -68,6 +75,33 @@ export class CarService
       formData.append('Images',images[i],images[i].name);
 
     return this._httpClient.post<any>(UrlConstants.apiUrl+'/Cars/PostCar',formData); 
+  }
+
+  public deleteCar(carId:string)
+  {
+    return this._httpClient.delete(UrlConstants.apiUrl+'/Cars/DeleteCar/'+carId);
+  }
+
+  public editCar(car:Car)
+  {
+    let body =
+    {
+      Car:car
+    }
+
+    return this._httpClient.post(UrlConstants.apiUrl+'/Cars/Update',body);
+  }
+
+  public getCarsNumber(userId:string|undefined):Observable<number>
+  {
+    let url = UrlConstants.apiUrl+'/Cars/GetCarsNumber';
+
+    if(userId != undefined)
+    {
+      url = url + '/' + userId;
+      return this._httpClient.get<number>(url);
+    }
+    return this._httpClient.get<number>(url);
   }
 
 

@@ -39,4 +39,15 @@ export class CreateUserDTO
     {
         this._secondName = value;
     }
+    constructor(
+        email:string,
+        name:string,
+        secondName:string,
+        password:string)
+    {
+        this._email = email;
+        this._name = name;
+        this._secondName = secondName;
+        this._password = password;
+    }
 }

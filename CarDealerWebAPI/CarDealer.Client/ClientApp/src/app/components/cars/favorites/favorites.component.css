@@ -48,3 +48,8 @@ body
     text-align: center;
     margin:.6rem auto;
 }
+
+.title:hover
+{
+    cursor: pointer;
+}

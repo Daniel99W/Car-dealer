@@ -3,31 +3,33 @@
 
 
 <div class="container">
-    <div class="title">
-        <h1>{{getCar?.title}}</h1>
-        <h2><b>Price:</b><span style="color:red;">{{getCar?.price}}&euro;</span></h2>
-        <span>Added on:
-            {{getCar?.addingDate}}
-        </span>
-        
-    </div>
     <div class="content">
-        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div *ngFor="let image of getCar?.images" class="carousel-item active">
-                    <img class="d-block" width="400px" height="400px" 
-                    src="https://cardealerpictures.blob.core.windows.net/picsstorage/{{image.imageName}}">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+        <div class="title">
+            <h1>{{getCar?.title}}</h1>
+            <h2><b>Price:</b><span style="color:red;">{{getCar?.price}}&euro;</span></h2>
+            <span>Added on:
+                {{getCar?.addingDate}}
+            </span>
+            
         </div>
+        <mat-carousel
+        timings="250ms ease-in"
+        [autoplay]="true"
+        [loop]="true"
+        [hideArrows]="false"
+        [hideIndicators]="false"
+        [useKeyboard]="true"
+        [useMouseWheel]="false"
+        [maintainAspectRatio]="true"
+        [proportion]=70
+        >
+            <mat-carousel-slide *ngFor="let image of getCar?.images"
+            >
+            <img src="https://cardealerpictures.blob.core.windows.net/picsstorage/{{image.imageName}}"
+            height="500px"
+            >
+            </mat-carousel-slide>
+        </mat-carousel>
         <div class="details">
             <h2 style="text-indent:1.2rem;text-decoration:underline;">Car Details:</h2>
             <div class="lists">
@@ -38,7 +40,7 @@
                     <li>Cilindric Capacity:<span class="itemProperty">{{getCar?.cilindricCapacity}}</span></li>
                 </ul>
                 <ul class="secondListDetails">
-                    <li>Brand: {{getCar?.brand!.name}}</li>
+                    <li>Brand: {{getCar?.brand?.name}}</li>
                     <li>Model Name {{getCar?.modelName}}</li>
                     <li>Fuel Type {{getCar?.fuelType?.name}}</li>
                     <li>Car Type: {{getCar?.carType?.name}}</li>
@@ -46,12 +48,37 @@
             </div>
         </div>
         <div class="description">
-           <p> {{getCar?.description}}
-            </p>
+            <h2 class="descriptionTitle">
+                description:
+            </h2>
+           <p [innerHtml]="getCar?.description">
+
+           </p>
         </div>
         
     </div>
     <div class="sidebar">
-        
+        <div class="vanzator">
+            Vanzator:
+        </div>
+        <div class="user">
+            <mat-icon class="userIcon">account_circle</mat-icon>
+            <div class="userDetails">
+                <div class="name">
+                    <p>{{getUser?.name}}
+                        
+                        {{getUser?.secondName}}</p>
+                </div>
+                <div class="email">
+                    <p>
+                        {{getUser?.email}}
+                    </p>
+                </div>
+            </div> 
+            
+        </div>
+        <div class="contact">
+            <button mat-button color="#002F34" class="sendMessage">Send message</button>
+        </div>
     </div>
 </div>

@@ -23,6 +23,13 @@ namespace CarDealerWebAPI.Controllers
             _mapper = mapper;
         }
 
+
+       [HttpPost]
+       public async Task<ActionResult<UserDTO>> UpdateUser(UserDTO userDTO)
+       {
+            return await _mediator.Send(_mapper.Map<UpdateUserCommand>(userDTO));
+       }
+
        [HttpPost]
        public async Task<ActionResult> CreateUser(CreateUserDTO userDTO)
        {
@@ -30,12 +37,12 @@ namespace CarDealerWebAPI.Controllers
             return Ok();
        }
 
-       [HttpGet("id")]
-       public async Task<ActionResult<GetUserDTO>> GetUserById(Guid guid)
+       [HttpGet("{id}")]
+       public async Task<ActionResult<GetUserDTO>> GetUserById(Guid id)
        {
             User user = await _mediator.Send(new GetUserByIdQuery
             {
-                Id = guid
+                Id = id
             });
 
             return _mapper.Map<GetUserDTO>(user);

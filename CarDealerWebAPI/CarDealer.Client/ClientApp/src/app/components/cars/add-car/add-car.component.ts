@@ -11,6 +11,7 @@ import { Options } from '../../../Models/Options';
 import { CarService } from '../../../services/car.service';
 import { CreateCarDTO } from '../../../DTOs/CreateCarDTO';
 import { TokenService } from '../../../services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-car',
@@ -24,6 +25,7 @@ export class AddCarComponent implements OnInit
   private fuelTypeService:FuelTypeService;
   private carService:CarService;
   private tokenService:TokenService;
+  private router:Router;
 
   private IsSecondHand:boolean;
 
@@ -40,7 +42,8 @@ export class AddCarComponent implements OnInit
     carTypeService:CarTypeService,
     fuelTypeService:FuelTypeService,
     carService:CarService,
-    tokenService:TokenService
+    tokenService:TokenService,
+    router:Router
     ) 
   {
     this.brandService = brandService;
@@ -48,6 +51,7 @@ export class AddCarComponent implements OnInit
     this.fuelTypeService = fuelTypeService;
     this.carService = carService;
     this.tokenService = tokenService;
+    this.router = router;
     this.IsSecondHand = false;
     this.brands = new Options<Brand>();
     this.carTypes = new Options<CarType>();
@@ -166,7 +170,7 @@ export class AddCarComponent implements OnInit
       this.form.get('price')!.value,
       this.form.get('secondHand')!.value,
       this.form.get('addingDate')!.value,
-      this.tokenService.getTokenObject().userId,
+      this.tokenService.getTokenObject()!.userId,
       this.form.get('description')!.value,
       this.form.get('modelName')!.value,
       this.form.get('cilindricCapacity')!.value,
@@ -177,7 +181,7 @@ export class AddCarComponent implements OnInit
     this.carService.addCar(createCarDTO,this.images)
     .subscribe(
       res => 
-      console.log(res));
+      this.router.navigate(['carFeed']));
   }
 
 

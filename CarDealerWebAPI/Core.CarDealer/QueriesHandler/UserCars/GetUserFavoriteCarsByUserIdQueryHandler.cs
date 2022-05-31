@@ -5,15 +5,18 @@ using MediatR;
 
 namespace Core.CarDealer.QueriesHandler.UserCars
 {
-    public class GetUserFavoriteCarByUserIdQueryHandler : IRequestHandler<GetUserFavoriteCarByUserIdQuery,IEnumerable<Car>>
+    public class GetUserFavoriteCarsByUserIdQueryHandler 
+        : IRequestHandler<GetUserFavoriteCarsByUserIdQuery,IEnumerable<Car>>
     {
         private IRepositoryUserCar _repositoryUserCar;
-        public GetUserFavoriteCarByUserIdQueryHandler(IRepositoryUserCar repositoryUserCar)
+        public GetUserFavoriteCarsByUserIdQueryHandler(IRepositoryUserCar repositoryUserCar)
         {
             _repositoryUserCar = repositoryUserCar;
         }
 
-        public async Task<IEnumerable<Car>> Handle(GetUserFavoriteCarByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Car>> Handle(
+            GetUserFavoriteCarsByUserIdQuery request, 
+            CancellationToken cancellationToken)
         {
             return await _repositoryUserCar.GetAllFavoriteCarsByUser(request.UserId);
         }

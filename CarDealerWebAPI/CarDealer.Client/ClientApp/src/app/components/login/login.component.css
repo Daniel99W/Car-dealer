@@ -6,7 +6,6 @@
 {
     height: 100%;
     width: 100%;
-    background-color: #eaeaea;
 }
 
 .container_login
@@ -20,8 +19,7 @@
     left:50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    border:.1rem solid gray;
-    border-radius:5%;
+    border:2px solid gainsboro;
 }
 
 .container_login .title

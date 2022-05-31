@@ -57,5 +57,14 @@ namespace CarDealerWebAPI.Controllers
             });
             return Ok();
         }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<int>> GetCarsNumberInFavoriteListByUserId(Guid userId)
+        {
+            return await _mediator.Send(new GetCarsNumberInFavoriteListByUserIdQuery()
+            {
+                UserId=userId
+            });
+        }
     }
 }

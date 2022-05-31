@@ -1,0 +1,44 @@
+
+
+
+
+
+
+
+.container
+{
+    width:35%;
+    margin:2rem auto;
+    border:2px solid gainsboro;
+}
+
+.container .title
+{
+    text-align: center;
+    width:75%;
+    margin:0rem auto;
+}
+
+.details
+{
+    width:75%;
+    margin:0rem auto;
+}
+
+.signUp 
+{
+    width:50%;
+    margin:2rem auto;
+    text-align: center;
+}
+
+.signUpButton
+{
+    width:99%;
+    margin:0rem auto;
+}
+
+.signUpButton button 
+{
+    border:1px solid #002F34;
+}

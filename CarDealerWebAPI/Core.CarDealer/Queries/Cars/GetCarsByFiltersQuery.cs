@@ -19,14 +19,18 @@ namespace Core.CarDealer.Queries
         public Guid? CarTypeId { get; set; }
         public Guid? BrandId { get; set; }
 
+        public Guid? UserId { get; set; }
+
         public string? Title { get; set; }
 
-        public int? ProductionYear { get; set; }
+        public int? MinProductionYear { get; set; }
+        public int? MaxProductionYear { get; set; }
         public int? MinPrice { get; set; }
 
         public int? MaxPrice { get; set; }
 
         public bool? OrderBy { get; set; }
+      
 
     }
 }

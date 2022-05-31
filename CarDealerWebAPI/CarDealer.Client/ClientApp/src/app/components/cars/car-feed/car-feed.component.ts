@@ -14,8 +14,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TokenService } from '../../../services/token.service';
 import { SecurityService } from '../../../services/security.service';
 import { FavoriteCarService } from '../../../services/favorite-car.service';
-import { MatDialog } from '@angular/material/dialog';
-import { FavoriteCarAddedComponent } from '../../favoriteCarDialogs/favorite-car-added/favorite-car-added.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {CarAddedComponent} from '../../snackbars/car-added/car-added.component';
+import { CarIsAlreadyAddedComponent } from '../../snackbars/car-is-already-added/car-is-already-added.component';
+import { UserNotLoggedComponent } from '../../snackbars/user-not-logged/user-not-logged.component';
 
 @Component({
   selector: 'app-car-feed',
@@ -33,6 +36,8 @@ export class CarFeedComponent implements OnInit
   private tokenService:TokenService;
   private favoriteCarService:FavoriteCarService;
   private dialog:MatDialog;
+  private carsNumber!:number;
+  private snackBar:MatSnackBar;
 
   private searchCarFormGroup!:FormGroup;
 
@@ -50,7 +55,8 @@ export class CarFeedComponent implements OnInit
     router:Router,
     tokenService:TokenService,
     favoriteCarService:FavoriteCarService,
-    dialog:MatDialog
+    dialog:MatDialog,
+    snackBar:MatSnackBar
     ) 
   { 
     this.carService = carService;
@@ -61,6 +67,7 @@ export class CarFeedComponent implements OnInit
     this.securityService = securityService;
     this.tokenService = tokenService;
     this.favoriteCarService = favoriteCarService;
+    this.snackBar = snackBar;
     this.router = router;
     this.dialog = dialog;
     this.brands = new Options<Brand>();
@@ -69,9 +76,10 @@ export class CarFeedComponent implements OnInit
     this.orderBy.options.push(true);
     this.orderBy.options.push(false);
     this.searchCarFormGroup = new FormGroup({
-      ProductionYear:new FormControl(),
       MinPrice:new FormControl(),
       MaxPrice:new FormControl(),
+      MinProductionYear:new FormControl(),
+      MaxProductionYear:new FormControl(),
       Title:new FormControl(),
       CarsPerPage:new FormControl(5)
     })
@@ -82,13 +90,15 @@ export class CarFeedComponent implements OnInit
     let brandsRes = from(this.brandService.getBrands());
     let carTypesRes = from(this.carTypeService.getCarTypes());
     let paginatedResultRes = from(this.carService.getCars(this.carParametersQueryDTO!));
+    let carsNumber = from(this.carService.getCarsNumber(undefined));
 
-    forkJoin([brandsRes,carTypesRes,paginatedResultRes])
+    forkJoin([brandsRes,carTypesRes,paginatedResultRes,carsNumber])
     .subscribe(res => 
       {
         this.brands.options =  res[0] as Array<Brand>;
         this.carTypes.options =  res[1] as Array<CarType>;
         this.paginatedDTO = res[2];
+        this.carsNumber = res[3] as number;
       })
   }
 
@@ -105,8 +115,11 @@ export class CarFeedComponent implements OnInit
 
   public getCars(page?:number)
   {
+
+
     let carParametersQueryDTO = new CarParametersQueryDTO();
-    carParametersQueryDTO.productionYear = this.searchCarFormGroup.get('ProductionYear')?.value;
+    carParametersQueryDTO.minProductionYear = this.searchCarFormGroup.get('MinProductionYear')?.value;
+    carParametersQueryDTO.maxProductionYear = this.searchCarFormGroup.get('MaxProductionYear')?.value;
     carParametersQueryDTO.minPrice = this.searchCarFormGroup.get('MinPrice')?.value;
     carParametersQueryDTO.maxPrice = this.searchCarFormGroup.get('MaxPrice')?.value;
     carParametersQueryDTO.title = this.searchCarFormGroup.get('Title')?.value;
@@ -114,15 +127,13 @@ export class CarFeedComponent implements OnInit
     carParametersQueryDTO.brand = this.brands.selectedOption?.id;
     carParametersQueryDTO.carType = this.carTypes.selectedOption?.id;
 
-    console.log(this.brands.selectedOption);
-    
     if(page != null)
       carParametersQueryDTO.page = page;
 
-    this.carService.getCars(carParametersQueryDTO).subscribe((res:PaginatedDTO<Car>) =>
+    this.carService.getCars(carParametersQueryDTO)
+    .subscribe((res:PaginatedDTO<Car>) =>
       {
           this.paginatedDTO = res;
-          console.log(res);
       })
   }
 
@@ -148,6 +159,7 @@ export class CarFeedComponent implements OnInit
 
   public setOrderBy($event:any)
   {
+    console.log($event.target.value);
     this.orderBy.selectedOption = $event.target.value;
   }
 
@@ -175,31 +187,41 @@ export class CarFeedComponent implements OnInit
   {
     if(this.securityService.isAuthenticated)
     {
-      let userId = this.tokenService.getTokenObject().userId;
+      let userId = this.tokenService.getTokenObject()!.userId;
+      let snackBarCarAdded = this.snackBar.openFromComponent(CarAddedComponent);
+      let snackBarCarIsAlreadyAdded = this.snackBar.openFromComponent(CarIsAlreadyAddedComponent);
       this.favoriteCarService.addToFavorite(carId,userId)
       .subscribe(res =>
         {
-          this.dialog.open(FavoriteCarAddedComponent,
-            {
-              data:{
-                message:'The car was added with much success',
-                icon:'done',
-                color:'green'
-              }
-            })
-
-          console.log(res);
+          this.snackBar.openFromComponent(CarAddedComponent,{
+            data:'car was added in favorite list',
+            duration:3500,
+            horizontalPosition:'center',
+            verticalPosition:'top',
+            panelClass:['carAddedSnackbar']
+          })
         },err=>
         {
-          this.dialog.open(FavoriteCarAddedComponent,
-            {
-              data:
-              {
-                message:'This car is already in the favorite list!',
-                icon:'clear',
-                color:'red'
-              }
-            })
+          this.snackBar.openFromComponent(CarIsAlreadyAddedComponent,
+          {
+            data:'car is already in favorite list',
+            duration:3000,
+            verticalPosition:'top',
+            horizontalPosition:'center',
+            panelClass:['carIsAlreadyAddedSnackbar']
+          })
+        })
+    }
+
+    else 
+    {
+      this.snackBar.openFromComponent(UserNotLoggedComponent,
+        {
+          data:'You are not logged in',
+            duration:3000,
+            verticalPosition:'top',
+            horizontalPosition:'center',
+            panelClass:['userNotLogged']
         })
     }
   }
@@ -219,6 +241,11 @@ export class CarFeedComponent implements OnInit
     return arr;
   }
 
+  public get getCarsNumber():number
+  {
+    return this.carsNumber;
+  }
+
   public set getOrderBy(value:Options<boolean>)
   {
     this.orderBy = value;
@@ -227,6 +254,11 @@ export class CarFeedComponent implements OnInit
   public getDate():number
   {
     return new Date().getTime();
+  }
+
+  public clear()
+  {
+    this.searchCarFormGroup.reset();
   }
 
 

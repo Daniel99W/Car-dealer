@@ -58,11 +58,11 @@ export class Car
     public set addingDate(value: Date) {
         this._addingDate = value;
     }
-    private _userId!: number;
-    public get userId(): number {
+    private _userId!: string;
+    public get userId(): string{
         return this._userId;
     }
-    public set userId(value: number) {
+    public set userId(value: string) {
         this._userId = value;
     }
     private _description!: string;

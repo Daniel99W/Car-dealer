@@ -26,7 +26,7 @@ namespace Infrastructure.CarDealer
             _announcesContext.Remove(obj);
         }
 
-        public virtual async Task<T>? Read(Guid id)
+        public virtual async Task<T?> Read(Guid id)
         {
             return await _announcesContext.FindAsync<T>(id);
         }

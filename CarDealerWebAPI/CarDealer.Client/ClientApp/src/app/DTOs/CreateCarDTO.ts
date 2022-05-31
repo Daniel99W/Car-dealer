@@ -24,14 +24,13 @@ export class CreateCarDTO
         this._carNumber = value;
     }
     private _productionYear: number;
-    public get productionYear(): number 
-    {
+    public get productionYear(): number {
         return this._productionYear;
     }
-    public set productionYear(value: number) 
-    {
+    public set productionYear(value: number) {
         this._productionYear = value;
     }
+    
     private _price: number;
     public get price(): number 
     {

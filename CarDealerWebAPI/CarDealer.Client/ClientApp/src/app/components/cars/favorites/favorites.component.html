@@ -8,16 +8,16 @@
     <div 
     *ngFor="let car of getFavoriteCars"
     class="car">
-        <div class="title">
-            {{car.title}}
-        </div>
+            <div class="title" (click)="getCar(car.id)">
+                {{car.title}}
+            </div>
         <div class="carNumber">
             <b>Car Number:</b>
             {{car.carNumber}}
         </div>
         <div class="price">
             <b>Price:</b>
-            {{car.price}}
+            {{car.price}}&euro;
         </div>
         <div class="removeCarFromFavorite">
             <button mat-button color="warn" (click)="removeCar(car.id)">

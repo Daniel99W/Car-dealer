@@ -16,15 +16,19 @@ namespace Core.CarDealer.Interfaces
             Guid? CarTypeId,
             Guid? BrandId,
             string? title,
-            int? productionYear,
+            int? minProductionYear,
+            int? maxProductionYear,
             int? minPrice,
             int? maxPrice,
-            bool? orderBy
+            bool? orderBy,
+            Guid? userId
             );
 
-        public Task<int> GetCarsNumber();
+        public Task<int> GetCarsNumber(Guid? userId);
 
         public Task<Car?> GetCarByUserId(Guid id);
+
+        public Task<IEnumerable<Car>> GetCarsByUserId(Guid userId);
 
         public Task<int> GetCarsTotalPrice();
 

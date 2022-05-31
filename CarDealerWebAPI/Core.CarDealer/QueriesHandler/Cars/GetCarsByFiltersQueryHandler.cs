@@ -22,10 +22,12 @@ namespace Core.CarDealer.QueriesHandler
                 request.BrandId,
                 request.CarTypeId,
                 request.Title,
-                request.ProductionYear,
+                request.MinProductionYear,
+                request.MaxProductionYear,
                 request.MinPrice,
                 request.MaxPrice,
-                request.OrderBy
+                request.OrderBy,
+                request.UserId
                 );
         }
     }

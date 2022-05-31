@@ -21,4 +21,30 @@ export class CarTypeService
 
     return this._httpClient.get<Array<CarType>>(UrlConstants.apiUrl+'/CarType/GetCarTypes');
   }
+
+  public addCarType(carType:CarType):Observable<any>
+  {
+    let body = 
+    {
+      Name:carType.name
+    }
+
+    return this._httpClient.post<any>(UrlConstants.apiUrl+'/CarType/AddCarType',body);
+  }
+
+  public deleteCarType(id:string)
+  {
+    return this._httpClient.delete<any>(UrlConstants.apiUrl+'/CarTypes/DeleteCarType/'+id);
+  }
+
+  public editCarType(carType:CarType)
+  {
+
+    return this._httpClient.post<any>(UrlConstants.apiUrl+'/CarTypes/UpdateCarType',carType);
+  }
+
+  public getCarType(id:string):Observable<CarType>
+  {
+    return this._httpClient.get<CarType>(UrlConstants.apiUrl+'/CarType/GetCarType/'+id);
+  }
 }

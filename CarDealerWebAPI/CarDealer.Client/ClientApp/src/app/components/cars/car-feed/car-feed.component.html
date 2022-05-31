@@ -3,8 +3,6 @@
 
 
 <body>
-    
-
 
 <div class="container"> 
     <div class="feed">
@@ -16,7 +14,7 @@
                         <select class="form-select"
                         (change) = "setBrandById($event)"
                         aria-label="Default select example">
-                            <option *ngFor="let brand of getBrands.options" 
+                            <option *ngFor="let brand of getBrands.options"
                             [value]="brand.id" 
                             >
                             {{brand.name}}
@@ -44,11 +42,18 @@
                         </select>
                     </div>
                 </div>
-                <div class="searchByProductionYear col">
-                        <h3>Search by production year</h3>
-                        <input type="number" class="form-control"
-                        [formControl]="$any(getSearchCarFormGroup).get('ProductionYear')"
-                        placeholder="Search by production year">
+                <div class="searchByProductionYear row">
+                    <h3>Search the car by production year:</h3>
+                    <div class="lowerMargin col">
+                        <input type="number" class="form-control" placeholder="min prod year"
+                        [formControl]="$any(getSearchCarFormGroup).get('MinProductionYear')"
+                        >
+                    </div>
+                    <div class="upperMargin col">
+                        <input type="number" class="form-control" placeholder="max prod year"
+                        [formControl]="$any(getSearchCarFormGroup).get('MaxProductionYear')"
+                        >
+                    </div>
                 </div>
                 <div class="orderBy col">
                         <h3>Order by ascending or descending by price</h3>
@@ -82,20 +87,23 @@
                 </div>
                 <div class="searchByTitle">
                     <h3>Search car by title:</h3>
-                    <input type="text" class="form-control" placeholder="Search a car by announce name"
+                    <input type="text" class="form-control" placeholder="Search a car trough all {{getCarsNumber}} cars"
                     [formControl]="$any(getSearchCarFormGroup).get('Title')"
                     >
                 </div>
             </form>
             <div class="search">
                 <div class="button">
-                    <button mat-raised-button (click)="getCars()">SEARCH</button>
+                    <button mat-raised-button (click)="getCars()">
+                        <mat-icon>search</mat-icon>
+                        SEARCH</button>
                 </div>
             </div>
         </div>
         <mat-card *ngFor = "let car of getPaginatedDTO?.results" class="car">
             <mat-card-header>
-                <mat-card-title> <span class="title" >{{car.title}}</span> - <span> {{car.price}} </span>&euro;</mat-card-title>
+                <mat-card-title> <span class="title" >{{car.title}}</span> - 
+                    <span> {{car.price}} </span>&euro;</mat-card-title>
                 <mat-card-subtitle>Car added on {{car.addingDate}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image 
@@ -124,7 +132,6 @@
     </div>
     <div class="pagination">
             <input type="number"  [formControl]="$any(getSearchCarFormGroup).get('CarsPerPage')" min="1" 
-            
             class="form-control carsPerPage">
             <button *ngIf="getPaginatedDTO?.prevPage" class="btn"
             (click) = "getCars(getPaginatedDTO?.prevPage)"

@@ -41,4 +41,9 @@ export class FavoriteCarService
     }
     return this._httpClient.post(UrlConstants.apiUrl+'/UserCar/RemoveCarFromUserFavoriteList',body);
   }
+
+  public getCarsNumberInFavoriteListByUserId(userId:string):Observable<number>
+  {
+    return this._httpClient.get<number>(UrlConstants.apiUrl+'/UserCar/GetCarsNumberInFavoriteListByUserId/'+userId);
+  }
 }

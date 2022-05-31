@@ -1,1 +1,32 @@
-<p>edit-user works!</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="email">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control" [(ngModel)]="getUser.email" disabled="true">
+    </div>
+    <div class="firstName">
+        <label for="firstName">first Name</label>
+        <input type="text" class="form-control" [(ngModel)]="getUser.name">
+    </div>
+    <div class="secondName">
+        <label for="secondName">second Name</label>
+        <input type="text" class="form-control" [(ngModel)]="getUser.secondName">
+    </div>
+
+    <div class="editUser">
+        <button mat-button class="btn" (click)="editUser()">
+            Edit user
+        </button>
+    </div>
+</div>
+

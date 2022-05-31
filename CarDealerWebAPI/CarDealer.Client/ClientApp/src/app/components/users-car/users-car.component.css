@@ -1,0 +1,69 @@
+
+
+
+
+
+.container
+{
+    width:70%;
+    border:1px solid black;
+    margin:5rem auto;
+    padding:.9rem;
+    border:2px solid gainsboro;
+}
+
+.car 
+{
+    display:flex;
+    border-bottom:1px solid black;
+    padding:.5rem;
+    font-size:1.2rem;
+}
+
+.car .title
+{
+    width:60%;
+    text-overflow:'...';
+}
+
+.car .price
+{
+    width:20%;
+}
+
+.actions
+{
+    width:20%;
+    display:flex;
+    justify-content:space-around;
+}
+
+.actions .edit button
+{
+    background-color: orchid;
+    color:white;
+}
+
+.actions .delete button 
+{
+    background-color: brown;
+    color:white;
+}
+
+
+.usersCarsTitle
+{
+   text-align: center;
+}
+
+.carLink
+{
+    text-decoration: none;
+    color:black;
+}
+
+
+.title:hover
+{
+    cursor: pointer;
+}

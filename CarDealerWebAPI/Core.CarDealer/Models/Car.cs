@@ -28,6 +28,8 @@ namespace Core.CarDealer.Models
         public Guid? BrandId { get; set; }
         public Guid? CarTypeId { get; set; }
 
+
+
         public virtual Brand? Brand { get; set; }
         public virtual CarType? CarType { get; set; }
         public virtual FuelType? FuelTypeNavigation { get; set; }

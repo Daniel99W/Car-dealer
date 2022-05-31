@@ -4,21 +4,87 @@
 <mat-toolbar class="navbar">
     <h1>Car Dealer</h1>
     <div class="links">
-        <a  mat-button routerLink="addCar" class="btn">
-            <span>Add Car</span>
+        <a 
+        *ngIf="isAuthenticated()"
+        mat-button routerLink="user/{{getUserId()}}" class="btn">
+            <span>Welcome back,
+                {{getUser?.name + ' ' + getUser?.secondName}}  !
+                
+            </span>
+        </a>
+        <a 
+        *ngIf="isAuthenticated() && isAuthorized('user')"
+        mat-button routerLink="addCar" class="btn">
+            <span>Add A New Car</span>
         </a> 
-        <a mat-button routerLink="carFeed" class="btn">
+        <a 
+        mat-button routerLink="carFeed" class="btn">
             <span>Car Feed</span>
         </a>
-        <a mat-button routerLink="favorites" class="btn">
-            <span>Wish list</span>
+        <a 
+        *ngIf="isAuthenticated() && isAuthorized('user')"
+        mat-button routerLink="usersCar/{{getUserId()}}" class="btn">
+            <span>Cars added by me -
+                <span class="circle">
+                    {{getCarsNumber}}
+                </span>
+            </span>
         </a>
+
+        <button 
+        mat-button [matMenuTriggerFor]="menu"
+        *ngIf="isAuthenticated() && isAuthorized('admin')"
+        >
+           <span class="btn" style="color:white"> Brands
+               </span>
+        </button>
+        <mat-menu #menu="matMenu"
+        >
+            <a mat-button routerLink="addBrand" class="btn">
+                <span>Add Brand</span>
+            </a>
+            <a mat-button routerLink="brands" class="btn">
+                <span>Brand's list</span>
+            </a>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="carTypeMenu"
+        *ngIf="isAuthenticated() && isAuthorized('admin')"
+        >
+            <span class="btn" style="color:white"> Car Types
+                </span>
+         </button>
+         <mat-menu #carTypeMenu="matMenu">
+             <a mat-button routerLink="addCarType" class="btn">
+                 <span>Add Car Type</span>
+             </a>
+             <a mat-button routerLink="carTypes" class="btn">
+                 <span>CarType's list</span>
+             </a>
+         </mat-menu>
+
+        <a mat-button routerLink="favorites" class="btn"
+        *ngIf="isAuthenticated() && isAuthorized('user')"
+        >
+            <span>Wish list - 
+            <span class="circle">{{getCarsNumberInFavoriteList}} </span>
+            </span>
+        </a>
+       
+
         <a *ngIf="!isAuthenticated()" mat-button routerLink="login" class="btn">
             <span>Login</span>
         </a>
         <a *ngIf="!isAuthenticated()" mat-button routerLink="signUp" class="btn">
             <span>Sign up</span>
         </a> 
+
+       <button
+       *ngIf="isAuthenticated()" mat-button class="btn" style="color:white"
+       (click)="logout()"
+       >
+        Logout
+       </button>
+
         
     </div>
 

@@ -14,5 +14,7 @@ namespace Core.CarDealer.Interfaces
         public Task<bool> CheckIfCarIsAddedToFavorite(Guid userId,Guid carId);
 
         public Task RemoveCarFromFavoriteList(Guid carId,Guid userId);
+
+        public Task<int> GetCarsNumberInFavoriteList(Guid userId);
     }
 }

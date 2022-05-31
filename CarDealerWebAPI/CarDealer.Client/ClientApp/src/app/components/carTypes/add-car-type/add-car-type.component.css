@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+.container
+{
+    width:50%;
+    border:2px solid gainsboro;
+    margin:5rem auto;
+}
+
+
+.carTypeForm
+{
+    width:50%;
+    margin:0rem auto;
+}
+
+
+.carTypeName 
+{
+    margin:2rem;
+}
+
+
+.button
+{
+    text-align: center;
+}
+
+.button button 
+{
+    background-color: #0b2239;
+    color:whitesmoke;
+    margin-bottom:2rem;
+}

@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CarDealer.Queries.UserCars
+namespace Core.CarDealer.Queries.Brands
 {
-    public class GetUserFavoriteCarByUserIdQuery : IRequest<IEnumerable<Car>>
+    public class GetBrandQuery : IRequest<Brand>
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
     }
 }

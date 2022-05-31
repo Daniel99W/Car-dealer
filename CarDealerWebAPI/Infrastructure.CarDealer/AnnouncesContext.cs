@@ -210,11 +210,6 @@ namespace Infrastructure.CarDealer
                     .IsUnicode(false)
                     .HasColumnName("content");
 
-                entity.Property(e => e.Subject)
-                    .HasMaxLength(300)
-                    .IsUnicode(false)
-                    .HasColumnName("subject");
-
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.User)

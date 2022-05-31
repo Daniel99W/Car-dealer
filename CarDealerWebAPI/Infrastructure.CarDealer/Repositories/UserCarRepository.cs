@@ -50,6 +50,13 @@ namespace Infrastructure.CarDealer.Repositories
 
         }
 
+        public async Task<int> GetCarsNumberInFavoriteList(Guid userId)
+        {
+            return await _announcesContext.UserCars
+                .Where(userCar =>userCar.UserId == userId)
+                .CountAsync();
+        }
+
         public async Task RemoveCarFromFavoriteList(Guid carId, Guid userId)
         {
             UserCar userCar = await _announcesContext.UserCars

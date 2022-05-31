@@ -4,22 +4,26 @@
 
 .container
 {
-    border:1px solid black;
+    border:2px solid gainsboro;
     width:80%;
     margin:3rem auto;
+    border-radius:2%;
+    display:flex;
+    color:#002F34;
 }
 
 
 .content
 {
-    width:65%;
+    width:60%;
+    margin-right:2rem;
 }
 
 .details
 {
     border:4px solid gainsboro;
     width:99%;
-    margin:0rem auto;
+    margin:2rem auto;
 }
 
 .lists
@@ -28,12 +32,73 @@
 }
 
 
-.firstListDetails,.secondListDetails
+.firstListDetails,
+.secondListDetails
 {
     width:50%;
 }
 
+.sidebar
+{
+    margin:1rem;
+    width:35%;
+    height: 20%;
+    border:2px solid gainsboro;
+}
 
+
+.vanzator 
+{
+    color:#002F34;
+    background-color: aliceblue;
+    font-weight: bold;
+    font-size:1.5rem;
+    margin:2rem auto;
+    width:50%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.descriptionTitle
+{
+    font-weight: bold;
+    color:#002F34;
+    text-transform: uppercase;
+    text-align: justify;
+}
+
+
+.user
+{
+    display:flex;
+    margin:0rem auto;
+    width:80%;
+}
+
+.userIcon
+{
+    font-size:3.5rem;
+    display:block;
+    margin-right:2rem;
+}
+
+.userDetails .name 
+{
+    font-size:1.3rem;
+}
+
+
+.contact
+{
+    width:50%;
+    margin:2rem auto;
+    text-align: center;
+}
+
+.sendMessage
+{
+    border:1px solid #002F34;
+}
 
 
 
