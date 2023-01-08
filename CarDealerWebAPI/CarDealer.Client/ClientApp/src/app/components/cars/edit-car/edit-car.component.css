@@ -1,0 +1,37 @@
+
+
+
+
+
+.container
+{
+    width:55%;
+    margin-top:1.5rem;
+    margin-bottom:5rem;
+}
+
+.formTitle
+{
+    text-decoration: underline;
+}
+
+
+.formLabelStyle
+{
+    font-weight:500;
+    font-size:1.1rem;
+    letter-spacing:1.5px
+}
+
+.addCarButton
+{
+    width:99%;
+    text-align: center;
+    margin:0rem auto;
+}
+
+.addCarButton button 
+{
+    background-color: #0b2239;
+    color:white;
+}

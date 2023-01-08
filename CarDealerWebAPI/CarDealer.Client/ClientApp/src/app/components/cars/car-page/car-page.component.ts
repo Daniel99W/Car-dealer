@@ -5,6 +5,10 @@ import { CarService } from 'src/app/services/car.service';
 import { MatCarouselSlide, MatCarouselSlideComponent } from '@ngbmodule/material-carousel';
 import { UserService } from '../../../services/user.service';
 import { UserDTO } from '../../../DTOs/UserDTO';
+import { SecurityService } from 'src/app/services/security.service';
+import { TokenService } from 'src/app/services/token.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserNotLoggedComponent } from '../../snackbars/user-not-logged/user-not-logged.component';
 
 @Component({
   selector: 'app-car-page',
@@ -19,18 +23,27 @@ export class CarPageComponent implements OnInit
   private _car?:Car;
   private _userService:UserService;
   private _userDTO?:UserDTO;
+  private _securityService:SecurityService;
+  private _tokenService:TokenService;
+  private _snackBar:MatSnackBar;
 
   constructor(
     router:Router,
     activatedRouter:ActivatedRoute,
     carService:CarService,
-    userService:UserService
+    userService:UserService,
+    securityService:SecurityService,
+    tokenService:TokenService,
+    snackBar:MatSnackBar
   ) 
   { 
     this._router = router;
     this._activatedRoute = activatedRouter;
     this._carService = carService;
     this._userService = userService;
+    this._securityService = securityService;
+    this._tokenService = tokenService;
+    this._snackBar = snackBar;
   }
 
   ngOnInit(): void 
@@ -59,6 +72,25 @@ export class CarPageComponent implements OnInit
   public get getUser():UserDTO|undefined
   {
     return this._userDTO;
+  }
+
+  public sendMessage()
+  {
+    if(this._securityService.isAuthenticated)
+    {
+      this._router.navigate(['/sendMessage',this._userDTO?.id]);
+    }
+    else 
+    {
+      this._snackBar.openFromComponent(UserNotLoggedComponent,
+        {
+          data:'You are not logged in',
+            duration:3000,
+            verticalPosition:'top',
+            horizontalPosition:'center',
+            panelClass:['userNotLogged']
+        })
+    }
   }
 
  

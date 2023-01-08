@@ -84,9 +84,23 @@ export class CarService
 
   public editCar(car:Car)
   {
+    console.log(car.id);
     let body =
     {
-      Car:car
+      Id:car.id,
+      Title:car.title,
+      CarNumber:car.carNumber,
+      ProductionYear:car.productionYear,
+      Price:car.price,
+      SecondHand:car.secondHand,
+      AddingDate:car.addingDate,
+      Description:car.description,
+      Model:car.model,
+      CilindricCapacity:car.cilindricCapacity,
+      FuelType:car.fuelType,
+      BrandId:car.brand?.id,
+      CarTypeId:car.carType?.id,
+      UserId:car.userId
     }
 
     return this._httpClient.post(UrlConstants.apiUrl+'/Cars/Update',body);

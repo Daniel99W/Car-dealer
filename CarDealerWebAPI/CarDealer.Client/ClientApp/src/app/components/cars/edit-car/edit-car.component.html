@@ -1,0 +1,103 @@
+
+
+
+
+<div class="container">
+        <h1 class="formTitle">Edit a car</h1>
+        <div class="row align items start">
+        <div class="mb-3 col">
+            <label for="title" class="form-label formLabelStyle">Title</label>
+            <textarea type="text" [(ngModel)]="getCar!.title" id="title" 
+            
+            class="form-control">
+            </textarea>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="carNumber"  class="form-label formLabelStyle">Car Number:</label>
+                <input type="text" [(ngModel)]="getCar!.carNumber" id="carNumber"   class="form-control">
+            </div>
+            <div class="mb-3 col">
+                <label for="productionYear"  class="form-label formLabelStyle">Production Year:</label>
+                <input type="text" [(ngModel)]="getCar!.productionYear" id="productionYear" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label for="price" class="form-label formLabelStyle">Price:</label>
+            <input type="number" [(ngModel)]="getCar!.price" id="price" class="form-control">
+        </div>
+        <div class="mb-3 col">
+            <label for="addingDate" class="form-label formLabelStyle">Adding date</label>
+            <input type="date" [(ngModel)]="getCar!.addingDate" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label for="Car Type" class="form-label formLabelStyle">Car Type:</label>
+            <select class="form-select"
+            (change)="setCarTypeId($event)"
+            aria-label="Default select example">
+                <option selected>{{getCarTypes.selectedOption?.name || undefined}}</option>
+                <option *ngFor="let carType of getCarTypes.options" 
+                [value]="carType.id" 
+                >
+                {{carType.name}}
+            </select>
+        </div>
+        <div class="mb-3 col">
+            <label for="brand" class="form-label formLabelStyle">Brand </label>
+            <select class="form-select" 
+            (change)="setBrandId($event)"
+            aria-label="Default select example"
+            >
+                <option selected>{{getBrands.selectedOption?.name || undefined}}</option>
+                <option *ngFor="let brand of getBrands.options" 
+                [value]="brand.id" 
+                >
+                {{brand.name}}
+            </select>
+        </div>
+        <div class="mb-3 col">
+            <label for="Fuel Type" class="form-label formLabelStyle">Fuel Type</label>
+            <select class="form-select" 
+            (change)="setFuelTypeId($event)"
+            aria-label="Default select example">
+                <option selected>{{getFuelTypes.selectedOption?.name || undefined}}</option>
+                <option *ngFor="let fuelType of getFuelTypes.options" 
+                [value]="fuelType.id" 
+                >
+                {{fuelType.name}}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="SecondHand" class="form-label formLabelStyle">Second Hand</label>
+            <input type="checkbox" [(ngModel)]="getCar!.secondHand"
+            
+            >
+        </div>
+    </div>
+        <div class="mb-3">
+            <label for="description" class="form-label formLabelStyle">Description:</label>
+            <angular-editor type="text" [(ngModel)]="getCar!.description" class="form-control">
+            </angular-editor>
+        </div>
+       
+    <div class="mb-3">
+        <label for="model" class="form-label formLabelStyle">Model name:</label>
+        <input type="text" [(ngModel)]="getCar!.model" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="cilindricCapacity" class="form-label formLabelStyle">Cilindric Capacity</label>
+        <input type="number" [(ngModel)]="getCar!.cilindricCapacity" class="form-control">
+    </div>
+    
+   
+    <div class="addCarButton">
+        <button mat-button (click)="editCar()">
+            Edit car
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

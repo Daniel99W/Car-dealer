@@ -1,4 +1,5 @@
-﻿using Core.CarDealer.Models;
+﻿using Core.CarDealer.DTO;
+using Core.CarDealer.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Core.CarDealer.Queries.Messages
 {
-    public class GetMessagesBySenderReceiverQuery : IRequest<IEnumerable<Message>>
+    public class GetMessagesByReceiverIdQuery : IRequest<IEnumerable<GetMessageDTO>>
     {
-        public Guid SenderId { get; set; }
         public Guid ReceiverId { get; set; }
     }
 }

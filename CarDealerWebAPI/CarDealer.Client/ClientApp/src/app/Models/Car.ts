@@ -72,12 +72,12 @@ export class Car
     public set description(value: string) {
         this._description = value;
     }
-    private _modelName!: string;
-    public get modelName(): string {
-        return this._modelName;
+    private _model!: string;
+    public get model(): string {
+        return this._model;
     }
-    public set modelName(value: string) {
-        this._modelName = value;
+    public set model(value: string) {
+        this._model = value;
     }
     private _cilindricCapacity!: number;
     public get cilindricCapacity(): number {

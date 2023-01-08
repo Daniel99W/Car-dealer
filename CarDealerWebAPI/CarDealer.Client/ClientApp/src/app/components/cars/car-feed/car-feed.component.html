@@ -54,24 +54,7 @@
                         [formControl]="$any(getSearchCarFormGroup).get('MaxProductionYear')"
                         >
                     </div>
-                </div>
-                <div class="orderBy col">
-                        <h3>Order by ascending or descending by price</h3>
-                        <select class="form-select" 
-                        (change)="setOrderBy($event)"
-                        aria-label="Default select example">
-                            <option *ngFor="let orderBy of getOrderBy.options" 
-                            [value]="orderBy" 
-                            >
-                            {{orderBy == true ? 'Ascendent':'Descendent'}}
-                            <option
-                            [value]="null"
-                            >
-                            None
-                            </option>
-                        </select>
-                    </div>
-                
+                </div> 
                 <div class="searchByPrice row">
                     <h3>Search the car by price:</h3>
                     <div class="lowerMargin col">
@@ -107,14 +90,14 @@
                 <mat-card-subtitle>Car added on {{car.addingDate}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image 
-            src = "https://cardealerpictures.blob.core.windows.net/picsstorage/{{car.images[0].imageName}}"
+            src = "https://cardealerlicenta.blob.core.windows.net/carpics/{{car.images[0].imageName}}"
             width="200px"
             height="250px"
             >
             <mat-card-content>
                 <ul>
                     <li>Production Year : {{car.productionYear}}</li>
-                    <li *ngIf ="car.modelName != null">{{car.modelName}}</li>
+                    <li *ngIf ="car.model != null">{{car.model}}</li>
                     <li>Cilindric Capacity : {{car.cilindricCapacity}}</li>
                 </ul>
             </mat-card-content>

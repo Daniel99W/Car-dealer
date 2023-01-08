@@ -17,46 +17,62 @@ namespace CarDealerWebAPI.Controllers
     {
 
         private IMediator _mediator;
-        private IHubContext<ChatHub> _hub;
-
 
         public MessagesController(
-            IMediator mediator,
-            IHubContext<ChatHub> hub
+            IMediator mediator
             )
         {
             _mediator = mediator;
-            _hub = hub;
         }
-   
+
         [HttpPost]
-        public async Task<ActionResult<Message>> SendMessage(MessageDTO messageDTO)
+        public async Task<ActionResult> SendMessage(MessageDTO messageDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            await _hub.Clients.User(messageDTO.ReceiverId.ToString()).SendAsync(messageDTO.Content);
-
-            return await _mediator.Send(new CreateUnitOfWorkMessagesCommand
+            await _mediator.Send(new CreateUnitOfWorkMessagesCommand
             {
                 Content = messageDTO.Content,
                 UserId = messageDTO.SenderId,
+                Subject = messageDTO.Subject,
                 ReceiverId = messageDTO.ReceiverId
             });
+            return Ok();
         }
 
-        [HttpPost]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages(GetMessagesDTO getMessagesDTO)
+        [HttpGet("{receiverId}")]
+        public async Task<ActionResult<IEnumerable<GetMessageDTO>>> GetMessages(Guid receiverId)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest();
 
-            return new ActionResult<IEnumerable<Message>>(
-                await _mediator.Send(new GetMessagesBySenderReceiverQuery
+            return new ActionResult<IEnumerable<GetMessageDTO>>(
+                await _mediator.Send(new GetMessagesByReceiverIdQuery()
+                {
+                    ReceiverId = receiverId
+                }));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetMessageDTO>> GetMessage(Guid id)
+        {
+            return new ActionResult<GetMessageDTO>(
+                await _mediator.Send(new GetMessageByIdQuery()
+                {
+                    Id = id
+                }));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await _mediator.Send(new DeleteMessageCommand()
             {
-                ReceiverId = getMessagesDTO.ReceiverId,
-                SenderId = getMessagesDTO.SenderId
-            }));
+                Id = id
+            });
+
+            return Ok();
         }
 
 

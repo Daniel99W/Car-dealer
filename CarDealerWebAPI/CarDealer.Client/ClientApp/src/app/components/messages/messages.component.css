@@ -1,0 +1,38 @@
+
+
+
+
+
+.container
+{
+    width:50%;
+    margin:3rem auto;
+}
+
+.myMessages
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.messages 
+{
+    width:99%;
+    height:100%;
+}
+
+
+.message 
+{
+    width:30%;
+    height:45%;
+}
+
+.empty 
+{
+    text-align: center;
+    color:brown;
+}
+
+

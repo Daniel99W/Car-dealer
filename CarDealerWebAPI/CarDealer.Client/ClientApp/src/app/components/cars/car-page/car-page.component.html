@@ -25,7 +25,7 @@
         >
             <mat-carousel-slide *ngFor="let image of getCar?.images"
             >
-            <img src="https://cardealerpictures.blob.core.windows.net/picsstorage/{{image.imageName}}"
+            <img src="https://cardealerlicenta.blob.core.windows.net/carpics/{{image.imageName}}"
             height="500px"
             >
             </mat-carousel-slide>
@@ -41,7 +41,7 @@
                 </ul>
                 <ul class="secondListDetails">
                     <li>Brand: {{getCar?.brand?.name}}</li>
-                    <li>Model Name {{getCar?.modelName}}</li>
+                    <li>Model Name {{getCar?.model}}</li>
                     <li>Fuel Type {{getCar?.fuelType?.name}}</li>
                     <li>Car Type: {{getCar?.carType?.name}}</li>
                 </ul> 
@@ -59,7 +59,7 @@
     </div>
     <div class="sidebar">
         <div class="vanzator">
-            Vanzator:
+            SELLER:
         </div>
         <div class="user">
             <mat-icon class="userIcon">account_circle</mat-icon>
@@ -78,7 +78,7 @@
             
         </div>
         <div class="contact">
-            <button mat-button color="#002F34" class="sendMessage">Send message</button>
+            <button mat-button color="#002F34" class="sendMessage" (click)="sendMessage()">Send message</button>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@ using Core.CarDealer.Commands.Mesages;
 
 namespace Core.CarDealer.CommandsHandler.Messages
 {
-    public class CreateUnitOfWorkMessagesCommandHandler : IRequestHandler<CreateUnitOfWorkMessagesCommand,Message>
+    public class CreateUnitOfWorkMessagesCommandHandler : IRequestHandler<CreateUnitOfWorkMessagesCommand,Unit>
     {
         IUnitOfWork _unitOfWork;
         public CreateUnitOfWorkMessagesCommandHandler(IUnitOfWork unitOfWork)
@@ -18,13 +18,15 @@ namespace Core.CarDealer.CommandsHandler.Messages
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Message> Handle(CreateUnitOfWorkMessagesCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateUnitOfWorkMessagesCommand request, CancellationToken cancellationToken)
         {
-           Message message =  _unitOfWork._repositoryMessage.Create(new Message()
-           {
+            Message message = _unitOfWork._repositoryMessage.Create(new Message()
+            {
                 Content = request.Content,
-                UserId = request.UserId
-           });
+                Subject = request.Subject,
+                UserId = request.UserId,
+                Created = DateTime.Now
+            });
            await _unitOfWork._repositoryMessage.SaveChangesAsync();
            _unitOfWork._repositoryMessageTo.Create(new MessageTo()
            {
@@ -32,7 +34,7 @@ namespace Core.CarDealer.CommandsHandler.Messages
                 MessageId = message.Id
            });
            await _unitOfWork._repositoryMessageTo.SaveChangesAsync();
-           return await Task.FromResult(message);
+           return await Task.FromResult(Unit.Value);
         }
     }
 }

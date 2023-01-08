@@ -2,7 +2,9 @@
 
 
 <mat-toolbar class="navbar">
-    <h1>Car Dealer</h1>
+    <h1 style="font-weight:bold;text-transform:capitalize;letter-spacing: .11rem;">CAR <span style="color:brown;">DEALER
+        </span>
+    </h1>
     <div class="links">
         <a 
         *ngIf="isAuthenticated()"
@@ -30,7 +32,11 @@
                 </span>
             </span>
         </a>
-
+        <a 
+        *ngIf="isAuthenticated() && isAuthorized('user')"
+        mat-button routerLink="messages" class="btn">
+            <span>My messages</span>
+        </a>
         <button 
         mat-button [matMenuTriggerFor]="menu"
         *ngIf="isAuthenticated() && isAuthorized('admin')"
@@ -61,7 +67,6 @@
                  <span>CarType's list</span>
              </a>
          </mat-menu>
-
         <a mat-button routerLink="favorites" class="btn"
         *ngIf="isAuthenticated() && isAuthorized('user')"
         >
@@ -69,23 +74,18 @@
             <span class="circle">{{getCarsNumberInFavoriteList}} </span>
             </span>
         </a>
-       
-
         <a *ngIf="!isAuthenticated()" mat-button routerLink="login" class="btn">
             <span>Login</span>
         </a>
         <a *ngIf="!isAuthenticated()" mat-button routerLink="signUp" class="btn">
             <span>Sign up</span>
         </a> 
-
        <button
        *ngIf="isAuthenticated()" mat-button class="btn" style="color:white"
        (click)="logout()"
        >
         Logout
        </button>
-
-        
     </div>
 
 </mat-toolbar>

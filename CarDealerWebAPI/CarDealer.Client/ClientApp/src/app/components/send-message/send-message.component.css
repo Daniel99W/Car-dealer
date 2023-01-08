@@ -1,0 +1,30 @@
+
+
+
+
+.container 
+{
+    width:50%;
+    margin:0rem auto;
+
+}
+
+
+.sendMessage 
+{
+    width:50%;
+    text-align: center;
+    margin:2rem auto;
+}
+
+.sendMessage button
+{
+    text-transform: capitalize;
+    border:1px solid 
+}
+
+
+.fromto
+{
+    width:35%;
+}

@@ -18,6 +18,8 @@ import { EditCarTypeComponent } from '../components/carTypes/edit-car-type/edit-
 import { EditUserComponent } from '../components/users/edit-user/edit-user.component';
 import { AuthGuardService as AuthGuard } from '../services/auth-guard.service';
 import { UserTypes } from '../Constants/UserTypes';
+import { MessagesComponent } from '../components/messages/messages.component';
+import { SendMessageComponent } from '../components/send-message/send-message.component';
 
 const routes:Routes =
 [
@@ -107,6 +109,15 @@ const routes:Routes =
     }
   },
   {
+    path:'messages',
+    component:MessagesComponent,
+    canActivate:[AuthGuard],
+    data:
+    {
+      role:UserTypes.USER
+    }
+  },
+  {
     path:'editCarType/:id',
     component:EditCarTypeComponent,
     canActivate:[AuthGuard],
@@ -114,6 +125,15 @@ const routes:Routes =
     {
       role:UserTypes.ADMIN
     }},
+    {
+      path:'sendMessage/:userId',
+      component:SendMessageComponent,
+      canActivate:[AuthGuard],
+      data:
+      {
+        role:UserTypes.USER
+      }
+    },
   {
   path:'user/:id',component:EditUserComponent}
 ];

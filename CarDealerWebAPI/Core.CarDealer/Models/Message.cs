@@ -14,6 +14,10 @@ namespace Core.CarDealer.Models
         public string Content { get; set; } = null!;
         public Guid? UserId { get; set; }
 
+        public string? Subject { get; set; }
+
+        public DateTime? Created { get; set; }
+
         public virtual User? User { get; set; }
         public virtual ICollection<MessageTo> MessageTos { get; set; }
     }

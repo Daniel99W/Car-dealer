@@ -32,6 +32,8 @@ namespace Core.CarDealer.Configurations
              mapperConfigurationExpression.CreateMap<FuelType,FuelTypeDTO>();
              mapperConfigurationExpression.CreateMap<User,UserDTO>();
             mapperConfigurationExpression.CreateMap<UserDTO, UpdateUserCommand>();
+            mapperConfigurationExpression.CreateMap<IEnumerable<Message>,IEnumerable<GetMessageDTO>>();
+            mapperConfigurationExpression.CreateMap<Message,GetMessageDTO>();
         }
 
 

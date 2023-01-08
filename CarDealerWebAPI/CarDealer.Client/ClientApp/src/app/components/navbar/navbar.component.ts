@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit
       let userId = this.tokenService.getTokenObject()!.userId.toString();
 
       let carsNumberInFavoriteList = from(this.favoriteCarService.
-        getCarsNumberInFavoriteListByUserId(userId))
+        getCarsNumberInFavoriteListByUserId(userId));
       let user = from(this.userService.getUser(userId));
       let carsNumber = from(this.carService.getCarsNumber(userId))
 
@@ -72,6 +72,21 @@ export class NavbarComponent implements OnInit
         })
     }
   }
+
+  ngOnChanges()
+  {
+    let userId = this.tokenService.getTokenObject()!.userId.toString();
+    let carsNumberInFavoriteList = from(this.favoriteCarService.
+      getCarsNumberInFavoriteListByUserId(userId));
+    let carsNumber = from(this.carService.getCarsNumber(userId));
+    forkJoin([carsNumberInFavoriteList,carsNumber])
+      .subscribe(res => 
+        {
+          this.carsNumberInFavoriteList = res[0];
+          this.carsNumber = res[1];
+        })
+  }
+
   public isAuthorized(role:string)
   {
     return this.tokenService.getTokenObject()!.role == role ? true:false;
@@ -100,6 +115,7 @@ export class NavbarComponent implements OnInit
   public logout()
   {
     this.cookieService.delete('accessToken');
+    window.location.reload();
   }
 
 }

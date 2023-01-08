@@ -36,6 +36,8 @@ import { CarAddedComponent } from './components/snackbars/car-added/car-added.co
 import {MatCarouselModule} from '@ngbmodule/material-carousel';
 import { CarIsAlreadyAddedComponent } from './components/snackbars/car-is-already-added/car-is-already-added.component';
 import { UserNotLoggedComponent } from './components/snackbars/user-not-logged/user-not-logged.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { SendMessageComponent } from './components/send-message/send-message.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { UserNotLoggedComponent } from './components/snackbars/user-not-logged/u
     EditCarTypeComponent,
     CarAddedComponent,
     CarIsAlreadyAddedComponent,
-    UserNotLoggedComponent
+    UserNotLoggedComponent,
+    MessagesComponent,
+    SendMessageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

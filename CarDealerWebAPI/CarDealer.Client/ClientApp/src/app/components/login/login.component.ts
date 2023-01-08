@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit
               let token:string = res.value;
               this.cookieService.set('accessToken',token);
               this.router.navigate(['carFeed']);
+              window.location.reload();
             }
       });
   }

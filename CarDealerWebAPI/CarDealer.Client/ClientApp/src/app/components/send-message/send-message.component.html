@@ -1,0 +1,43 @@
+
+
+
+
+<div class="container">
+    <div class="title">
+        <h1>Send a message to </h1>
+    </div>
+    <div class="fromto">
+        From:
+        <div class="from mb-3 col">
+            <input type="email" class="form-control" [(ngModel)]="getSenderUser.email" disabled>
+        </div>
+        To:
+        <div class="to mb-3 col">
+            <input type="email" class="form-control" [(ngModel)]="getReceiverUser.email" disabled>
+        </div>
+    </div>
+    <div class="subject">
+        <div class="mb-3 col">
+            <label for="subject"  class="form-label formLabelStyle">Subject:</label>
+            <input type="text"  [formControl]="$any(messageForm).get('subject')" id="subject"   
+            placeholder="Subject. Eg:About that car"
+            class="form-control">
+        </div>
+    </div>
+    <div class="content">
+        <div class="mb-3 col">
+            <label for="subject"  class="form-label formLabelStyle">Content:</label>
+            <textarea
+            type="text" [formControl]="$any(messageForm).get('content')" id="content"   
+            class="form-control" placeholder="Write the content of the message here.."
+            >
+
+            </textarea>
+        </div>
+    </div>
+    <div class="sendMessage">
+        <button mat-button primary (click)="sendMessage()">
+            send message 
+        </button>
+    </div>
+</div>
