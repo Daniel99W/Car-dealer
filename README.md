@@ -26,4 +26,4 @@ The project use CLEAN CODE ARHITECTURE
 
 Database schema:
 
-<img src="database schema"></img>
+<img src="database schema.png"></img>
