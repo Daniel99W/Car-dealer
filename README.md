@@ -21,3 +21,9 @@ The project use CLEAN CODE ARHITECTURE
 
 
 <img src="Website overview.png"></img>
+
+
+
+Database schema:
+
+<img src="database schema"></img>
