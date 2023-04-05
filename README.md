@@ -12,3 +12,4 @@ Edit/Delete messages
 Also, the application has two roles : user and admin
 The admin can add/edit/delete the brands an car types 
 
+<img src="website overview.png"></img>
