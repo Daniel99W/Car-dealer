@@ -12,7 +12,7 @@ Functionalities : </p>
 <li>Edit/Delete messages</li>
 <li>Also, the application has two roles : user and admin</li>
 <li>The admin can add/edit/delete the brands an car types <li>
-<hr>
+
 <br>Tech Stack<br>
 Back end: asp.net core web api, sql server , entity framework as an ORM
 Front end: Angular with Typescript
