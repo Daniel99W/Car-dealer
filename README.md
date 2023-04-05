@@ -11,11 +11,10 @@ Functionalities : </p>
 <li>Sending messages to other users(not in real time) </li>
 <li>Edit/Delete messages</li>
 <li>Also, the application has two roles : user and admin</li>
-<li>The admin can add/edit/delete the brands an car types <li>
+<li>The admin can add/edit/delete the brands an car types </li>
 
-<br>Tech Stack<br>
-Back end: asp.net core web api, sql server , entity framework as an ORM
-Front end: Angular with Typescript
+<p>Back end: asp.net core web api, sql server , entity framework as an ORM</p>
+<p>Front end: Angular with Typescript</p>
 The project use CLEAN CODE ARHITECTURE
 
 
