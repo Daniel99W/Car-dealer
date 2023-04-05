@@ -12,12 +12,10 @@ Functionalities : </p>
 <li>Edit/Delete messages</li>
 <li>Also, the application has two roles : user and admin</li>
 <li>The admin can add/edit/delete the brands an car types </li>
-
+<br>
 <p>Back end: asp.net core web api, sql server , entity framework as an ORM</p>
 <p>Front end: Angular with Typescript</p>
 The project use CLEAN CODE ARHITECTURE
-
-
 
 <img src="Website overview.png"></img>
 
