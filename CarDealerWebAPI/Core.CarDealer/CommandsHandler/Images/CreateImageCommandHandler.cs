@@ -7,13 +7,13 @@ namespace Core.CarDealer.CommandsHandler.Images
 {
     public class CreateImageCommandHandler : IRequestHandler<CreateImageCommand, Image>
     {
-        private IServiceBlob _serviceBlob;
+        private ICloudStorageService _cloudStorageService;
         private IRepositoryImage _repositoryImage;
         public CreateImageCommandHandler(
-            IServiceBlob serviceBlob,
+            ICloudStorageService cloudStorageService,
             IRepositoryImage repositoryImage)
         {
-            _serviceBlob = serviceBlob;
+            _cloudStorageService = cloudStorageService;
             _repositoryImage = repositoryImage;
         }
         public async Task<Image> Handle(CreateImageCommand request, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ namespace Core.CarDealer.CommandsHandler.Images
                 CarId = request.CarId
             });
 
-            await _serviceBlob.Upload(Utilities.Utilities.CreateImageWithNewName(request.FormFile,imageName));
+            await _cloudStorageService.UploadFileAsync(request.FormFile,imageName);
 
             await _repositoryImage.SaveChangesAsync();
             return await Task.FromResult(image);

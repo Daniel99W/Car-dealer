@@ -8,14 +8,14 @@ namespace Core.CarDealer.CommandsHandler.Images
     public class DeleteImageCommandHandler : IRequestHandler<DeleteImageCommand, Guid>
     {
         private IRepositoryImage _repositoryImage;
-        private IServiceBlob _blobService;
+        private ICloudStorageService _cloudStorageService;
         public DeleteImageCommandHandler(
             IRepositoryImage repositoryImage,
-            IServiceBlob serviceBlob
+            ICloudStorageService cloudStorageService
             )
         {
             _repositoryImage = repositoryImage;
-            _blobService = serviceBlob;
+            _cloudStorageService = cloudStorageService;
         }
 
         public Task<Guid> Handle(DeleteImageCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace Core.CarDealer.CommandsHandler.Images
                 ImageName = request.ImageName
             });
 
-            _blobService.Remove(request.ImageName);
+            _cloudStorageService.DeleteFileAsync(request.ImageName);
             return Task.FromResult(request.CarId);
         }
     }

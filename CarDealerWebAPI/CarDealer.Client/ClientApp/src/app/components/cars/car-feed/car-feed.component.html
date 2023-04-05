@@ -90,7 +90,7 @@
                 <mat-card-subtitle>Car added on {{car.addingDate}}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image 
-            src = "https://cardealerlicenta.blob.core.windows.net/carpics/{{car.images[0].imageName}}"
+            src = {{getGoogleBucketUrl()+car.images[0].imageName}}
             width="200px"
             height="250px"
             >

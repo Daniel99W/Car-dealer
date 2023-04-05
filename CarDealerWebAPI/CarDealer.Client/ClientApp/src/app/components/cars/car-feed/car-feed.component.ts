@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {CarAddedComponent} from '../../snackbars/car-added/car-added.component';
 import { CarIsAlreadyAddedComponent } from '../../snackbars/car-is-already-added/car-is-already-added.component';
 import { UserNotLoggedComponent } from '../../snackbars/user-not-logged/user-not-logged.component';
+import { UrlConstants } from '../../../Constants/UrlConstants';
 
 @Component({
   selector: 'app-car-feed',
@@ -38,6 +39,7 @@ export class CarFeedComponent implements OnInit
   private dialog:MatDialog;
   private carsNumber!:number;
   private snackBar:MatSnackBar;
+  private gBucket:string;
 
   private searchCarFormGroup!:FormGroup;
 
@@ -82,7 +84,8 @@ export class CarFeedComponent implements OnInit
       MaxProductionYear:new FormControl(),
       Title:new FormControl(),
       CarsPerPage:new FormControl(5)
-    })
+    });
+    this.gBucket = UrlConstants.googleBucketUrl;
   }
 
   ngOnInit():void 
@@ -110,6 +113,11 @@ export class CarFeedComponent implements OnInit
   public getCar(id:string)
   {
     this.router.navigate(['car',id]);
+  }
+
+  public getGoogleBucketUrl():string 
+  {
+    return this.gBucket;
   }
 
 

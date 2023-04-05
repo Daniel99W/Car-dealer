@@ -31,24 +31,23 @@ builder.Services.AddScoped<IRepositoryUser,UserRepository>();
 builder.Services.AddScoped<IRepositoryMessage,MessageRepository>();
 builder.Services.AddScoped<IRepositoryMessageTo,MessageToRepository>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWorkMessages>();
-builder.Services.AddScoped<IServiceBlob,BlobService>();
 builder.Services.AddScoped<IRepositoryImage,ImageRepository>();
 builder.Services.AddScoped<IRepositoryUserCar,UserCarRepository>();
 builder.Services.AddScoped<IRepositoryBrand,BrandRepository>();
 builder.Services.AddScoped<IRepositoryCarType,CarTypeRepository>();
 builder.Services.AddScoped<IRepositoryFuelType,FuelTypeRepository>();
 builder.Services.AddScoped<IRepositoryRole,RoleRepository>();
+builder.Services.AddScoped<ICloudStorageService,CloudStorageService>();
 builder.Services.AddScoped<IServiceAuth,AuthService>();
 builder.Services.AddAutoMapper(ConfigureMapper.Configure);
-builder.Services.AddScoped<BlobService>();
 builder.Services.AddMediatR((typeof(AssemblyMarker)));
 builder.Services.AddSignalR();
 builder.Services.AddCors(options => options.AddPolicy(
                   "CorsPolicy",
-                  builder => builder.WithOrigins("http://localhost:4200")
+                  builder => builder.AllowAnyOrigin()
                   .AllowAnyMethod()
                   .AllowAnyHeader()
-                  .AllowCredentials()));
+                  ));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -70,6 +69,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+
 var app = builder.Build();
 
 
@@ -81,7 +81,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("CorsPolicy");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseRouting();
 

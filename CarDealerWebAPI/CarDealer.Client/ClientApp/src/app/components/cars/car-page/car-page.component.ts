@@ -9,6 +9,7 @@ import { SecurityService } from 'src/app/services/security.service';
 import { TokenService } from 'src/app/services/token.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserNotLoggedComponent } from '../../snackbars/user-not-logged/user-not-logged.component';
+import { UrlConstants } from '../../../Constants/UrlConstants';
 
 @Component({
   selector: 'app-car-page',
@@ -26,6 +27,7 @@ export class CarPageComponent implements OnInit
   private _securityService:SecurityService;
   private _tokenService:TokenService;
   private _snackBar:MatSnackBar;
+  private _gBucket:string;
 
   constructor(
     router:Router,
@@ -44,6 +46,7 @@ export class CarPageComponent implements OnInit
     this._securityService = securityService;
     this._tokenService = tokenService;
     this._snackBar = snackBar;
+    this._gBucket = UrlConstants.googleBucketUrl;
   }
 
   ngOnInit(): void 
@@ -67,6 +70,11 @@ export class CarPageComponent implements OnInit
   public get getCar()
   {
     return this._car;
+  }
+
+  public getGoogleBucketUrl():string 
+  {
+    return this._gBucket;
   }
 
   public get getUser():UserDTO|undefined

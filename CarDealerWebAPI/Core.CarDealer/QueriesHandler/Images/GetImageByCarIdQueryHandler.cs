@@ -8,16 +8,16 @@ namespace Core.CarDealer.QueriesHandler.Images
     public class GetImagesByCarIdQueryHandler :
         IRequestHandler<GetImagesByCarIdQuery, IEnumerable<Image>>
     {
-        IRepositoryImage _repositoryImage;
-        IServiceBlob _blobService;
+        private IRepositoryImage _repositoryImage;
+        private ICloudStorageService _cloudStorageService;
 
         public GetImagesByCarIdQueryHandler(
             IRepositoryImage repositoryImage,
-            IServiceBlob blobService
+            ICloudStorageService cloudStorageService
             )
         {
             _repositoryImage = repositoryImage;
-            _blobService = blobService;
+            _cloudStorageService = cloudStorageService;
         }
 
 

@@ -9,17 +9,17 @@ namespace Core.CarDealer.CommandsHandler.Cars
     public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand,Car>
     {
         private IRepositoryCar _carRepository;
-        private IServiceBlob _blobService;
+        private ICloudStorageService _cloudStorageService;
         private IMapper _mapper;
 
         public CreateCarCommandHandler(
             IRepositoryCar carRepository,
-            IServiceBlob blobService,
+            ICloudStorageService cloudStorageService,
             IMapper mapper)
 
         {
             _carRepository = carRepository;
-            _blobService = blobService;
+            _cloudStorageService = cloudStorageService;
             _mapper = mapper;
         }
         
@@ -27,9 +27,7 @@ namespace Core.CarDealer.CommandsHandler.Cars
         public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             Car car = _carRepository.Create(_mapper.Map<Car>(request));
-            Console.WriteLine(car.CarNumber);
             await _carRepository.SaveChangesAsync();
-
             return await Task.FromResult(car);
         }
 
