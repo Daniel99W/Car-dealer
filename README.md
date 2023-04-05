@@ -1,7 +1,7 @@
 # Car-dealer
 
 <p>This project was built during my internship period at Amdaris Company.</p>
-<p>The project is a car selling website or "Car Dealer" in which a user can search his favorite and in the same time sell his own car to another user. 
+<p>The project is a car selling website or "Car Dealer" in which a user can search his favorite car and in the same time sell his own car to another user. 
 Functionalities : </p>
 <p>Search a car by the following filters : brand, car type,production year,price, announce name, all results are paginated on the back end side</p>
 <ul>
