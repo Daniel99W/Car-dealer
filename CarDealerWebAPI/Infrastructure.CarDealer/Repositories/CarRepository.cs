@@ -49,8 +49,6 @@ namespace Infrastructure.CarDealer.Repositories
                  });
         }
 
-        
-
         public async Task<Car?> GetCarByUserId(Guid userId)
         {
             return await GetCarQuery()

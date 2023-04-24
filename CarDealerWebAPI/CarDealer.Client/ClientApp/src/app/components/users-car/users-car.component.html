@@ -6,7 +6,7 @@
     <div *ngFor="let car of getCars" class="car">
         <div class="image">
             <img class="d-block" width="80px" height="80px" 
-                    src="https://cardealerpictures.blob.core.windows.net/picsstorage/{{car.images[0].imageName}}">
+                    src="{{getGoogleBucketUrl()+car.images[0].imageName}}">
         </div>
         <div class="title" (click)="getCar(car.id)">
             {{car.title}}

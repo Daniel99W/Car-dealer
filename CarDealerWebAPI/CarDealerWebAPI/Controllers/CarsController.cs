@@ -117,15 +117,5 @@ namespace CarDealerWebAPI.Controllers
                UserId = userId
             });
         }
-
-
-
-
-        
-
-
-
-
-
     }
 }

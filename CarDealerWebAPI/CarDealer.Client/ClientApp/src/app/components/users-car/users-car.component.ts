@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CarParametersQueryDTO } from '../../DTOs/CarParametersQueryDTO';
 import { Car } from '../../Models/Car';
 import { CarService } from '../../services/car.service';
+import { UrlConstants } from '../../Constants/UrlConstants';
 
 @Component({
   selector: 'app-users-car',
@@ -16,6 +17,7 @@ export class UsersCarComponent implements OnInit
   private carService:CarService;
   private activatedRoute:ActivatedRoute;
   private router:Router;
+  private gBucket:string;
 
   constructor(
     carService:CarService,
@@ -26,6 +28,7 @@ export class UsersCarComponent implements OnInit
     this.carService = carService;
     this.activatedRoute = activatedRoute;
     this.router = router;
+    this.gBucket = UrlConstants.googleBucketUrl;
   }
 
   public get getCars():Array<Car>|undefined
@@ -43,6 +46,12 @@ export class UsersCarComponent implements OnInit
             this.cars = res;
           })
       })
+  }
+
+
+  public getGoogleBucketUrl():string 
+  {
+    return this.gBucket;
   }
 
   public getCar(carId:string)

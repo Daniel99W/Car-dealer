@@ -10,8 +10,7 @@ import { SecurityService } from 'src/app/services/security.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit
- {
-
+{
   private _loginDTO!:LoginDTO;
   private _securityService:SecurityService;
   private cookieService:CookieService;
@@ -53,7 +52,4 @@ export class LoginComponent implements OnInit
             }
       });
   }
-
-
-
 }
