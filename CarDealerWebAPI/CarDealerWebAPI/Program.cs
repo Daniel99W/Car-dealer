@@ -49,6 +49,7 @@ builder.Services.AddCors(options => options.AddPolicy(
                   .AllowAnyHeader()
                   ));
 
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
