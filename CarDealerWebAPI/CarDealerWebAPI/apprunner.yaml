@@ -3,8 +3,12 @@ runtime: dotnet6
 build:
   commands:    
     build:
-      - dotnet publish -c Release
+      - dotnet publish -c Release -o out
 run:                              
-  command: dotnet bin/Release/net6.0/publish/CarDealerWebAPI.dll
+  command: dotnet out/CarDealerWebAPI.dll
   network:
-     port: 8080
+     port: 5000
+     env: APP_PORT
+  env:
+    - name: ASPNETCORE_URLS
+      value: "http://*:5000"
