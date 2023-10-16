@@ -9,10 +9,13 @@ using Infrastructure.CarDealer.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var port = builder.Configuration.GetValue<string>("APP_PORT");
+builder.WebHost.UseUrls(port!);
 
 builder.Services.AddControllers()
     .AddJsonOptions(o => o.JsonSerializerOptions
@@ -48,7 +51,6 @@ builder.Services.AddCors(options => options.AddPolicy(
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   ));
-
 
 builder.Services.AddAuthentication(options =>
 {

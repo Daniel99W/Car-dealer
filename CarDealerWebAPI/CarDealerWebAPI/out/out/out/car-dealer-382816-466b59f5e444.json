@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "car-dealer-382816",
+  "private_key_id": "466b59f5e444e1dd284c46e75c309b887a96b2e6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIwxkVJr95Rq1b\nmHAaZkjL3S2keX1vx5S4LCNji9m3eyGiW8pF9xRnBWzf+bA6tMyXQoykxDbMaB2s\nWC4zuiKK0aLxrinJm66k1J65i6xuhDduhhSHtG3Hp6LNJZ5RfB84pfvqohFNevRv\nSf8gqbDBdXPIcS3W7GQDoBr48UF2RSAJ26Ad0A95+BPlfuuljTg+bJ1lvB0v8cRV\nmlzjvEe9fGEZq7bQXkb8OHIHVD8Vx5BkYHu/mDg/iGmbW6FQKdbKIIr98LA/UhVN\nxHr64hkhklXbzjc9+BYnElRSbft0nhl3Pf8jqd+V8LrVsQVZI53dElmc6W5yHgg3\nq1+svbVbAgMBAAECggEAWwzUgtm8bAmoVMq5SNfLux2X9iidQYVABxkJgbuq5YJj\n+ijr/zg0GhcFTj0E9lMKGK23cICGo8SydHfXmGEaCmBSKI7G5+cB2UKOq/LTJJo1\nM5x+kh87zJlUBftCJo2G8V+h9UNEWqHhWtmx6gPbpJmahbUCx58VKunBYda0zCh1\nfFNyWpUnyK1S4EFQlYvxKtXoi7En5s673mJ1963FuFDDXFls3W+LLm2lnvZrGooc\n18TTByJj7gd9gYxQDPKhW/ZlqI6tZM58ETHifWO3a8m2xW264EVufr0wwVlSh2QX\nrzknizFUkyb7n95Y7dwbTe8qKtHQYtqgMeVRNWkCpQKBgQD+sNLclYAx50Tn/1qL\ns6DrYc7ZJop6jvTT5eyNg4mJBpzVsVtpbWwVN/EoJgb0xVAs3czlk9134HaUIW9f\nnLq5l89QJP0m5RuzHG04SZsJYK5akY1mVnXE7Ga2ypkw9ne8zTJA6emJSOnwrKZc\n1Pk/vKCPqbBx/Tj0s8Sr83vw/QKBgQDJy020fVbEA/FW9YKmWVFPy+KGdM/51fld\nAIv88itaAYxQymwEYBHzFN4VqsgA5KSCTia6hbkhtAvWxJPgtSezdDNEvE9oVack\nTFNorp1InLgVvUaJaGQyAW0/px8gZr4zMJ3oYhzpY70PW8SmMpUzs/oVn8NEIwuc\nQmhlUC9bNwKBgQDzrlsRkjjFhnD3R+pqH8Oncj1mpul3ua+lzic2ftPottr32mmL\nxZXT92JU941QRDkhtFWGkqMjPzA1KohVAq/lQsqn87wCqtKF3Hzjjgk4P7iSDxEr\nCS5E66qa2d0Ya7jEe8/JLAS1xX2POKEz0NFpmiBFVCXt6knEVvulSaEcQQKBgGtX\nDq18oqO/6Se1jtrH1h3ZOVUGW/7smCmledGCTBcjja0ID+8/3yxrpDroTl1TQkLi\nKW28Zh8Mc+O5S2QTWNv3arIcbSz1quP/Cbs8bwPKAY3m0deTxQBoi+F5F3CX1oLK\nUKTlU7W+TToXOYKik4UeLmBETI05CxsCpB+ISLh/AoGAJDSsPDjdV7d/Q9zwGWg/\nRSvuPU19r5Z1wZuuLOz8mif+Sj1Y2CXoDubjKjCoJpfeuVNkwnHHsZmEID/Ln1Vz\nVWFHagKRTj+6VEL0/ZB/1EmXt/dc684TGzRPmjmjxjHpi1I3Yfjeh0YyWdFj5itr\nSFcvw+j5TjOroPQSmBx/4PQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "daniel-costache@car-dealer-382816.iam.gserviceaccount.com",
+  "client_id": "116109437867295314472",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/daniel-costache%40car-dealer-382816.iam.gserviceaccount.com"
+}
