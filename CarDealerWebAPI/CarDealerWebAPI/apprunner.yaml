@@ -3,6 +3,6 @@ runtime: dotnet6
 build:
   commands:    
     build:
-      - dotnet publish -c Release
+      - dotnet publish -c Release -o out
 run:                              
-  command: dotnet /CarDealerWebAPI/bin/Release/net6.0/publish/CarDealerWebAPI.dll
+  command: dotnet out/CarDealerWebAPI.dll --urls= http://0.0.0.0:8080
