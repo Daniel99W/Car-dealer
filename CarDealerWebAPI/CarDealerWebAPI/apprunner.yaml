@@ -6,3 +6,5 @@ build:
       - dotnet publish -c Release
 run:                              
   command: dotnet bin/Release/net6.0/publish/CarDealerWebAPI.dll
+  network:
+     port: 8080
